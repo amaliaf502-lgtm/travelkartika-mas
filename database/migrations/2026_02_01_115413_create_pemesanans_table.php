@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('paket_id')->constrained()->onDelete('cascade');
+            $table->integer('jumlah_peserta');
+            $table->decimal('total_harga', 15, 2);
+            $table->string('status')->default('pending');
+            $table->text('catatan')->nullable();
+            $table->timestamp('tanggal_pemesanan')->useCurrent();
             $table->timestamps();
         });
     }
