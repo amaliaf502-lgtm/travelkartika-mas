@@ -10,8 +10,8 @@
         :root {
             --primary: #8B2D2D;
             --secondary: #DAA520;
-            --sidebar-bg: #2c3e50;
-            --sidebar-hover: #34495e;
+            --sidebar-bg: #8B2D2D;
+            --sidebar-hover: #6a2121;
         }
 
         * {
