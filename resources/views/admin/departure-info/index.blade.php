@@ -1,61 +1,106 @@
-@extends('layouts.admin')
+@extends("layouts.admin")
 
-@section('title', 'Informasi Keberangkatan - Admin Dashboard')
+@section("title", "Informasi Keberangkatan - Admin")
 
-@section('content')
-    <div class="page-title">
-        <i class="fas fa-info-circle"></i>
-        <h2>Informasi Keberangkatan</h2>
+@section("content")
+
+    <div class="page-title d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-0">Informasi Keberangkatan</h2>
+            <p class="text-muted mb-0" style="font-weight: normal; font-size: 0.9rem;">Kelola dokumen manifest, visa, dan tiket penerbangan jamaah</p>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-list"></i> Daftar Informasi Keberangkatan</h5>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ route("admin.departure-info.index") }}" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label">Cari Jamaah / Nomor Pesanan</label>
+                    <input type="text" name="search" class="form-control" placeholder="Ketik nama jamaah, email, atau ID pesanan..." value="{{ request("search") }}">
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>Jamaah</th>
-                                <th>Paket</th>
-                                <th>Tanggal Berkumpul</th>
-                                <th>Lokasi</th>
-                                <th>Contact Person</th>
-                                <th>No. HP</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($departure_infos as $info)
-                                <tr>
-                                    <td><strong>{{ $info->pemesanan->user->name }}</strong></td>
-                                    <td>{{ $info->pemesanan->paket->nama_paket }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($info->tanggal_berkumpul)->format('d M Y H:i') }}</td>
-                                    <td>{{ $info->lokasi_berkumpul }}</td>
-                                    <td>{{ $info->contact_person }}</td>
-                                    <td>{{ $info->no_hp_contact }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.pemesanans.show', $info->pemesanan) }}" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-eye"></i> Lihat Detail
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7" class="text-center text-muted py-4">
-                                        <i class="fas fa-inbox"></i> Belum ada informasi keberangkatan
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search"></i> Cari
+                    </button>
                 </div>
-                <div class="card-footer">
-                    {{ $departure_infos->links() }}
-                </div>
-            </div>
+            </form>
         </div>
+    </div>
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#ID</th>
+                        <th>Pemesan</th>
+                        <th>Paket Umroh</th>
+                        <th>Status Manifest</th>
+                        <th>Dokumen Keberangkatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($pemesanans as $pemesanan)
+                        <tr>
+                            <td>#{{ str_pad($pemesanan->id, 5, "0", STR_PAD_LEFT) }}</td>
+                            <td>
+                                <div><strong>{{ $pemesanan->user->name }}</strong></div>
+                                <div class="text-muted" style="font-size: 0.85rem;">{{ $pemesanan->user->email }}</div>
+                            </td>
+                            <td>
+                                <div><strong>{{ $pemesanan->paket->nama_paket }}</strong></div>
+                                <div class="text-muted" style="font-size: 0.85rem;">
+                                    <i class="fas fa-users me-1"></i>{{ $pemesanan->jumlah_peserta }} Orang
+                                </div>
+                            </td>
+                            <td>
+                                @if($pemesanan->data_completed_at)
+                                    <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Lengkap</span>
+                                @else
+                                    <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle me-1"></i>Belum Lengkap</span>
+                                @endif
+                            </td>
+                            <td>
+                                @php
+                                    $hasVisa = $pemesanan->jamaahs->where("visa_file", "!=", null)->count() > 0;
+                                    $hasTicket = $pemesanan->jamaahs->where("ticket_file", "!=", null)->count() > 0;
+                                @endphp
+                                
+                                <div class="d-flex flex-column gap-1">
+                                    @if($hasVisa)
+                                        <span class="badge bg-info text-dark"><i class="fas fa-passport me-1"></i>Visa Tersedia</span>
+                                    @else
+                                        <span class="badge bg-secondary"><i class="fas fa-times me-1"></i>Visa Belum Ada</span>
+                                    @endif
+                                    
+                                    @if($hasTicket)
+                                        <span class="badge bg-info text-dark"><i class="fas fa-ticket-alt me-1"></i>Tiket Tersedia</span>
+                                    @else
+                                        <span class="badge bg-secondary"><i class="fas fa-times me-1"></i>Tiket Belum Ada</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td>
+                                <a href="{{ route("admin.pemesanans.show", $pemesanan) }}#jamaah-section" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-file-upload"></i> Upload / Kelola
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">
+                                Tidak ada data keberangkatan.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        @if($pemesanans->hasPages())
+            <div class="card-footer">
+                {{ $pemesanans->links() }}
+            </div>
+        @endif
     </div>
 @endsection
