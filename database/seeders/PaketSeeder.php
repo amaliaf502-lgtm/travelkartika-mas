@@ -12,102 +12,99 @@ class PaketSeeder extends Seeder
     {
         $pakets = [
             [
-                'nama_paket' => 'Umroh Plus Al-Aqsa 9 Hari',
-                'deskripsi' => 'Paket umroh dengan tambahan kunjungan ke Masjid Al-Aqsa di Palestina. Pengalaman spiritual yang mendalam dengan pemandu berpengalaman.',
+                'nama_paket' => 'Umroh Premium September',
+                'deskripsi' => 'Nikmati perjalanan ibadah premium di bulan September dengan fasilitas bintang 5 terbaik. Penerbangan nyaman langsung menggunakan Saudia Airlines.',
                 'durasi_hari' => 9,
-                'harga' => 15000000,
-                'kuota' => 40,
-                'tersedia' => 40,
-                'tanggal_berangkat' => Carbon::create(2026, 3, 1),
-                'tanggal_kembali' => Carbon::create(2026, 3, 9),
-                'fasilitas' => 'Penerbangan langsung dari Indonesia
-Hotel bintang 4 di Mekkah dan Madinah
-Makanan sesuai standar halal
-Pemandu wisata berpengalaman
-Asuransi perjalanan
-Vaksinasi dan pemeriksaan kesehatan
-Luggage handling untuk setiap peserta
-Sims card gratis untuk komunikasi',
-                'itinerari' => 'Hari 1: Keberangkatan dari Indonesia
-Hari 2: Tiba di Mekkah, check-in hotel, istirahat
-Hari 3: Umroh (Tawaf, Sa\'i, Tahallul)
-Hari 4-5: Ibadah tambahan di Masjidil Haram, shopping di Mekkah
-Hari 6: Perjalanan ke Madinah
-Hari 7-8: Ibadah di Masjid Nabawi, ziarah ke Masjid Quba\'
-Hari 9: Kembali ke Indonesia',
-                'status' => 'aktif',
-            ],
-            [
-                'nama_paket' => 'Umroh Reguler 8 Hari',
-                'deskripsi' => 'Paket umroh standar dengan fokus pada ibadah di Mekkah dan Madinah. Cocok untuk pemula dengan harga terjangkau.',
-                'durasi_hari' => 8,
-                'harga' => 12000000,
-                'kuota' => 50,
-                'tersedia' => 50,
-                'tanggal_berangkat' => Carbon::create(2026, 2, 15),
-                'tanggal_kembali' => Carbon::create(2026, 2, 22),
-                'fasilitas' => 'Penerbangan dari Indonesia
-Hotel bintang 3 di Mekkah dan Madinah
-Makanan 3x sehari
-Pemandu wisata profesional
-Asuransi perjalanan dasar
-Vaksinasi dan pengurusan visa',
-                'itinerari' => 'Hari 1: Keberangkatan dari Indonesia
-Hari 2: Tiba di Mekkah
-Hari 3-4: Umroh (Tawaf, Sa\'i, Tahallul)
-Hari 5-6: Ibadah dan shopping di Mekkah
-Hari 7: Perjalanan ke Madinah
-Hari 8: Ibadah di Madinah dan kembali',
-                'status' => 'aktif',
-            ],
-            [
-                'nama_paket' => 'Umroh Premium Ramadhan 10 Hari',
-                'deskripsi' => 'Paket umroh eksklusif selama bulan Ramadhan dengan fasilitas premium dan layanan VIP.',
-                'durasi_hari' => 10,
-                'harga' => 20000000,
+                'harga' => 125000,
+                'harga_triple' => 135000,
+                'harga_double' => 145000,
                 'kuota' => 25,
-                'tersedia' => 10,
-                'tanggal_berangkat' => Carbon::create(2026, 2, 28),
-                'tanggal_kembali' => Carbon::create(2026, 3, 9),
-                'fasilitas' => 'Penerbangan business class
-Hotel bintang 5 di Mekkah dan Madinah
-Makanan premium (chef khusus)
-Pemandu wisata eksklusif
-Asuransi perjalanan premium
-Butler service
-Ziarah tambahan ke situs bersejarah Islam
-Paket transportasi pribadi',
-                'itinerari' => 'Hari 1: Keberangkatan dari Indonesia
-Hari 2: Tiba di Mekkah, welcome dinner
-Hari 3-5: Umroh dan ibadah Ramadhan
-Hari 6-7: Kegiatan sosial dan shopping eksklusif
-Hari 8: Perjalanan ke Madinah
-Hari 9-10: Ibadah di Madinah dan acara penutupan',
+                'tersedia' => 25,
+                'tanggal_berangkat' => Carbon::create(2026, 9, 10),
+                'tanggal_kembali' => Carbon::create(2026, 9, 18),
+                'fasilitas' => 'Tiket Pesawat SV Direct
+Visa & Transportasi Bus VIP
+Hotel Bintang 5 Dekat Masjidil Haram & Nabawi
+Handling JKT & KSA
+Welcome Snack & Fruit in Room
+Muthawif / Muthawifah
+Snack City Tour
+Air Zamzam 5L
+Manasik 2x
+Perlengkapan Exclusive
+Free: Kereta Cepat Haramain, Karak Chicken, Museum Wahyu, Museum As Safiyyah',
+
                 'status' => 'aktif',
+                'hotel_makkah_nama' => 'Marwa Rotanna',
+                'hotel_makkah_bintang' => 5,
+                'hotel_makkah_jarak' => '0 meter (Pelataran)',
+                'hotel_madinah_nama' => 'Emaar Royal',
+                'hotel_madinah_bintang' => 5,
+                'hotel_madinah_jarak' => '100 meter',
+                'gambar' => 'images/brosur/umroh_premium_september.jpg',
             ],
             [
-                'nama_paket' => 'Umroh Keluarga 7 Hari',
-                'deskripsi' => 'Paket khusus untuk keluarga dengan jadwal yang fleksibel dan akomodasi keluarga yang nyaman.',
-                'durasi_hari' => 7,
-                'harga' => 11000000,
-                'kuota' => 30,
-                'tersedia' => 5,
-                'tanggal_berangkat' => Carbon::create(2026, 4, 10),
-                'tanggal_kembali' => Carbon::create(2026, 4, 16),
-                'fasilitas' => 'Penerbangan kelas ekonomi
-Akomodasi keluarga (kamar dengan 2-3 tempat tidur)
-Makanan keluarga
-Pemandu wisata ramah keluarga
-Asuransi perjalanan
-Program khusus untuk anak-anak
-Kids club dan babysitting service',
-                'itinerari' => 'Hari 1: Keberangkatan dari Indonesia
-Hari 2: Tiba di Mekkah
-Hari 3-4: Umroh bersama keluarga
-Hari 5: Kegiatan keluarga dan shopping
-Hari 6: Perjalanan ke Madinah
-Hari 7: Ibadah dan kembali ke Indonesia',
+                'nama_paket' => 'Umroh New Season (Jul, Ags, Sep)',
+                'deskripsi' => 'Paket Umroh hemat menyambut musim baru dengan penerbangan berkelas Etihad atau Oman Air. Pilihan terbaik untuk ibadah khusyuk dengan harga terjangkau.',
+                'durasi_hari' => 9,
+                'harga' => 100000,
+                'harga_triple' => 110000,
+                'harga_double' => 120000,
+                'kuota' => 25,
+                'tersedia' => 25,
+                'tanggal_berangkat' => Carbon::create(2026, 8, 15),
+                'tanggal_kembali' => Carbon::create(2026, 8, 23),
+                'fasilitas' => 'Tiket Pesawat Etihad / Oman Air
+Visa & Transportasi Bus AC
+Hotel Bintang 3 Setaraf
+Handling JKT & KSA
+Muthawif / Muthawifah
+Snack City Tour
+Air Zamzam 5L
+Manasik 2x
+Perlengkapan Exclusive
+Free: Air Zamzam 5L, Karak Chicken',
+
                 'status' => 'aktif',
+                'hotel_makkah_nama' => 'Maysan Al Maqam',
+                'hotel_makkah_bintang' => 3,
+                'hotel_makkah_jarak' => '250 meter',
+                'hotel_madinah_nama' => 'Odst',
+                'hotel_madinah_bintang' => 3,
+                'hotel_madinah_jarak' => '150 meter',
+                'gambar' => 'images/brosur/umroh_new_season.jpg',
+            ],
+            [
+                'nama_paket' => 'Umroh Premium (Jul & Ags)',
+                'deskripsi' => 'Paket Umroh eksklusif bintang 5 di musim panas terbaik (Juli & Agustus). Pelayanan VIP kelas satu dengan maskapai terbaik Saudia Airlines.',
+                'durasi_hari' => 9,
+                'harga' => 150000,
+                'harga_triple' => 160000,
+                'harga_double' => 170000,
+                'kuota' => 21,
+                'tersedia' => 21,
+                'tanggal_berangkat' => Carbon::create(2026, 7, 20),
+                'tanggal_kembali' => Carbon::create(2026, 7, 28),
+                'fasilitas' => 'Tiket Pesawat SV Direct
+Visa & Transportasi Bus VIP
+Hotel Bintang 5 Pelataran Masjid
+Handling JKT & KSA
+Welcome Snack & Fruit in Room
+Muthawif / Muthawifah
+Snack City Tour
+Air Zamzam 5L
+Manasik 2x
+Perlengkapan Exclusive
+Free: Kereta Cepat Haramain, Karak Chicken, Museum Wahyu, Museum As Safiyyah',
+
+                'status' => 'aktif',
+                'hotel_makkah_nama' => 'Marwa Rotanna',
+                'hotel_makkah_bintang' => 5,
+                'hotel_makkah_jarak' => '0 meter (Pelataran)',
+                'hotel_madinah_nama' => 'Emaar Royal',
+                'hotel_madinah_bintang' => 5,
+                'hotel_madinah_jarak' => '100 meter',
+                'gambar' => 'images/brosur/umroh_premium_july_agustus.jpg',
             ],
         ];
 

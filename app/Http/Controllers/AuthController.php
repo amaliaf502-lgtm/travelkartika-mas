@@ -11,8 +11,13 @@ use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
-    public function showLogin(): View
+    public function showLogin(Request $request): View
     {
+        // Simpan intended URL ke session jika ada parameter redirect
+        if ($request->has('redirect')) {
+            session(['url.intended' => $request->get('redirect')]);
+        }
+
         return view('auth.login');
     }
 
@@ -25,14 +30,27 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            
-            // Jika user adalah admin, redirect ke admin dashboard
+
+            // Cek apakah ada intended URL
+            $intendedUrl = $request->session()->pull('url.intended');
+
+            // Jika user adalah admin
             if (Auth::user()->is_admin) {
-                return redirect()->intended(route('admin.dashboard'))->with('success', 'Login berhasil!');
+                // Redirect admin ke intended url, atau ke dashboard jika intended url bukan admin
+                if (!$intendedUrl || !str_contains($intendedUrl, '/admin')) {
+                    return redirect($intendedUrl ?? route('admin.dashboard'))->with('success', 'Login berhasil!');
+                }
+                return redirect($intendedUrl)->with('success', 'Login berhasil!');
             }
-            
-            // User biasa redirect ke home
-            return redirect()->intended(route('home'))->with('success', 'Login berhasil!');
+
+            // User biasa (Jamaah)
+            // Jika intended URL adalah halaman admin, paksa ke home
+            if ($intendedUrl && str_contains($intendedUrl, '/admin')) {
+                return redirect()->route('home')->with('success', 'Login berhasil! Selamat datang di Travelkartika Mas.');
+            }
+
+            // Redirect biasa ke intended url atau home
+            return redirect($intendedUrl ?? route('home'))->with('success', 'Login berhasil!');
         }
 
         return back()->withErrors([
@@ -48,14 +66,16 @@ class AuthController extends Controller
     public function register(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users',
+            'no_hp'    => 'required|string|max:20',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'no_hp'    => $validated['no_hp'],
             'password' => Hash::make($validated['password']),
         ]);
 

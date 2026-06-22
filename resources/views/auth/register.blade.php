@@ -1,91 +1,319 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar - Travelkartika Mas')
+@section('title', 'Daftar Akun - Kartika Mas Tour & Travel')
 
 @section('content')
-    <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card shadow-lg">
-                        <div class="card-header" style="background: linear-gradient(135deg, #2c5aa0 0%, #1a3a5c 100%); color: white;">
-                            <h3 class="mb-0 text-center">
-                                <i class="fas fa-user-plus"></i> Daftar Akun
-                            </h3>
-                        </div>
-                        <div class="card-body p-5">
-                            @if($errors->any())
-                                <div class="alert alert-danger alert-dismissible fade show">
-                                    <i class="fas fa-exclamation-circle"></i> Registrasi gagal
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    @foreach($errors->all() as $error)
-                                        <div>{{ $error }}</div>
-                                    @endforeach
-                                </div>
-                            @endif
+<style>
+    :root {
+        --maroon: #8B0000;
+        --gold: #DAA520;
+        --gold-light: #FFD700;
+    }
 
-                            <form action="{{ route('register.post') }}" method="POST">
-                                @csrf
+    .auth-wrapper {
+        min-height: calc(100vh - 120px);
+        background: linear-gradient(135deg, #fdf6ec 0%, #fff8f0 50%, #fdf0e0 100%);
+        display: flex;
+        align-items: center;
+        padding: 40px 0;
+    }
 
-                                <div class="mb-4">
-                                    <label class="form-label"><strong>Nama Lengkap</strong></label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
-                                           placeholder="Masukkan nama lengkap Anda" value="{{ old('name') }}" required>
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+    .auth-card {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(139,0,0,0.15);
+        border: 2px solid rgba(139,0,0,0.12);
+        display: flex;
+        max-width: 780px;
+        margin: 0 auto;
+        width: 100%;
+    }
 
-                                <div class="mb-4">
-                                    <label class="form-label"><strong>Email</strong></label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
-                                           placeholder="Masukkan email Anda" value="{{ old('email') }}" required>
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+    /* ── Left Panel (Reversed for variation) ── */
+    .auth-panel-left {
+        background: var(--maroon);
+        flex: 0 0 35%;
+        padding: 40px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .auth-panel-left::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(255,255,255,0.03) 30px, rgba(255,255,255,0.03) 60px);
+        pointer-events: none;
+    }
+    .auth-panel-left .kaaba-icon {
+        font-size: 3.5rem;
+        color: var(--gold-light);
+        margin-bottom: 12px;
+        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    }
+    .auth-panel-left h2 {
+        color: var(--gold-light);
+        font-weight: 900;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+    .auth-panel-left p {
+        color: rgba(255,255,255,0.85);
+        font-size: 0.82rem;
+        line-height: 1.6;
+    }
 
-                                <div class="mb-4">
-                                    <label class="form-label"><strong>Password</strong></label>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" 
-                                           placeholder="Minimal 8 karakter" required>
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+    /* ── Right Panel (Form) ── */
+    .auth-panel-right {
+        flex: 1;
+        padding: 30px 32px;
+    }
+    .auth-title {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: var(--maroon);
+        margin-bottom: 4px;
+    }
+    .auth-subtitle {
+        font-size: 0.85rem;
+        color: #888;
+        margin-bottom: 24px;
+    }
 
-                                <div class="mb-4">
-                                    <label class="form-label"><strong>Konfirmasi Password</strong></label>
-                                    <input type="password" name="password_confirmation" class="form-control" 
-                                           placeholder="Masukkan ulang password" required>
-                                </div>
+    /* ── Form Layout ── */
+    .form-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 14px;
+    }
+    .form-col { flex: 1; }
 
-                                <div class="mb-4">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="agree" required>
-                                        <label class="form-check-label" for="agree">
-                                            Saya setuju dengan <a href="#" style="color: #2c5aa0;">Syarat & Ketentuan</a>
-                                        </label>
-                                    </div>
-                                </div>
+    .auth-input-group { margin-bottom: 14px; }
+    .input-wrapper { position: relative; }
+    .auth-input-group.full { margin-bottom: 14px; }
+    
+    .auth-input-group label {
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--maroon);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+    }
+    .auth-input-group .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #bbb;
+        font-size: 0.82rem;
+        transition: color 0.2s;
+    }
+    .auth-input-group input {
+        width: 100%;
+        padding: 9px 12px 9px 36px;
+        border: 2px solid #e8d5b0;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        background: #fffdf8;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        outline: none;
+    }
+    .auth-input-group input:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(218,165,32,0.15);
+        background: #fff;
+    }
+    .auth-input-group input:focus + .input-icon,
+    .auth-input-group input:focus ~ .input-icon {
+        color: var(--gold);
+    }
+    .auth-input-group input.is-invalid { border-color: #e74c3c; }
+    .invalid-feedback { font-size: 0.78rem; color: #e74c3c; margin-top: 4px; }
 
-                                <button type="submit" class="btn btn-primary w-100 btn-lg mb-3">
-                                    <i class="fas fa-user-plus"></i> Daftar
-                                </button>
-                            </form>
+    /* ── Submit Button ── */
+    .btn-auth {
+        width: 100%;
+        background: var(--maroon);
+        color: white;
+        padding: 10px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.95rem;
+        border: 2px solid var(--gold);
+        cursor: pointer;
+        transition: all 0.3s;
+        letter-spacing: 0.5px;
+        margin-top: 10px;
+        margin-bottom: 14px;
+    }
+    .btn-auth:hover {
+        background: #a40000;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(139,0,0,0.3);
+    }
 
-                            <hr>
+    /* ── Redirect ── */
+    .auth-redirect {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #888;
+        border-top: 1px solid #eee;
+        padding-top: 18px;
+    }
+    .auth-redirect a {
+        color: var(--maroon);
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .auth-redirect a:hover { color: var(--gold); }
 
-                            <p class="text-center text-muted">
-                                Sudah punya akun? 
-                                <a href="{{ route('login') }}" style="color: #2c5aa0; font-weight: bold;">
-                                    Login di sini
-                                </a>
-                            </p>
+    /* ── Error Alert ── */
+    .auth-alert {
+        background: #fdf0f0;
+        border: 1px solid #f5c6c6;
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+        color: #c0392b;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .auth-card { flex-direction: column; }
+        .auth-panel-left { display: none; } /* Hide decorative panel on mobile */
+        .auth-panel-right { padding: 24px 20px; }
+        .form-row { flex-direction: column; gap: 0; }
+    }
+</style>
+
+<div class="auth-wrapper">
+    <div class="container">
+        <div class="auth-card">
+
+            {{-- Left Panel --}}
+            <div class="auth-panel-left">
+                <img src="{{ asset('images/kartikamas.png') }}" alt="Logo Kartika Mas" class="kaaba-icon" style="width:110px; height:auto; object-fit:contain; filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.3));">
+                <h2>Bergabunglah</h2>
+                <p>Jadilah bagian dari keluarga besar Kartika Mas Tour & Travel. Nikmati kemudahan pendaftaran dan pengelolaan perjalanan umroh Anda.</p>
+            </div>
+
+            {{-- Right Form Panel --}}
+            <div class="auth-panel-right">
+                <div class="auth-title">Daftar Akun Baru</div>
+                <div class="auth-subtitle">Lengkapi formulir di bawah ini dengan data yang valid</div>
+
+                @if($errors->any())
+                    <div class="auth-alert">
+                        <i class="fas fa-exclamation-circle" style="margin-top:2px;"></i>
+                        <div>
+                            @foreach($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
                         </div>
                     </div>
+                @endif
+
+                <form action="{{ route('register.post') }}" method="POST">
+                    @csrf
+
+                    <div class="auth-input-group full">
+                        <label for="name">Nama Lengkap Sesuai KTP</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="name" name="name"
+                                   class="@error('name') is-invalid @enderror"
+                                   placeholder=""
+                                   value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="auth-input-group">
+                                <label for="email">Alamat Email</label>
+                                <div class="input-wrapper">
+                                    <input type="email" id="email" name="email"
+                                           class="@error('email') is-invalid @enderror"
+                                           placeholder="nama@email.com"
+                                           value="{{ old('email') }}" required autocomplete="email">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                </div>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="auth-input-group">
+                                <label for="no_hp">Nomor HP / WhatsApp</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="no_hp" name="no_hp"
+                                           class="@error('no_hp') is-invalid @enderror"
+                                           placeholder=""
+                                           value="{{ old('no_hp') }}" required>
+                                    <i class="fas fa-phone-alt input-icon"></i>
+                                </div>
+                                @error('no_hp')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="auth-input-group">
+                                <label for="password">Kata Sandi</label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="password" name="password"
+                                           class="@error('password') is-invalid @enderror"
+                                           placeholder="Minimal 8 karakter" required autocomplete="new-password">
+                                    <i class="fas fa-lock input-icon"></i>
+                                </div>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="auth-input-group">
+                                <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="password_confirmation" name="password_confirmation"
+                                           placeholder="Ketik ulang sandi" required autocomplete="new-password">
+                                    <i class="fas fa-lock input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-auth">
+                        Daftar Sekarang
+                    </button>
+                </form>
+
+                <div class="auth-redirect">
+                    Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
+</div>
 @endsection

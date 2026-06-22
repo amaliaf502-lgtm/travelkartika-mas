@@ -9,7 +9,9 @@ class PaketController extends Controller
 {
     public function index(): View
     {
-        $pakets = Paket::where('status', 'aktif')->paginate(6);
+        $pakets = Paket::where('status', 'aktif')
+            ->orderBy('tanggal_berangkat', 'asc')
+            ->paginate(6);
         return view('pakets.index', compact('pakets'));
     }
 

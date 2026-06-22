@@ -23,55 +23,69 @@
 
 ## ✨ Fitur Utama
 
+Website ini memiliki 2 tampilan utama:
+
+- **Public/Jamaah**: bisa melihat informasi dan paket umroh tanpa login, lalu registrasi, login, memilih paket, melakukan pemesanan, mengunggah bukti pembayaran, dan memantau status pemesanan
+- **Admin**: mengelola data paket umroh, data jamaah, verifikasi pembayaran, dan informasi keberangkatan
+
 ### 🏠 Area Publik
+
 - Homepage dengan featured packages
-- Daftar lengkap paket umroh
+- Daftar lengkap paket umroh yang bisa dilihat tanpa login
 - Detail paket dengan itinerary & fasilitas
 - Responsive design mobile-friendly
 
 ### 🔐 Authentication
+
 - Registrasi member/jamaah
 - Login dengan email & password
 - Password hashing dengan bcrypt
 - Logout aman dengan session clear
 
 ### 📅 Sistem Pemesanan
+
 - Form booking dinamis
 - Validasi kuota pemesanan
 - Kalkulasi harga otomatis
 - Multiple peserta per booking
+- Upload bukti pembayaran manual
 - Status tracking (pending, confirmed, cancelled)
 
 ### 👥 Member Dashboard
+
 - Lihat semua pemesanan
 - Detail pemesanan lengkap
+- Upload/lihat bukti pembayaran
 - Cancel pemesanan
 - Lihat informasi keberangkatan
 
 ### 🛡️ Admin Panel
+
 - Dashboard dengan statistik
-  - Total jamaah
-  - Total pemesanan
-  - Pemesanan pending
-  - Total revenue
+    - Total jamaah
+    - Total pemesanan
+    - Pemesanan pending
+    - Total revenue
 - Management pemesanan (list, detail, confirm, cancel)
+- Verifikasi bukti pembayaran
 - Input informasi keberangkatan
 - Management jamaah (list, detail, booking history)
 
 ### 📍 Informasi Keberangkatan
+
 - Admin input:
-  - Tanggal & waktu berkumpul
-  - Lokasi berkumpul
-  - Alamat lengkap
-  - Kontak guide
-  - Instruksi persiapan
-  - Catatan khusus
+    - Tanggal & waktu berkumpul
+    - Lokasi berkumpul
+    - Alamat lengkap
+    - Kontak guide
+    - Instruksi persiapan
+    - Catatan khusus
 
 - Jamaah lihat:
-  - Ringkasan pemesanan
-  - Semua info keberangkatan
-  - Link WhatsApp ke guide
-  - Checklist persiapan
+    - Ringkasan pemesanan
+    - Semua info keberangkatan
+    - Link WhatsApp ke guide
+    - Checklist persiapan
 
 ---
 
@@ -90,21 +104,25 @@
 ## 🚀 Quick Start
 
 ### 1. Setup Server (30 detik)
+
 ```bash
 cd c:\laragon\www\travelkartika-mas
 php artisan serve
 ```
 
 ### 2. Buka Browser
+
 ```
 http://localhost:8000
 ```
 
 ### 3. Login sebagai Admin (Testing)
+
 - Email: `test@example.com`
 - Password: `password`
 
 ### 4. Atau Daftar Sebagai Jamaah
+
 - Klik "Daftar"
 - Isi form dengan data Anda
 - Login dengan akun baru
@@ -115,19 +133,20 @@ http://localhost:8000
 
 Dokumentasi lengkap tersedia di:
 
-| File | Deskripsi |
-|------|-----------|
-| **PANDUAN_SISTEM.md** | Panduan lengkap untuk semua user |
-| **TESTING_GUIDE.md** | Panduan step-by-step untuk testing |
-| **FITUR_LENGKAP.md** | Daftar fitur & struktur file |
-| **IMPLEMENTATION_SUMMARY.md** | Ringkasan teknis implementasi |
-| **CHECKLIST_PENYELESAIAN.md** | Checklist lengkap penyelesaian |
+| File                          | Deskripsi                          |
+| ----------------------------- | ---------------------------------- |
+| **PANDUAN_SISTEM.md**         | Panduan lengkap untuk semua user   |
+| **TESTING_GUIDE.md**          | Panduan step-by-step untuk testing |
+| **FITUR_LENGKAP.md**          | Daftar fitur & struktur file       |
+| **IMPLEMENTATION_SUMMARY.md** | Ringkasan teknis implementasi      |
+| **CHECKLIST_PENYELESAIAN.md** | Checklist lengkap penyelesaian     |
 
 ---
 
 ## 💻 Instalasi
 
 ### Requirements
+
 - PHP 8.1+
 - Laravel 11
 - Composer
@@ -135,29 +154,34 @@ Dokumentasi lengkap tersedia di:
 - SQLite atau MySQL
 
 ### Step 1: Clone Repository
+
 ```bash
 git clone <repository-url>
 cd travelkartika-mas
 ```
 
 ### Step 2: Install Dependencies
+
 ```bash
 composer install
 npm install
 ```
 
 ### Step 3: Setup Environment
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
 ### Step 4: Database
+
 ```bash
 php artisan migrate
 ```
 
 ### Step 5: Run Server
+
 ```bash
 php artisan serve
 ```
@@ -171,31 +195,37 @@ Buka http://localhost:8000 di browser Anda.
 ### Untuk Jamaah
 
 **1. Registrasi**
+
 - Klik "Daftar" di navbar
 - Isi form dengan data lengkap
 - Klik "Daftar Sekarang"
 
 **2. Login**
+
 - Klik "Login"
 - Masukkan email & password
 - Klik "Masuk"
 
 **3. Browse Paket**
+
 - Klik "Paket Umroh" di navbar
 - Lihat daftar semua paket
 - Klik paket untuk detail
 
 **4. Pesan Paket**
+
 - Klik "Pesan Sekarang"
 - Isi jumlah peserta & nama
 - Klik "Lakukan Pemesanan"
 
 **5. Lihat Pemesanan**
+
 - Klik "Pemesanan Saya"
 - Lihat status pemesanan
 - Klik untuk detail
 
 **6. Lihat Info Keberangkatan**
+
 - Buka detail pemesanan
 - Jika status DIKONFIRMASI
 - Klik "Lihat Info Keberangkatan"
@@ -203,24 +233,29 @@ Buka http://localhost:8000 di browser Anda.
 ### Untuk Admin
 
 **1. Login**
+
 - Email: test@example.com
 - Password: password
 
 **2. Akses Admin**
+
 - Klik "Admin Panel" di navbar
 - Atau dropdown user → "Dashboard Admin"
 
 **3. Verifikasi Pemesanan**
+
 - Klik "Pemesanan"
 - Pilih pemesanan PENDING
 - Klik "Konfirmasi Pemesanan"
 
 **4. Input Info Keberangkatan**
+
 - Isi form dengan 9 field info
 - Klik "Simpan Konfirmasi"
 - Status berubah ke DIKONFIRMASI
 
 **5. Kelola Jamaah**
+
 - Klik "Jamaah" untuk lihat list
 - Klik nama untuk detail & history
 
@@ -231,15 +266,19 @@ Buka http://localhost:8000 di browser Anda.
 ### Tabel Utama
 
 **users**
+
 - id, name, email, password, is_admin
 
 **pakets**
+
 - id, nama_paket, harga, kuota, tersedia, tanggal_berangkat, tanggal_kembali, durasi_hari, fasilitas, itinerari, status, gambar
 
 **pemesanans**
+
 - id, user_id, paket_id, jumlah_peserta, nama_peserta, total_harga, status, catatan
 
 **departure_infos**
+
 - id, pemesanan_id, tanggal_berkumpul, waktu_berkumpul, lokasi_berkumpul, alamat_lengkap, contact_person, no_hp_contact, instruksi_persiapan, catatan_khusus
 
 ---
@@ -249,23 +288,28 @@ Buka http://localhost:8000 di browser Anda.
 Sistem dilengkapi dengan:
 
 ✅ **Password Security**
+
 - Hashing dengan bcrypt
 - Strong password validation
 
 ✅ **Session Management**
+
 - Secure session cookies
 - Automatic session timeout
 
 ✅ **CSRF Protection**
+
 - Token validation di semua form
 - Automatic token refresh
 
 ✅ **Authorization**
+
 - Role-based access control
 - Admin middleware verification
 - Ownership validation
 
 ✅ **Input Validation**
+
 - Server-side validation
 - Email uniqueness check
 - Data sanitization
@@ -279,6 +323,7 @@ Semua fitur sudah di-test dan berfungsi dengan baik.
 Untuk testing manual, ikuti [TESTING_GUIDE.md](TESTING_GUIDE.md)
 
 **Test Coverage:**
+
 - ✅ Public area
 - ✅ Authentication
 - ✅ Booking system
@@ -291,22 +336,26 @@ Untuk testing manual, ikuti [TESTING_GUIDE.md](TESTING_GUIDE.md)
 ## 📞 Support & Troubleshooting
 
 ### Error: 500 Internal Server Error
+
 ```bash
 php artisan cache:clear
 php artisan config:clear
 ```
 
 ### Error: Route Not Found
+
 ```bash
 php artisan route:list
 ```
 
 ### Error: Database Connection
+
 ```bash
 php artisan migrate
 ```
 
 ### Error: View Not Found
+
 ```bash
 php artisan view:clear
 ```
@@ -351,12 +400,14 @@ database/
 ### Production Ready
 
 Sistem siap untuk production deployment ke:
+
 - Shared Hosting (cPanel/Plesk)
 - VPS (Ubuntu, CentOS)
 - Cloud (AWS, DigitalOcean, Heroku)
 - Docker (containerized)
 
 ### Checklist Deployment
+
 - [ ] Update `.env` dengan production settings
 - [ ] Set `APP_DEBUG=false`
 - [ ] Setup MySQL database
@@ -398,16 +449,16 @@ MAIL_FROM_ADDRESS=noreply@travelkartika-mas.com
 
 ## 📊 Statistics
 
-| Item | Count |
-|------|-------|
-| Controllers | 5 |
-| Models | 4 |
-| Views | 15+ |
-| Routes | 20+ |
-| Database Tables | 7 |
-| Migrations | 7 |
-| Lines of Code | 2000+ |
-| Documentation Files | 5 |
+| Item                | Count |
+| ------------------- | ----- |
+| Controllers         | 5     |
+| Models              | 4     |
+| Views               | 15+   |
+| Routes              | 20+   |
+| Database Tables     | 7     |
+| Migrations          | 7     |
+| Lines of Code       | 2000+ |
+| Documentation Files | 5     |
 
 ---
 
@@ -435,6 +486,7 @@ Hak Cipta © 2026 Travelkartika Mas. Semua hak terlindungi.
 ## 👨‍💻 Built By
 
 **GitHub Copilot** - AI Programming Assistant
+
 - Framework: Laravel 11
 - Design: Bootstrap 5.3 + Font Awesome 6.4
 - Database: SQLite / MySQL
@@ -464,8 +516,8 @@ Sistem Travel Umroh Travelkartika Mas telah selesai dibangun dengan lengkap dan 
 **Status:** ✅ Production Ready  
 **Last Updated:** 2026-02-03  
 **Framework:** Laravel 11  
-**License:** Proprietary  
+**License:** Proprietary
 
 ---
 
-*Terima kasih telah menggunakan Travelkartika Mas!* 💝
+_Terima kasih telah menggunakan Travelkartika Mas!_ 💝

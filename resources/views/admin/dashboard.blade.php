@@ -4,48 +4,186 @@
 
 @section('content')
     <div class="page-title">
-        <i class="fas fa-tachometer-alt"></i>
         <h2>Admin Dashboard</h2>
     </div>
+
+    @section('css')
+    <style>
+        .small-box {
+            border-radius: 4px;
+            position: relative;
+            display: block;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            color: #fff !important;
+            overflow: hidden;
+        }
+        .small-box > .inner {
+            padding: 20px;
+            text-align: left;
+        }
+        .small-box h3 {
+            font-size: 38px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            white-space: nowrap;
+            padding: 0;
+            z-index: 5;
+        }
+        .small-box p {
+            font-size: 15px;
+            z-index: 5;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .small-box .icon {
+            transition: all .3s linear;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 0;
+            font-size: 55px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .small-box:hover .icon {
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .small-box > .small-box-footer {
+            position: relative;
+            text-align: center;
+            padding: 8px 0;
+            color: rgba(255,255,255,0.8);
+            display: block;
+            z-index: 10;
+            background: rgba(0,0,0,0.1);
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .small-box > .small-box-footer:hover {
+            color: #fff;
+            background: rgba(0,0,0,0.15);
+        }
+        
+        .bg-blue-custom { background-color: #00c0ef !important; }
+        .bg-green-custom { background-color: #00a65a !important; }
+        .bg-orange-custom { background-color: #f39c12 !important; }
+        .bg-red-custom { background-color: #dd4b39 !important; }
+    </style>
+    @endsection
 
     <!-- Statistics -->
     <div class="row mb-4">
         <div class="col-md-3 mb-3">
-            <div class="stat-card">
-                <i class="fas fa-users"></i>
-                <div class="stat-number">{{ $total_jamaah }}</div>
-                <div class="stat-label">Total Jamaah</div>
+            <div class="small-box bg-blue-custom">
+                <div class="inner">
+                    <h3>{{ $total_jamaah }}</h3>
+                    <p>Total Jamaah</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <a href="{{ route('admin.jamaah.index') }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-md-3 mb-3">
-            <div class="stat-card secondary">
-                <i class="fas fa-shopping-cart"></i>
-                <div class="stat-number">{{ $total_pemesanan }}</div>
-                <div class="stat-label">Total Pemesanan</div>
+            <div class="small-box bg-green-custom">
+                <div class="inner">
+                    <h3>{{ $total_pemesanan }}</h3>
+                    <p>Total Pemesanan</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <a href="{{ route('admin.pemesanans.index') }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-md-3 mb-3">
-            <div class="stat-card warning">
-                <i class="fas fa-clock"></i>
-                <div class="stat-number">{{ $pemesanan_pending }}</div>
-                <div class="stat-label">Menunggu Konfirmasi</div>
+            <div class="small-box bg-orange-custom">
+                <div class="inner">
+                    <h3>{{ $pemesanan_pending }}</h3>
+                    <p>Menunggu</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <a href="{{ route('admin.pemesanans.index', ['status' => 'pending']) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-md-3 mb-3">
-            <div class="stat-card success">
-                <i class="fas fa-money-bill-wave"></i>
-                <div class="stat-number">Rp {{ number_format($total_revenue, 0, ',', '.') }}</div>
-                <div class="stat-label">Revenue (Confirmed)</div>
+            <div class="small-box bg-red-custom">
+                <div class="inner">
+                    <h3 style="font-size: 1.5rem; line-height:38px;">Rp {{ number_format($total_revenue, 0, ',', '.') }}</h3>
+                    <p>Omset (Lunas)</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <a href="{{ route('admin.pemesanans.index') }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Analytics Row -->
+    <div class="row mb-4">
+        <!-- Grafik Pendaftaran -->
+        <div class="col-md-8 mb-3">
+            <div class="card h-100">
+                <div class="card-header" style="background: #8B2D2D; color: white;">
+                    <h5 class="mb-0">Pendaftaran Jamaah (7 Bulan Terakhir)</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="registrationChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keberangkatan Terdekat -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100" style="border-top: 4px solid #17a2b8;">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0 text-dark">Keberangkatan Terdekat</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @forelse($keberangkatan_terdekat as $paket)
+                            @php
+                                $hari_lagi = Carbon\Carbon::today()->diffInDays($paket->tanggal_berangkat, false);
+                            @endphp
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <a href="{{ route('admin.pakets.show', $paket) }}" class="text-decoration-none text-dark fw-bold">{{ Str::limit($paket->nama_paket, 20) }}</a>
+                                    @if($hari_lagi == 0)
+                                        <span class="badge bg-danger">Hari Ini!</span>
+                                    @elseif($hari_lagi < 0)
+                                        <span class="badge bg-secondary">Selesai</span>
+                                    @else
+                                        <span class="badge bg-info text-dark">{{ $hari_lagi }} Hari</span>
+                                    @endif
+                                </div>
+                                <div class="text-muted small">
+                                    <i class="far fa-calendar-alt"></i> {{ $paket->tanggal_berangkat->format('d M') }} &bull;
+                                    <i class="fas fa-users"></i> {{ $paket->jumlahPesertaTerpesan() }}/{{ $paket->kuota }} Kursi
+                                </div>
+                            </li>
+                        @empty
+                            <li class="list-group-item text-center text-muted py-3">Tidak ada jadwal dalam waktu dekat.</li>
+                        @endforelse
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Recent Orders -->
     <div class="row">
+        <!-- Tabel Pemesanan Terbaru -->
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-history"></i> Pemesanan Terbaru</h5>
+                <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <h5 class="mb-0">Pemesanan Terbaru</h5>
+                    <a href="{{ route('admin.pemesanans.index') }}" class="btn btn-sm" style="background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.3); font-size:0.8rem;">Lihat Semua</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -69,18 +207,34 @@
                                     <td>Rp {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
                                     <td>
                                         @if($pemesanan->status === 'pending')
-                                            <span class="badge badge-pending">Pending</span>
+                                            <span class="badge badge-pending">Menunggu</span>
                                         @elseif($pemesanan->status === 'confirmed')
-                                            <span class="badge badge-confirmed">Confirmed</span>
+                                            <span class="badge badge-confirmed">Dikonfirmasi</span>
                                         @elseif($pemesanan->status === 'dibatalkan')
                                             <span class="badge badge-dibatalkan">Dibatalkan</span>
+                                        @elseif($pemesanan->status === 'completed')
+                                            <span class="badge badge-completed">Selesai</span>
                                         @endif
                                     </td>
                                     <td>{{ $pemesanan->created_at->format('d M Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.pemesanans.show', $pemesanan) }}" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.pemesanans.show', $pemesanan) }}" class="btn btn-sm btn-primary" title="Detail">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            @if($pemesanan->status === 'pending')
+                                                <a href="{{ route('admin.pemesanans.confirm', $pemesanan) }}" class="btn btn-sm btn-success" title="Konfirmasi">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                                <form action="{{ route('admin.pemesanans.cancel', $pemesanan) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pemesanan ini?');">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Batalkan">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @empty
@@ -96,4 +250,44 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Data dari controller sudah urut dari bulan terlama ke terbaru
+        var labels = @json($chartLabels);
+        var data = @json($chartValues);
+        var revenueData = @json($chartRevenue);
+
+        // Chart Pendaftaran
+        var ctxReg = document.getElementById('registrationChart').getContext('2d');
+        new Chart(ctxReg, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah Pemesanan',
+                    data: data,
+                    backgroundColor: 'rgba(139, 45, 45, 0.1)',
+                    borderColor: '#8B2D2D',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#8B2D2D',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                }
+            }
+        });
+    });
+</script>
 @endsection

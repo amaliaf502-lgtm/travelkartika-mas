@@ -3,12 +3,14 @@
 ## ✅ Apa Saja yang Sudah Dibangun?
 
 ### 1. 🏠 Area Publik
+
 - **Beranda** - Tampilan welcome dengan featured packages
 - **Daftar Paket** - List semua paket dengan pagination
 - **Detail Paket** - Informasi lengkap paket + tombol pesan
 - **Navigation Bar** - Menu navigasi dengan responsive design
 
 **File:**
+
 - `resources/views/welcome.blade.php`
 - `resources/views/pakets/index.blade.php`
 - `resources/views/pakets/show.blade.php`
@@ -16,17 +18,20 @@
 ---
 
 ### 2. 🔐 Sistem Authentication (Register/Login/Logout)
+
 - **Register** - Form daftar akun baru dengan validasi password
 - **Login** - Form login dengan field email & password
 - **Logout** - Tombol logout yang aman
 - **Password Hashing** - Password di-encrypt dengan bcrypt
 
 **File:**
+
 - `resources/views/auth/register.blade.php`
 - `resources/views/auth/login.blade.php`
 - `app/Http/Controllers/AuthController.php`
 
 **Routes:**
+
 - POST `/login` - Proses login
 - GET `/login` - Tampil form login
 - POST `/register` - Proses registrasi
@@ -36,20 +41,25 @@
 ---
 
 ### 3. 📅 Sistem Pemesanan (Booking)
+
 - **Form Booking** - Input jumlah peserta & nama-nama
 - **Validasi** - Cek kuota tersedia, jumlah peserta valid
 - **Storage** - Simpan ke database dengan status PENDING
+- **Pembayaran Manual** - Jamaah transfer lalu upload bukti pembayaran
 - **Kalkulasi Harga** - Otomatis hitung total = harga × jumlah peserta
 
 **File:**
+
 - `resources/views/pemesanans/create.blade.php`
 - `resources/views/pemesanans/index.blade.php` (daftar pemesanan jamaah)
 - `resources/views/pemesanans/show.blade.php` (detail pemesanan)
 - `app/Http/Controllers/PemesananController.php`
 
 **Routes:**
+
 - GET `/pemesanan/{paket}/create` - Form booking
 - POST `/pemesanan` - Proses booking
+- POST `/pemesanan/{pemesanan}/upload-bukti` - Upload bukti pembayaran
 - GET `/pemesanan-saya` - Daftar pemesanan saya
 - GET `/pemesanan/{id}` - Detail pemesanan
 - PATCH `/pemesanan/{id}/cancel` - Batalkan pemesanan
@@ -58,13 +68,15 @@
 ---
 
 ### 4. 🛡️ Area Admin (Dashboard & Management)
+
 - **Dashboard Admin** - Statistik jamaah, pemesanan, pending, revenue
-- **Management Pemesanan** - List, detail, konfirmasi, batalkan
+- **Management Pemesanan** - List, detail, verifikasi pembayaran, konfirmasi, batalkan
 - **Management Jamaah** - List jamaah, lihat profil & riwayat booking
 - **Konfirmasi & Input Info** - Form untuk input informasi keberangkatan
 - **Authorization** - Hanya admin (is_admin=true) yang bisa akses
 
 **File:**
+
 - `resources/views/admin/dashboard.blade.php`
 - `resources/views/admin/pemesanans/index.blade.php`
 - `resources/views/admin/pemesanans/show.blade.php`
@@ -74,6 +86,7 @@
 - `app/Http/Controllers/AdminController.php`
 
 **Routes (dengan /admin prefix):**
+
 - GET `/admin/dashboard` - Dashboard admin
 - GET `/admin/pemesanan` - Daftar pemesanan
 - GET `/admin/pemesanan/{id}` - Detail pemesanan
@@ -86,25 +99,27 @@
 ---
 
 ### 5. 📍 Informasi Keberangkatan (NEW!)
+
 - **Admin Input** - Form untuk input 9 field informasi keberangkatan
-  - Tanggal berkumpul
-  - Waktu berkumpul
-  - Lokasi berkumpul
-  - Alamat lengkap
-  - Nama contact person
-  - No. HP contact
-  - Instruksi persiapan
-  - Catatan khusus
+    - Tanggal berkumpul
+    - Waktu berkumpul
+    - Lokasi berkumpul
+    - Alamat lengkap
+    - Nama contact person
+    - No. HP contact
+    - Instruksi persiapan
+    - Catatan khusus
 
 - **Jamaah View** - Halaman info keberangkatan dengan:
-  - Ringkasan pemesanan
-  - Waktu & lokasi berkumpul
-  - Kontak guide + link WhatsApp
-  - Instruksi persiapan
-  - Catatan khusus
-  - Checklist persiapan (7 items)
+    - Ringkasan pemesanan
+    - Waktu & lokasi berkumpul
+    - Kontak guide + link WhatsApp
+    - Instruksi persiapan
+    - Catatan khusus
+    - Checklist persiapan (7 items)
 
 **File:**
+
 - `resources/views/pemesanans/departure-info.blade.php`
 - `app/Models/DepartureInfo.php`
 - Migration: `database/migrations/2026_02_03_100000_create_departure_infos_table.php`
@@ -112,37 +127,43 @@
 ---
 
 ### 6. 📊 Database & Models
+
 **Models:**
+
 - `User.php` - User model dengan field `is_admin`
 - `Paket.php` - Package model
 - `Pemesanan.php` - Booking model dengan relationship
 - `DepartureInfo.php` - Informasi keberangkatan (NEW)
 
 **Tabel:**
+
 - `users` - User dengan field is_admin
 - `pakets` - Paket umroh
 - `pemesanans` - Pemesanan
 - `departure_infos` - Info keberangkatan (NEW)
 
 **Sample Data:**
+
 - 4 paket umroh sudah ditambahkan
 - 1 admin user: test@example.com / password
 
 ---
 
 ### 7. 🎨 Frontend & Styling
+
 - **Framework CSS** - Bootstrap 5.3
 - **Icon** - Font Awesome 6.4
 - **Custom Theme** - Warna primary (#2c5aa0) & secondary (#f39c12)
 - **Responsive Design** - Mobile-friendly
 - **Status Badges** - Visual indicator untuk status pemesanan
-  - 🟠 Pending
-  - 🟢 Confirmed
-  - 🔴 Cancelled
+    - 🟠 Pending
+    - 🟢 Confirmed
+    - 🔴 Cancelled
 
 ---
 
 ### 8. 🔒 Security Features
+
 - ✅ Password hashing dengan bcrypt
 - ✅ CSRF protection di semua form
 - ✅ Role-based access control (admin check)
@@ -220,17 +241,21 @@ PANDUAN_SISTEM.md (NEW - panduan lengkap)
 ## 🚀 Cara Jalankan
 
 ### 1. Setup Database
+
 ```bash
 php artisan migrate
 ```
 
 ### 2. Jalankan Server
+
 ```bash
 php artisan serve
 ```
+
 Buka browser ke: **http://localhost:8000**
 
 ### 3. Login sebagai Admin
+
 - Email: `test@example.com`
 - Password: `password`
 - Akses admin panel via navbar
@@ -239,52 +264,52 @@ Buka browser ke: **http://localhost:8000**
 
 ## 📋 Status Fitur
 
-| Fitur | Status | Detail |
-|-------|--------|--------|
-| Public website | ✅ Done | Beranda, daftar paket, detail paket |
-| Authentication | ✅ Done | Register, login, logout dengan bcrypt |
-| Booking system | ✅ Done | Form booking, validasi, kuota check |
-| Member dashboard | ✅ Done | Lihat pemesanan, detail, cancel |
-| Admin dashboard | ✅ Done | Statistics, recent orders |
-| Admin pemesanan | ✅ Done | List, detail, confirm, cancel |
-| Informasi keberangkatan | ✅ Done | Input admin, tampil jamaah |
-| Admin jamaah | ✅ Done | List, detail, booking history |
-| Email notification | ⏳ Pending | Belum diimplementasikan |
-| Payment gateway | ⏳ Pending | Belum diimplementasikan |
-| Report/Export | ⏳ Pending | Belum diimplementasikan |
+| Fitur                   | Status     | Detail                                |
+| ----------------------- | ---------- | ------------------------------------- |
+| Public website          | ✅ Done    | Beranda, daftar paket, detail paket   |
+| Authentication          | ✅ Done    | Register, login, logout dengan bcrypt |
+| Booking system          | ✅ Done    | Form booking, validasi, kuota check   |
+| Member dashboard        | ✅ Done    | Lihat pemesanan, detail, cancel       |
+| Admin dashboard         | ✅ Done    | Statistics, recent orders             |
+| Admin pemesanan         | ✅ Done    | List, detail, confirm, cancel         |
+| Informasi keberangkatan | ✅ Done    | Input admin, tampil jamaah            |
+| Admin jamaah            | ✅ Done    | List, detail, booking history         |
+| Email notification      | ⏳ Pending | Belum diimplementasikan               |
+| Payment gateway         | ⏳ Pending | Belum diimplementasikan               |
+| Report/Export           | ⏳ Pending | Belum diimplementasikan               |
 
 ---
 
 ## 🎓 Yang Bisa Dikembangkan Lebih Lanjut
 
 1. **Payment Integration**
-   - Midtrans / Stripe untuk pembayaran online
-   - Update status pemesanan setelah pembayaran
+    - Midtrans / Stripe untuk pembayaran online
+    - Update status pemesanan setelah pembayaran
 
 2. **Email Notification**
-   - Konfirmasi register
-   - Notifikasi booking received
-   - Notifikasi admin confirmation
-   - Reminder sebelum keberangkatan
+    - Konfirmasi register
+    - Notifikasi booking received
+    - Notifikasi admin confirmation
+    - Reminder sebelum keberangkatan
 
 3. **SMS Integration**
-   - Kirim SMS info keberangkatan ke jamaah
-   - SMS reminder 1 hari sebelum departure
+    - Kirim SMS info keberangkatan ke jamaah
+    - SMS reminder 1 hari sebelum departure
 
 4. **Reporting & Analytics**
-   - Export pemesanan ke Excel/PDF
-   - Grafik penjualan per bulan
-   - Report jamaah per paket
+    - Export pemesanan ke Excel/PDF
+    - Grafik penjualan per bulan
+    - Report jamaah per paket
 
 5. **Komunikasi**
-   - Chat/forum untuk jamaah diskusi paket
-   - Announcement dari admin untuk jamaah
+    - Chat/forum untuk jamaah diskusi paket
+    - Announcement dari admin untuk jamaah
 
 6. **Advanced Features**
-   - Referral program untuk jamaah
-   - Promo code / discount system
-   - Review & rating paket
-   - Video call dengan guide sebelum keberangkatan
+    - Referral program untuk jamaah
+    - Promo code / discount system
+    - Review & rating paket
+    - Video call dengan guide sebelum keberangkatan
 
 ---
 
@@ -310,7 +335,7 @@ Untuk pertanyaan atau masalah, silakan buat issue di repository atau hubungi dev
 
 Terima kasih sudah menggunakan platform kami. Selamat menikmati perjalanan umroh Anda! ✈️
 
-*Dibuat dengan ❤️ menggunakan Laravel & Bootstrap*
+_Dibuat dengan ❤️ menggunakan Laravel & Bootstrap_
 
 ---
 

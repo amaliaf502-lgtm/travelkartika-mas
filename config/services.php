@@ -35,4 +35,21 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Social Links
+    |--------------------------------------------------------------------------
+    |
+    | Public social media links used in the site header/footer. Configure
+    | these via environment variables `SOCIAL_FACEBOOK`, `SOCIAL_INSTAGRAM`,
+    | and `SOCIAL_YOUTUBE`.
+    |
+    */
+    'social' => [
+        'facebook' => env('SOCIAL_FACEBOOK', '#'),
+        'instagram' => env('SOCIAL_INSTAGRAM', '#'),
+        'tiktok' => env('SOCIAL_TIKTOK', '#'),
+        'youtube' => env('SOCIAL_YOUTUBE', '#'),
+    ],
+
 ];

@@ -3,7 +3,7 @@
 @section('title', 'Informasi Keberangkatan - Travelkartika Mas')
 
 @section('content')
-    <section class="py-5">
+    <section class="py-4">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -179,8 +179,8 @@
                             </ul>
                         </div>
 
-                        <div class="d-grid gap-2">
-                            <a href="{{ route('pemesanans.show', $pemesanan) }}" class="btn btn-primary btn-lg">
+                        <div class="d-flex justify-content-start mt-4">
+                            <a href="{{ route('pemesanans.show', $pemesanan) }}" class="btn btn-primary">
                                 <i class="fas fa-arrow-left"></i> Kembali ke Detail Pemesanan
                             </a>
                         </div>

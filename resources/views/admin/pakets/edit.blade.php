@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="page-title">
-        <i class="fas fa-edit"></i>
         <h2>Edit Paket Umroh</h2>
     </div>
 
@@ -12,7 +11,7 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-form-input"></i> Form Edit Paket</h5>
+                    <h5 class="mb-0">Form Edit Paket</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.pakets.update', $paket) }}" method="POST">
@@ -44,17 +43,101 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+                                                    </div>
+                        </div>
+<div class="row">
+                            <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="harga" class="form-label">Harga (Rp)</label>
+                                    <label for="harga" class="form-label">Harga Quad (Rp)</label>
                                     <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga', $paket->harga) }}" min="0" step="1000" required>
                                     @error('harga')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="harga_triple" class="form-label">Harga Triple (Rp) <small class="text-muted">Opsional</small></label>
+                                    <input type="number" class="form-control @error('harga_triple') is-invalid @enderror" id="harga_triple" name="harga_triple" value="{{ old('harga_triple', $paket->harga_triple) }}" min="0" step="1000">
+                                    @error('harga_triple')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="harga_double" class="form-label">Harga Double (Rp) <small class="text-muted">Opsional</small></label>
+                                    <input type="number" class="form-control @error('harga_double') is-invalid @enderror" id="harga_double" name="harga_double" value="{{ old('harga_double', $paket->harga_double) }}" min="0" step="1000">
+                                    @error('harga_double')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
+                        <hr>
+                        <h6 class="mb-3 text-primary"><i class="fas fa-building"></i> Detail Hotel Makkah</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hotel_makkah_nama" class="form-label">Nama Hotel</label>
+                                    <input type="text" class="form-control @error('hotel_makkah_nama') is-invalid @enderror" id="hotel_makkah_nama" name="hotel_makkah_nama" value="{{ old('hotel_makkah_nama', $paket->hotel_makkah_nama) }}">
+                                    @error('hotel_makkah_nama')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hotel_makkah_bintang" class="form-label">Bintang (1-5)</label>
+                                    <input type="number" class="form-control @error('hotel_makkah_bintang') is-invalid @enderror" id="hotel_makkah_bintang" name="hotel_makkah_bintang" value="{{ old('hotel_makkah_bintang', $paket->hotel_makkah_bintang ?? 5) }}" min="1" max="5">
+                                    @error('hotel_makkah_bintang')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hotel_makkah_jarak" class="form-label">Jarak ke Pelataran</label>
+                                    <input type="text" class="form-control @error('hotel_makkah_jarak') is-invalid @enderror" id="hotel_makkah_jarak" name="hotel_makkah_jarak" value="{{ old('hotel_makkah_jarak', $paket->hotel_makkah_jarak ?? '± 100m') }}">
+                                    @error('hotel_makkah_jarak')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="mb-3 mt-2 text-primary"><i class="fas fa-building"></i> Detail Hotel Madinah</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hotel_madinah_nama" class="form-label">Nama Hotel</label>
+                                    <input type="text" class="form-control @error('hotel_madinah_nama') is-invalid @enderror" id="hotel_madinah_nama" name="hotel_madinah_nama" value="{{ old('hotel_madinah_nama', $paket->hotel_madinah_nama) }}">
+                                    @error('hotel_madinah_nama')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hotel_madinah_bintang" class="form-label">Bintang (1-5)</label>
+                                    <input type="number" class="form-control @error('hotel_madinah_bintang') is-invalid @enderror" id="hotel_madinah_bintang" name="hotel_madinah_bintang" value="{{ old('hotel_madinah_bintang', $paket->hotel_madinah_bintang ?? 5) }}" min="1" max="5">
+                                    @error('hotel_madinah_bintang')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hotel_madinah_jarak" class="form-label">Jarak ke Pelataran</label>
+                                    <input type="text" class="form-control @error('hotel_madinah_jarak') is-invalid @enderror" id="hotel_madinah_jarak" name="hotel_madinah_jarak" value="{{ old('hotel_madinah_jarak', $paket->hotel_madinah_jarak ?? '± 100m') }}">
+                                    @error('hotel_madinah_jarak')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -110,13 +193,7 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="itinerari" class="form-label">Itinerari</label>
-                            <textarea class="form-control @error('itinerari') is-invalid @enderror" id="itinerari" name="itinerari" rows="4" required>{{ old('itinerari', $paket->itinerari) }}</textarea>
-                            @error('itinerari')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
@@ -132,3 +209,4 @@
         </div>
     </div>
 @endsection
+

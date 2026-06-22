@@ -101,12 +101,13 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Main Content Area */
+        /* ===== MAIN CONTENT ===== */
         .admin-main {
             margin-left: 250px;
             flex: 1;
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         /* Top Bar */
@@ -160,10 +161,11 @@
             background: #c0392b;
         }
 
-        /* Content Area */
+        /* ===== CONTENT AREA ===== */
         .admin-content {
             padding: 30px;
             flex: 1;
+            min-width: 0;
         }
 
         /* Cards */
@@ -372,6 +374,27 @@
 
         .page-title i {
             color: var(--secondary);
+        }
+
+        table.table th, table.table td {
+            font-size: 0.95rem;
+        }
+        .badge-pill {
+            border-radius: 50rem;
+            padding: 0.4em 0.85em;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .btn-premium {
+            border-radius: 6px;
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
     </style>
     @yield('css')

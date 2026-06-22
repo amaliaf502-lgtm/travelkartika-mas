@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="page-title">
-        <i class="fas fa-plane"></i>
         <h2>Paket Umroh</h2>
     </div>
 
@@ -20,7 +19,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-list"></i> Daftar Paket Umroh</h5>
+                    <h5 class="mb-0">Daftar Paket Umroh</h5>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -44,9 +43,9 @@
                                     <td>Rp {{ number_format($paket->harga, 0, ',', '.') }}</td>
                                     <td>{{ $paket->kuota }}</td>
                                     <td>
-                                        <span class="badge @if($paket->tersedia > 0) badge-success @else badge-danger @endif">
+                                        <strong style="color: #333;">
                                             {{ $paket->tersedia }}
-                                        </span>
+                                        </strong>
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($paket->tanggal_berangkat)->format('d M Y') }} - {{ \Carbon\Carbon::parse($paket->tanggal_kembali)->format('d M Y') }}</td>
                                     <td>
@@ -57,19 +56,21 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.pakets.show', $paket) }}" class="btn btn-sm btn-primary" title="Lihat">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('admin.pakets.edit', $paket) }}" class="btn btn-sm btn-secondary" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.pakets.destroy', $paket) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus paket ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <div class="d-flex gap-1">
+                                            <a href="{{ route('admin.pakets.show', $paket) }}" class="btn btn-sm btn-primary" title="Lihat">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.pakets.edit', $paket) }}" class="btn btn-sm btn-secondary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('admin.pakets.destroy', $paket) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus paket ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

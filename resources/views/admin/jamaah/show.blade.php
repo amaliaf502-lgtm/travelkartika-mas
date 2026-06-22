@@ -12,18 +12,45 @@
     <!-- Data Jamaah -->
     <div class="card mb-4">
         <div class="card-header">
-            <h5 class="mb-0">Data Jamaah</h5>
+            <h5 class="mb-0"><i class="fas fa-user"></i> Data Jamaah</h5>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
                     <h4 style="color: var(--primary);">{{ $jamaah->name }}</h4>
-                    <p class="text-muted">{{ $jamaah->email }}</p>
-                    <hr>
-                    <p>
-                        <strong>Terdaftar:</strong> {{ $jamaah->created_at->format('d F Y H:i') }}<br>
-                        <strong>Total Pemesanan:</strong> {{ $pemesanans->count() }} paket
-                    </p>
+                    <table class="table table-borderless mb-0" style="background:transparent;">
+                        <tr>
+                            <td class="text-muted ps-0" style="width:150px;"><i class="fas fa-envelope"></i> Email</td>
+                            <td><strong>{{ $jamaah->email }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0"><i class="fas fa-phone"></i> No. HP</td>
+                            <td>
+                                @if($jamaah->no_hp)
+                                    <strong>{{ $jamaah->no_hp }}</strong>
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $jamaah->no_hp) }}" target="_blank" class="btn btn-sm ms-2" style="background:#25D366; color:white; font-size:0.75rem;">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                @else
+                                    <span class="text-muted">Belum diisi</span>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0"><i class="fas fa-calendar"></i> Terdaftar</td>
+                            <td>{{ $jamaah->created_at->format('d F Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0"><i class="fas fa-list"></i> Total Pemesanan</td>
+                            <td><strong>{{ $pemesanans->count() }} paket</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div style="width:100px; height:100px; background: var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto; font-size:2.5rem; color:white; font-weight:bold;">
+                        {{ strtoupper(substr($jamaah->name, 0, 1)) }}
+                    </div>
+                    <p class="text-muted mt-2 mb-0">Jamaah</p>
                 </div>
             </div>
         </div>
@@ -32,7 +59,7 @@
     <!-- Pemesanan Jamaah -->
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Riwayat Pemesanan</h5>
+            <h5 class="mb-0"><i class="fas fa-history"></i> Riwayat Pemesanan</h5>
         </div>
         <div class="table-responsive">
             <table class="table table-hover mb-0">
@@ -41,6 +68,7 @@
                         <th>Paket</th>
                         <th>Peserta</th>
                         <th>Total</th>
+                        <th>Bukti Bayar</th>
                         <th>Status</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
@@ -50,8 +78,17 @@
                     @forelse($pemesanans as $pemesanan)
                         <tr>
                             <td><strong>{{ $pemesanan->paket->nama_paket }}</strong></td>
-                            <td>{{ $pemesanan->jumlah_peserta }} orang</td>
+                            <td>{{ $pemesanan->jumlah_peserta }} orang<br>
+                                <small class="text-muted text-uppercase">{{ $pemesanan->tipe_kamar ?? 'quad' }}</small>
+                            </td>
                             <td>Rp {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
+                            <td class="text-center">
+                                @if($pemesanan->bukti_pembayaran)
+                                    <span class="badge" style="background:#27ae60; font-size:0.75rem;"><i class="fas fa-check"></i> Ada</span>
+                                @else
+                                    <span class="badge" style="background:#e74c3c; font-size:0.75rem;"><i class="fas fa-times"></i> Belum</span>
+                                @endif
+                            </td>
                             <td>
                                 @if($pemesanan->status === 'pending')
                                     <span class="badge badge-pending">Pending</span>
@@ -70,7 +107,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
+                            <td colspan="7" class="text-center text-muted py-4">
                                 <i class="fas fa-inbox"></i> Belum ada pemesanan
                             </td>
                         </tr>

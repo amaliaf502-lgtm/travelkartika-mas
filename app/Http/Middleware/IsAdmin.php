@@ -13,10 +13,14 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->is_admin) {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk mengakses halaman Admin.');
+        }
+
+        if (auth()->user()->is_admin) {
             return $next($request);
         }
 
-        abort(403, 'Unauthorized access');
+        return redirect()->route('home')->with('error', 'Akses ditolak. Halaman tersebut hanya untuk Admin.');
     }
 }

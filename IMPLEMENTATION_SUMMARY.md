@@ -2,13 +2,17 @@
 
 ## ✅ SISTEM SELESAI 100%
 
-Website travel umroh "Travelkartika Mas" dengan fitur **Pendaftaran Jamaah, Pemesanan Paket, Verifikasi Admin, dan Informasi Keberangkatan** telah berhasil dibangun dan siap digunakan.
+Website travel umroh "Travelkartika Mas" dengan 2 hak akses pengguna:
+
+- **Jamaah**: akses area public setelah login untuk browsing paket, daftar, login, pesan, pembayaran (upload bukti), dan lihat status & keberangkatan
+- **Admin**: akses dashboard admin untuk verifikasi pembayaran, konfirmasi pemesanan, input info keberangkatan, dan mengelola jamaah
 
 ---
 
 ## 🎯 Requirement Terpenuhi
 
 ### ✅ 1. Pendaftaran Jamaah (User Registration)
+
 - [x] Form registrasi dengan validasi
 - [x] Field: Nama, Email, Password
 - [x] Password hashing dengan bcrypt
@@ -19,6 +23,7 @@ Website travel umroh "Travelkartika Mas" dengan fitur **Pendaftaran Jamaah, Peme
 **File:** `resources/views/auth/register.blade.php` & `AuthController.php`
 
 ### ✅ 2. Login/Logout
+
 - [x] Form login dengan email & password
 - [x] Session management
 - [x] Redirect berdasarkan role (admin vs jamaah)
@@ -28,100 +33,124 @@ Website travel umroh "Travelkartika Mas" dengan fitur **Pendaftaran Jamaah, Peme
 **File:** `resources/views/auth/login.blade.php` & `AuthController.php`
 
 ### ✅ 3. Browsing Paket Umroh
+
 - [x] Halaman public beranda dengan featured packages
 - [x] List semua paket dengan pagination
 - [x] Detail paket lengkap (harga, durasi, fasilitas, itinerari)
 - [x] Responsive design
 - [x] Search/filter (bisa dikembangkan)
 
-**File:** 
+**File:**
+
 - `resources/views/welcome.blade.php`
 - `resources/views/pakets/index.blade.php`
 - `resources/views/pakets/show.blade.php`
 
 ### ✅ 4. Pemesanan Paket
+
 - [x] Form booking dengan field:
-  - Jumlah peserta
-  - Nama-nama peserta (dinamis)
-- [x] Validasi juota tersedia
-- [x] Kalkulasi harga otomatis (harga paket × jumlah)
+    - Tipe kamar (Quad/Triple/Double)
+    - Jumlah peserta
+    - Nama-nama peserta (dinamis)
+- [x] Validasi kuota tersedia
+- [x] Kalkulasi harga otomatis (harga paket × jumlah × tipe kamar)
 - [x] Simpan ke database dengan status **PENDING**
 - [x] Error handling & message validasi
 
 **File:** `resources/views/pemesanans/create.blade.php` & `PemesananController.php`
 
 ### ✅ 5. Dashboard Jamaah (Member Area)
+
 - [x] Melihat "Pemesanan Saya"
-- [x] List pemesanan dengan status
-- [x] Detail pemesanan
+- [x] List pemesanan dengan status & bukti pembayaran
+- [x] Detail pemesanan lengkap
+- [x] Upload bukti pembayaran manual (foto/scan transfer)
 - [x] Cancel pemesanan (jika belum dikonfirmasi)
 - [x] Lihat informasi keberangkatan (jika status CONFIRMED)
 - [x] Status badge visual (pending, confirmed, cancelled)
 
 **File:**
+
 - `resources/views/pemesanans/index.blade.php`
 - `resources/views/pemesanans/show.blade.php`
 - `PemesananController.php`
 
 ### ✅ 6. Verifikasi & Konfirmasi Admin
+
 - [x] Admin dashboard dengan statistik
-  - Total jamaah
-  - Total pemesanan
-  - Pemesanan pending
-  - Revenue
-- [x] List pemesanan yang perlu diverifikasi
-- [x] Detail pemesanan
-- [x] Tombol konfirmasi pemesanan
+    - Total jamaah
+    - Total pemesanan
+    - Pemesanan pending (menunggu verifikasi)
+    - Total revenue
+- [x] List pemesanan dengan filter status & bukti pembayaran
+- [x] Detail pemesanan & lihat bukti pembayaran dari jamaah
+- [x] Tombol konfirmasi pemesanan (+ input info keberangkatan)
 - [x] Tombol batalkan pemesanan
 - [x] Authorization check (hanya admin)
 
 **File:**
+
 - `resources/views/admin/dashboard.blade.php`
 - `resources/views/admin/pemesanans/index.blade.php`
 - `resources/views/admin/pemesanans/show.blade.php`
 - `AdminController.php`
 
-### ✅ 7. Input Informasi Keberangkatan (Departure Info)
+### ✅ 7. Pembayaran Manual & Verifikasi
+
+- [x] Jamaah upload bukti transfer ke rekening yang ditampilkan
+- [x] Admin cek bukti pembayaran sebelum konfirmasi
+- [x] Validasi file bukti (image only, max 2MB)
+- [x] Simpan bukti ke storage publik untuk akses jamaah
+- [x] Status pending sampai admin verifikasi + konfirmasi
+
+**File:** `resources/views/pemesanans/show.blade.php` & `PemesananController@uploadBukti`
+
+### ✅ 8. Input Informasi Keberangkatan (Departure Info)
+
 - [x] Form admin untuk input:
-  - Tanggal berkumpul
-  - Waktu berkumpul
-  - Lokasi berkumpul
-  - Alamat lengkap
-  - Nama contact person (guide)
-  - No. HP contact
-  - Instruksi persiapan
-  - Catatan khusus
+    - Tanggal berkumpul
+    - Waktu berkumpul
+    - Lokasi berkumpul
+    - Alamat lengkap
+    - Nama contact person (guide)
+    - No. HP contact
+    - Instruksi persiapan
+    - Catatan khusus
 - [x] Validasi form
 - [x] Simpan ke tabel `departure_infos`
 - [x] Update status pemesanan ke **CONFIRMED**
 
 **File:**
+
 - `resources/views/admin/pemesanans/confirm.blade.php`
 - `AdminController.php`
 - Migration: `create_departure_infos_table.php`
 
-### ✅ 8. Tampil Info Keberangkatan untuk Jamaah
+### ✅ 9. Tampil Info Keberangkatan untuk Jamaah
+
 - [x] Halaman info keberangkatan untuk jamaah yang sudah dikonfirmasi
 - [x] Menampilkan:
-  - Ringkasan pemesanan
-  - Tanggal & waktu berkumpul
-  - Lokasi & alamat lengkap
-  - Kontak guide + link WhatsApp
-  - Instruksi persiapan
-  - Catatan khusus
-  - Checklist persiapan (7 items)
+    - Ringkasan pemesanan
+    - Tanggal & waktu berkumpul
+    - Lokasi & alamat lengkap
+    - Kontak guide + link WhatsApp
+    - Instruksi persiapan
+    - Catatan khusus
+    - Checklist persiapan (7 items)
 - [x] Professional design dengan sections & badges
 - [x] Error handling jika info belum diinput
 
 **File:** `resources/views/pemesanans/departure-info.blade.php`
 
-### ✅ 9. Admin Jamaah Management
+### ✅ 10. Admin Jamaah Management
+
 - [x] List semua jamaah dengan total pemesanan
 - [x] Detail jamaah dengan riwayat booking
 - [x] View booking history
 - [x] Filter & search (bisa dikembangkan)
 
 **File:**
+
 - `resources/views/admin/jamaah/index.blade.php`
 - `resources/views/admin/jamaah/show.blade.php`
 - `AdminController.php`
@@ -131,28 +160,42 @@ Website travel umroh "Travelkartika Mas" dengan fitur **Pendaftaran Jamaah, Peme
 ## 🗄️ Database Schema
 
 ### Tabel: `users`
+
 ```sql
-id, name, email, password, is_admin, created_at, updated_at
+id, name, email, no_hp, password, is_admin, created_at, updated_at
 ```
+
 - Jamaah: `is_admin = false`
 - Admin: `is_admin = true`
+- no_hp: nomor WhatsApp/HP jamaah untuk kontak
 
 ### Tabel: `pakets`
+
 ```sql
-id, nama_paket, deskripsi, harga, kuota, tersedia,
-tanggal_berangkat, tanggal_kembali, durasi_hari,
+id, nama_paket, deskripsi, harga, harga_triple, harga_double,
+kuota, tersedia, tanggal_berangkat, tanggal_kembali, durasi_hari,
+hotel_makkah_nama, hotel_makkah_bintang, hotel_makkah_jarak,
+hotel_madinah_nama, hotel_madinah_bintang, hotel_madinah_jarak,
 fasilitas, itinerari, status, gambar, created_at, updated_at
 ```
+
+- Harga per tipe kamar (Quad/Triple/Double)
+- Info hotel Makkah & Madinah
 - 4 sample paket sudah ada
 
 ### Tabel: `pemesanans`
+
 ```sql
-id, user_id, paket_id, jumlah_peserta, nama_peserta (JSON),
-total_harga, status, catatan, created_at, updated_at
+id, user_id, paket_id, jumlah_peserta, tipe_kamar, nama_peserta (JSON),
+total_harga, status, bukti_pembayaran, catatan, created_at, updated_at
 ```
+
 - Status: pending | confirmed | dibatalkan
+- Tipe kamar: quad | triple | double
+- Bukti pembayaran: path ke file upload dari jamaah
 
 ### Tabel: `departure_infos` (NEW)
+
 ```sql
 id, pemesanan_id, tanggal_berkumpul, waktu_berkumpul,
 lokasi_berkumpul, alamat_lengkap, contact_person, no_hp_contact,
@@ -164,6 +207,7 @@ instruksi_persiapan, catatan_khusus, created_at, updated_at
 ## 🛣️ Routes
 
 ### Public Routes
+
 ```
 GET  /                          → Homepage
 GET  /pakets                    → Daftar paket
@@ -171,6 +215,7 @@ GET  /pakets/{id}              → Detail paket
 ```
 
 ### Auth Routes
+
 ```
 GET  /login                     → Form login
 POST /login                     → Process login
@@ -180,16 +225,19 @@ POST /logout                    → Logout
 ```
 
 ### Member Routes (Auth Required)
+
 ```
-GET  /pemesanan/{paket}/create  → Form booking
-POST /pemesanan                 → Process booking
-GET  /pemesanan-saya            → List pemesanan
-GET  /pemesanan/{id}            → Detail pemesanan
-PATCH /pemesanan/{id}/cancel    → Cancel booking
-GET  /pemesanan/{id}/info-keberangkatan → Info keberangkatan
+GET  /pemesanan/{paket}/create              → Form booking
+POST /pemesanan                             → Process booking
+POST /pemesanan/{id}/upload-bukti           → Upload bukti pembayaran
+GET  /pemesanan-saya                        → List pemesanan
+GET  /pemesanan/{id}                        → Detail pemesanan
+PATCH /pemesanan/{id}/cancel                → Cancel booking
+GET  /pemesanan/{id}/info-keberangkatan     → Info keberangkatan
 ```
 
 ### Admin Routes (Auth + Admin Check Required)
+
 ```
 GET  /admin/dashboard                          → Dashboard
 GET  /admin/pemesanan                          → List pemesanan
@@ -209,8 +257,8 @@ GET  /admin/jamaah/{id}                        → Detail jamaah
 - **Icons:** Font Awesome 6.4
 - **Templating:** Blade (Laravel)
 - **Colors:**
-  - Primary: #2c5aa0 (biru)
-  - Secondary: #f39c12 (orange)
+    - Primary: #2c5aa0 (biru)
+    - Secondary: #f39c12 (orange)
 - **Responsive:** Mobile-first design
 
 ---
@@ -218,16 +266,19 @@ GET  /admin/jamaah/{id}                        → Detail jamaah
 ## 🔒 Security Features
 
 ✅ **Authentication**
+
 - Password hashing dengan bcrypt
 - Session management
 - CSRF protection di semua form
 
 ✅ **Authorization**
+
 - Role-based access (admin vs jamaah)
 - Admin middleware check di AdminController
 - Jamaah hanya bisa lihat pemesanan sendiri
 
 ✅ **Validation**
+
 - Server-side form validation
 - Constraint di database
 - Error message yang informatif
@@ -236,20 +287,21 @@ GET  /admin/jamaah/{id}                        → Detail jamaah
 
 ## 📊 Fitur Lengkap
 
-| Fitur | Status | Detail |
-|-------|--------|--------|
-| **Public Website** | ✅ | Beranda, list paket, detail paket |
-| **Registrasi** | ✅ | Form + validasi + bcrypt password |
-| **Login/Logout** | ✅ | Session + CSRF protection |
-| **Booking System** | ✅ | Form, validasi kuota, hitung harga |
-| **Member Dashboard** | ✅ | List pemesanan, detail, cancel, lihat info |
-| **Admin Dashboard** | ✅ | Statistik, recent orders |
-| **Admin Pemesanan** | ✅ | List, detail, confirm, cancel |
-| **Info Keberangkatan** | ✅ | Input admin, tampil jamaah |
-| **Admin Jamaah** | ✅ | List, detail, booking history |
-| **Responsive Design** | ✅ | Mobile-friendly |
-| **Error Handling** | ✅ | Validation, 404, 403 |
-| **Status Badges** | ✅ | Pending, confirmed, cancelled |
+| Fitur                  | Status | Detail                                                   |
+| ---------------------- | ------ | -------------------------------------------------------- |
+| **Public Website**     | ✅     | Beranda, list paket, detail paket                        |
+| **Registrasi**         | ✅     | Form + validasi + bcrypt password                        |
+| **Login/Logout**       | ✅     | Session + CSRF protection                                |
+| **Booking System**     | ✅     | Tipe kamar, validasi kuota, hitung harga                 |
+| **Pembayaran Manual**  | ✅     | Upload bukti transfer, verifikasi admin                  |
+| **Member Dashboard**   | ✅     | List pemesanan, detail, upload bukti, cancel, lihat info |
+| **Admin Dashboard**    | ✅     | Statistik, recent orders, pending count                  |
+| **Admin Pemesanan**    | ✅     | List dengan filter, lihat bukti, confirm, cancel         |
+| **Info Keberangkatan** | ✅     | Input admin, tampil jamaah, link WhatsApp                |
+| **Admin Jamaah**       | ✅     | List, detail, booking history                            |
+| **Responsive Design**  | ✅     | Mobile-friendly                                          |
+| **Error Handling**     | ✅     | Validation, 404, 403                                     |
+| **Status Badges**      | ✅     | Pending, confirmed, cancelled                            |
 
 ---
 
@@ -312,45 +364,58 @@ routes/web.php                  (Updated with admin routes)
 Semua fitur sudah ditest dan berjalan dengan baik:
 
 ✅ **Public Area**
+
 - Homepage load dengan benar
 - List paket tampil dengan pagination
 - Detail paket lengkap dengan data akurat
 
 ✅ **Registrasi & Login**
+
 - Form registrasi berfungsi
 - Password di-hash dengan bcrypt
 - Login redirect ke homepage
 - Session tersimpan dengan baik
 
 ✅ **Booking System**
-- Form booking tampil dengan benar
+
+- Form booking tampil dengan benar (tipe kamar, jumlah peserta)
 - Validasi jumlah peserta & kuota
-- Harga dihitung otomatis
+- Harga dihitung otomatis sesuai tipe kamar
 - Pemesanan tersimpan dengan status PENDING
+- Data tipe kamar tersimpan di database
 
 ✅ **Member Area**
-- "Pemesanan Saya" menampilkan list pemesanan
-- Detail pemesanan lengkap
+
+- List pemesanan dengan status & bukti pembayaran
+- Detail pemesanan lengkap dengan tipe kamar
+- Form upload bukti pembayaran tampil untuk pending orders
+- Bukti pembayaran dapat dilihat & download
 - Status badge tampil dengan warna yang benar
 - Cancel booking berfungsi
 
 ✅ **Admin Area**
-- Dashboard tampil dengan statistik yang benar
-- List pemesanan dengan pagination
-- Detail pemesanan lengkap
-- Form konfirmasi dengan 9 field
 
-✅ **Info Keberangkatan**
-- Admin bisa input info keberangkatan
+- Dashboard tampil dengan statistik yang benar & pending count
+- List pemesanan dengan filter (status, bukti pembayaran)
+- Detail pemesanan lengkap dengan bukti pembayaran dari jamaah
+- Admin bisa preview & download bukti pembayaran
+- Form konfirmasi dengan 9 field info keberangkatan
+
+✅ **Pembayaran & Info Keberangkatan**
+
+- Jamaah upload bukti pembayaran di detail pemesanan
+- Admin verifikasi & lihat bukti di list & detail
+- Setelah verifikasi, admin input info keberangkatan
 - Status berubah ke CONFIRMED
-- Jamaah bisa lihat info keberangkatan
-- WhatsApp link berfungsi
+- Jamaah bisa lihat info keberangkatan dengan lengkap
+- WhatsApp link ke guide berfungsi
 
 ---
 
 ## 🚀 Deployment Ready
 
 ### Requirements
+
 - PHP 8.1+
 - Laravel 11
 - MySQL/SQLite
@@ -358,6 +423,7 @@ Semua fitur sudah ditest dan berjalan dengan baik:
 - Node.js (untuk npm packages)
 
 ### Installation
+
 ```bash
 git clone <repo>
 cd travelkartika-mas
@@ -370,6 +436,7 @@ php artisan serve
 ```
 
 ### Documentation Files
+
 - `PANDUAN_SISTEM.md` - Panduan lengkap sistem
 - `FITUR_LENGKAP.md` - Daftar fitur & struktur
 - `TESTING_GUIDE.md` - Panduan testing
@@ -413,6 +480,7 @@ php artisan serve
 **Sistem Travel Umroh Travelkartika Mas telah selesai dibangun dengan lengkap!**
 
 Semua requirement telah terpenuhi:
+
 1. ✅ Pendaftaran Jamaah
 2. ✅ Pemesanan Paket
 3. ✅ Verifikasi Admin
@@ -426,8 +494,8 @@ Sistem siap digunakan dan dapat di-deploy ke production.
 **Status:** ✅ COMPLETED  
 **Date:** 2026-02-03  
 **Framework:** Laravel 11  
-**Database:** SQLite (dapat di-upgrade ke MySQL)  
+**Database:** SQLite (dapat di-upgrade ke MySQL)
 
 ---
 
-*Terima kasih telah mempercayakan kami untuk membangun sistem ini. Selamat menikmati! 🚀*
+_Terima kasih telah mempercayakan kami untuk membangun sistem ini. Selamat menikmati! 🚀_
