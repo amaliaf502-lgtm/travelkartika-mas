@@ -242,28 +242,30 @@
                     <div class="card mb-4 shadow-sm border-0 rounded-4 text-center">
                         <div class="card-body p-4">
                             @if($pemesanan->status === "pending")
-                                <div class="mb-3">
-                                    <div class="d-inline-flex align-items-center justify-content-center bg-warning text-dark rounded-circle shadow-sm" style="width: 80px; height: 80px;">
-                                        <i class="fas fa-clock fa-3x"></i>
+                                <div class="mb-4 mt-2">
+                                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #FFC107;">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 55px; height: 55px; background-color: #212529;">
+                                            <i class="fas fa-clock fa-2x" style="color: #FFC107;"></i>
+                                        </div>
                                     </div>
                                 </div>
-                                <h4 class="fw-bold text-dark">Menunggu Pembayaran</h4>
-                                <p class="text-muted small">Silakan selesaikan pembayaran Anda agar kursi tidak hangus.</p>
-                                <div class="d-grid gap-2 mt-4">
+                                <h4 class="fw-bold text-dark mb-2">Menunggu Pembayaran</h4>
+                                <p class="text-muted small mb-4">Silakan selesaikan pembayaran Anda agar kursi tidak hangus.</p>
+                                <div class="d-grid gap-2 mt-2">
                                     <button class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;" id="pay-button">
                                         <i class="fas fa-credit-card me-2"></i> Bayar Sekarang
                                     </button>
                                 </div>
                             @elseif(in_array($pemesanan->status, ["paid", "confirmed"]))
-                                <div class="mb-3">
-                                    <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle shadow-sm" style="width: 80px; height: 80px;">
-                                        <i class="fas fa-check fa-3x"></i>
+                                <div class="mb-4 mt-2">
+                                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #198754;">
+                                        <i class="fas fa-check" style="color: white; font-size: 3rem;"></i>
                                     </div>
                                 </div>
-                                <h4 class="fw-bold text-dark">Pemesanan Dikonfirmasi</h4>
-                                <p class="text-muted small">Pembayaran telah diterima dan pemesanan dikonfirmasi.</p>
-                                <div class="d-grid gap-2 mt-4">
-                                    <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn btn-success fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
+                                <h4 class="fw-bold text-dark mb-2">Pemesanan Dikonfirmasi</h4>
+                                <p class="text-muted small mb-4">Pembayaran telah diterima dan pemesanan dikonfirmasi.</p>
+                                <div class="d-grid gap-2 mt-2">
+                                    <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
                                         <i class="fas fa-plane-departure me-2"></i> Lihat Info Keberangkatan
                                     </a>
                                     <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
@@ -271,14 +273,14 @@
                                     </a>
                                 </div>
                             @elseif($pemesanan->status === "completed")
-                                <div class="mb-3">
-                                    <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle shadow-sm" style="width: 80px; height: 80px;">
-                                        <i class="fas fa-flag-checkered fa-3x"></i>
+                                <div class="mb-4 mt-2">
+                                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #0d6efd;">
+                                        <i class="fas fa-flag-checkered" style="color: white; font-size: 3rem;"></i>
                                     </div>
                                 </div>
-                                <h4 class="fw-bold text-dark">Selesai</h4>
-                                <p class="text-muted small">Ibadah Umroh telah selesai dilaksanakan.</p>
-                                <div class="d-grid gap-2 mt-4">
+                                <h4 class="fw-bold text-dark mb-2">Selesai</h4>
+                                <p class="text-muted small mb-4">Ibadah Umroh telah selesai dilaksanakan.</p>
+                                <div class="d-grid gap-2 mt-2">
                                     <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
                                         <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
                                     </a>
