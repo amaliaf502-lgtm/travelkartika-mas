@@ -62,37 +62,27 @@
                         </div>
                         <div class="card-body p-4">
                             @if($pemesanan->data_completed_at)
-                                <div class="row g-3 mb-4">
-                                    <div class="col-md-4">
-                                        <div class="p-3 border-0 rounded-3 h-100 bg-light">
-                                            <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">NAMA AYAH</small>
-                                            <strong class="text-dark">{{ $pemesanan->nama_ayah ?? "-" }}</strong>
-                                        </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-4 mb-4">
+                                        <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">NAMA AYAH</small>
+                                        <span class="text-dark" style="font-size: 1.1rem;">{{ $pemesanan->nama_ayah ?? "-" }}</span>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="p-3 border-0 rounded-3 h-100 bg-light">
-                                            <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">NAMA IBU</small>
-                                            <strong class="text-dark">{{ $pemesanan->nama_ibu ?? "-" }}</strong>
-                                        </div>
+                                    <div class="col-md-4 mb-4">
+                                        <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">NAMA IBU</small>
+                                        <span class="text-dark" style="font-size: 1.1rem;">{{ $pemesanan->nama_ibu ?? "-" }}</span>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="p-3 border-0 rounded-3 h-100 bg-light">
-                                            <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">PEKERJAAN</small>
-                                            <strong class="text-dark">{{ $pemesanan->pekerjaan ?? "-" }}</strong>
-                                        </div>
+                                    <div class="col-md-4 mb-4">
+                                        <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">PEKERJAAN</small>
+                                        <span class="text-dark" style="font-size: 1.1rem;">{{ $pemesanan->pekerjaan ?? "-" }}</span>
                                     </div>
                                     
                                     <div class="col-md-4">
-                                        <div class="p-3 border-0 rounded-3 h-100 bg-light">
-                                            <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">TEMPAT, TGL LAHIR</small>
-                                            <strong class="text-dark">{{ $pemesanan->tempat_lahir ?? "-" }}, {{ $pemesanan->tanggal_lahir ? \Carbon\Carbon::parse($pemesanan->tanggal_lahir)->format("d M Y") : "-" }}</strong>
-                                        </div>
+                                        <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">TEMPAT, TGL LAHIR</small>
+                                        <span class="text-dark" style="font-size: 1.1rem;">{{ $pemesanan->tempat_lahir ?? "-" }}, {{ $pemesanan->tanggal_lahir ? \Carbon\Carbon::parse($pemesanan->tanggal_lahir)->format("d M Y") : "-" }}</span>
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="p-3 border-0 rounded-3 h-100 bg-light">
-                                            <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">J. KELAMIN / STATUS</small>
-                                            <strong class="text-dark">{{ ucfirst($pemesanan->jenis_kelamin ?? "-") }} / {{ ucfirst($pemesanan->status_nikah ?? "-") }}</strong>
-                                        </div>
+                                        <small class="text-muted d-block text-uppercase mb-1" style="font-size: 0.75rem; font-weight: 700;">J. KELAMIN / STATUS</small>
+                                        <span class="text-dark" style="font-size: 1.1rem;">{{ ucfirst($pemesanan->jenis_kelamin ?? "-") }} / {{ ucfirst($pemesanan->status_nikah ?? "-") }}</span>
                                     </div>
                                 </div>
                                 
