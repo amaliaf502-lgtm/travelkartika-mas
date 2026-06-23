@@ -1,0 +1,20 @@
+@startsalt
+{+
+  <color:gray><b>[ GAMBAR LOGO ]</b></color>
+  == DAFTAR AKUN BARU
+  --
+  <b>Nama Lengkap:</b>
+  "                                    "
+  <b>Email:</b>
+  "                                    "
+  <b>Nomor HP:</b>
+  "                                    "
+  <b>Password:</b>
+  "                                    "
+  <b>Konfirmasi Password:</b>
+  "                                    "
+  --
+  [         <b>DAFTAR SEKARANG</b>        ]
+  Sudah punya akun? ^Masuk di sini^
+}
+@endsalt

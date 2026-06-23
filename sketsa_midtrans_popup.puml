@@ -1,0 +1,43 @@
+@startsalt
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+
+{
+  {+
+    <b>travelkartika-mas</b>                                          <b>[X]</b>
+    --
+    <size:20><b>Rp100.000</b></size>
+    <size:10>Order ID #TRV-7-1782050811</size>
+    == <size:11>Pay within  23:56:51</size>
+    ..
+    <b>Bank BCA</b>
+    .
+    <size:11>Complete payment from BCA to the virtual</size>
+    <size:11>account number below.</size>
+    .
+    <size:10>Virtual account number</size>
+    <size:16><b>42926988815192547468659</b></size>
+    ..
+    [ Check status ]
+    [ <b>⚡ Simulasi Bayar Otomatis</b> ]
+  }
+  |
+  {
+    <b>Opsi A: Toast Notification</b>
+    {+
+      <&warning> <b>Warning:</b>
+      <size:11>Sedang memproses simulasi pembayaran otomatis...</size>
+    }
+    .
+    .
+    <b>Opsi B: Popup Modal / SweetAlert</b>
+    {+
+      == <size:30><&circle-check></size>
+      == <size:18><b>Berhasil!</b></size>
+      == <size:11>Pembayaran otomatis sukses sebesar Rp 100.000!</size>
+      == <size:11>Status pesanan Anda telah diperbarui menjadi Lunas.</size>
+    }
+  }
+}
+@endsalt

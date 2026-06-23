@@ -1,0 +1,41 @@
+@startsalt
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+
+{
+  {+
+    <b><&credit-card> Transaksi Pembayaran
+  }
+  .
+  {
+    {
+      <b><&shield> Pembayaran Online Instan
+      <size:11>Bayar aman menggunakan kartu kredit, virtual account, e-wallet, atau merchant retail.</size>
+      .
+      {+
+        <color:gray>TOTAL TAGIHAN:</color>
+        <size:24><b>Rp 100.000</b></size>
+        <&lock-locked> <size:10>Secured by Midtrans</size>
+      }
+      .
+      [ <&credit-card> Bayar Sekarang ]
+      [ <&reload> Cek Status Pembayaran ]
+      [ <&pencil> Simulasi Seolah-olah Sudah Bayar (Bypass) ]
+    }
+    |
+    {+
+      <b>RINGKASAN TAGIHAN
+      .
+      {
+        Subtotal | Rp 105.000
+        Biaya Admin | FREE
+        . | .
+        <b>TOTAL BAYAR | <b>Rp 105.000
+      }
+      .
+      [ <&credit-card> BAYAR SEKARANG ]
+    }
+  }
+}
+@endsalt

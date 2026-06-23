@@ -1,0 +1,27 @@
+@startsalt
+{+
+  {
+    <b>KARTIKA MAS</b> | Beranda | Paket Umroh | Cara Pendaftaran | Tentang Kami | Kontak | Masuk | Daftar
+  }
+  ==
+  {
+    ( ^search^ ) | {+
+      <b><size:16>1. Pilih Paket Umroh</size></b>
+      <color:gray>Jelajahi berbagai pilihan paket Umroh yang tersedia di halaman Katalog Paket kami.</color>
+      <color:gray>Anda bisa membandingkan harga, jadwal, dan fasilitas yang paling sesuai dengan</color>
+      <color:gray>kebutuhan Anda.</color>
+    }
+    ( ^person^ ) | {+
+      <b><size:16>2. Login / Buat Akun</size></b>
+      <color:gray>Untuk memesan paket, silakan Login jika sudah memiliki akun, atau Daftar terlebih</color>
+      <color:gray>dahulu. Proses pendaftaran sangat cepat, cukup masukkan nama, email, dan</color>
+      <color:gray>password Anda.</color>
+    }
+    ( ^pencil^ ) | {+
+      <b><size:16>3. Isi Formulir Pemesanan</size></b>
+      <color:gray>Klik tombol <b>Pesan Sekarang</b> pada paket pilihan Anda. Lengkapi data jamaah sesuai</color>
+      <color:gray>dengan identitas asli agar proses visa dan tiket berjalan lancar.</color>
+    }
+  }
+}
+@endsalt

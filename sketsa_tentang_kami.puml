@@ -1,0 +1,32 @@
+@startsalt
+{+
+  {
+    <b>KARTIKA MAS</b> | Beranda | Paket Umroh | Cara Pendaftaran | <b>Tentang Kami</b> | Kontak | Masuk | Daftar
+  }
+  ==
+  {+
+    <color:white>===================================================================================</color>
+    <color:white><b><size:24>Tentang Kami</size></b></color>
+    <color:white>Mengenal Lebih Dekat Kartika Mas Tour & Travel</color>
+    <color:white>===================================================================================</color>
+  }
+  ==
+  {
+    [ GAMBAR KA'BAH BESAR ] | {
+      <b><size:20>Kartika Mas Tour & Travel</size></b>
+      --
+      <b><color:darkred>Mitra Terpercaya Menuju Baitullah</color></b>
+      .
+      <color:gray>Kartika Mas Tour & Travel didirikan pada tahun 2024 dengan satu tujuan</color>
+      <color:gray>mulia: memfasilitasi perjalanan ibadah jamaah ke Tanah Suci dengan</color>
+      <color:gray>cara yang lebih mudah, transparan, dan terpercaya. Meskipun tergolong</color>
+      <color:gray>baru, kami dikelola oleh tenaga profesional yang berdedikasi tinggi di</color>
+      <color:gray>bidang layanan Umroh dan Haji.</color>
+      .
+      <color:gray>Kami memahami bahwa ibadah Umroh adalah perjalanan spiritual sekali</color>
+      <color:gray>seumur hidup bagi banyak orang. Oleh karena itu, kami berkomitmen</color>
+      <color:gray>untuk memberikan pelayanan yang ramah, jelas, dan responsif...</color>
+    }
+  }
+}
+@endsalt

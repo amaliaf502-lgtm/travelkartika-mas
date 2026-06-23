@@ -1,0 +1,36 @@
+@startsalt
+{+
+  {
+    <b>KARTIKA MAS</b> | Beranda | Paket Umroh | Cara Pendaftaran | Tentang Kami | Kontak | Masuk | Daftar
+  }
+  ==
+  {
+    {+
+      <color:white><b>KARTIKA MAS</b></color>
+      --
+      <color:yellow><b>BERGABUNGLAH</b></color>
+      <color:white>Jadilah bagian dari keluarga besar</color>
+      <color:white>Kartika Mas Tour & Travel. Nikmati</color>
+      <color:white>kemudahan pendaftaran dan</color>
+      <color:white>pengelolaan perjalanan umroh Anda.</color>
+    } | {
+      <b><size:16>Daftar Akun Baru</size></b>
+      <color:gray>Lengkapi formulir di bawah ini dengan data yang valid</color>
+      --
+      <b>NAMA LENGKAP SESUAI KTP</b>
+      " ^user^                                  "
+      {
+        <b>ALAMAT EMAIL</b> | <b>NOMOR HP / WHATSAPP</b>
+        "^envelope^ nama@email.com" | "^phone^                   "
+      }
+      {
+        <b>KATA SANDI</b> | <b>KONFIRMASI KATA SANDI</b>
+        "^lock^ Minimal 8 karakter" | "^lock^ Ketik ulang sandi"
+      }
+      [       <b>Daftar Sekarang</b>       ]
+      --
+      <color:gray>Sudah punya akun?</color> ^Masuk di sini^
+    }
+  }
+}
+@endsalt

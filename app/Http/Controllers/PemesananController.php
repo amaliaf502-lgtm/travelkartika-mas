@@ -395,4 +395,13 @@ class PemesananController extends Controller implements HasMiddleware
 
         return response()->json(['message' => 'Callback processed successfully']);
     }
+
+    public function checkStatusJson(Pemesanan $pemesanan): \Illuminate\Http\JsonResponse
+    {
+        if ($pemesanan->user_id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        return response()->json(['status' => $pemesanan->status]);
+    }
 }

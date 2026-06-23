@@ -1,0 +1,26 @@
+@startsalt
+{+
+  <b>FORM PEMESANAN PAKET UMROH</b>
+  == Paket Reguler 9 Hari
+  Tgl Berangkat: 10 Agustus 2026
+  Sisa Kuota: 15 Kursi
+  --
+  <b>Pilih Tipe Kamar:</b>
+  () Quad (Sekamar ber-4)
+  () Triple (Sekamar ber-3)
+  () Double (Sekamar ber-2)
+  --
+  <b>Jumlah Peserta:</b>
+  "1   " ^Orang^
+  --
+  <b>Catatan Tambahan (Opsional):</b>
+  {S
+  "                                    "
+  "                                    "
+  "                                    "
+  }
+  --
+  Total Harga: | <b>Rp 32.500.000</b>
+  [   <b>BUAT PEMESANAN</b>   ] | [ Batal ]
+}
+@endsalt

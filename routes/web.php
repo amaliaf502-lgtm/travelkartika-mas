@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/pemesanan/{pemesanan}/simulasi-bayar', [PemesananController::class, 'simulasiBayar'])->name('pemesanans.simulasi-bayar');
     Route::post('/pemesanan/{pemesanan}/cek-status', [PemesananController::class, 'cekStatusMidtrans'])->name('pemesanans.cek-status');
+    Route::get('/pemesanan/{pemesanan}/status-json', [PemesananController::class, 'checkStatusJson'])->name('pemesanans.status-json');
     Route::get('/pemesanan/{pemesanan}/lengkapi-data', [PemesananController::class, 'completeData'])->name('pemesanans.complete-data');
     Route::post('/pemesanan/{pemesanan}/lengkapi-data', [PemesananController::class, 'updateManifest'])->name('pemesanans.update-manifest');
 });

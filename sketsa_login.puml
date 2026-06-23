@@ -1,0 +1,39 @@
+@startsalt
+{+
+  {
+    <b>KARTIKA MAS</b> | Beranda | Paket Umroh | Cara Pendaftaran | Tentang Kami | Kontak | Masuk | Daftar
+  }
+  ==
+  {
+    {+
+      <color:white><b>KARTIKA MAS</b></color>
+      <color:white><b>TOUR & TRAVEL</b></color>
+      --
+      <color:white>Perjalanan suci menuju Baitullah</color>
+      <color:white>bersama kami. Aman, nyaman, dan</color>
+      <color:white>terpercaya sejak lama.</color>
+      --
+      [ Terdaftar & Berizin Resmi ]
+      [ Layanan Umroh Terpercaya ]
+      [ Support 24/7 ]
+    } | {
+      <b><size:16>Selamat Datang</size></b>
+      <color:gray>Masuk ke akun Anda untuk melanjutkan</color>
+      --
+      <color:red>! Email atau password salah.</color>
+      --
+      <b>EMAIL</b>
+      "admin@example.com           "
+      <color:red>Email atau password salah.</color>
+      <b>PASSWORD</b>
+      "Masukkan password           "
+      [ ] Ingat saya
+      [       <b>Masuk</b>       ]
+      --
+      <color:gray>atau</color>
+      --
+      Belum punya akun? ^Daftar sekarang^
+    }
+  }
+}
+@endsalt

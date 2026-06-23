@@ -1,0 +1,109 @@
+@startuml
+skinparam class {
+    BackgroundColor White
+    ArrowColor Gray
+    BorderColor Gray
+}
+skinparam packageStyle rectangle
+
+package "Entitas Manajemen Pengguna" {
+    class User {
+        + id : bigint(20) <<PK>>
+        --
+        name : varchar(255)
+        email : varchar(255)
+        no_hp : varchar(20)
+        email_verified_at : timestamp
+        password : varchar(255)
+        is_admin : tinyint(1)
+        remember_token : varchar(100)
+        created_at : timestamp
+        updated_at : timestamp
+    }
+}
+
+package "Entitas Paket Umroh" {
+    class Paket {
+        + id : bigint(20) <<PK>>
+        --
+        nama_paket : varchar(255)
+        deskripsi : text
+        durasi_hari : int(11)
+        harga : decimal(15,2)
+        harga_triple : decimal(15,2)
+        harga_double : decimal(15,2)
+        kuota : int(11)
+        tersedia : int(11)
+        tanggal_berangkat : date
+        tanggal_kembali : date
+        fasilitas : text
+        status : varchar(255)
+        gambar : varchar(255)
+        hotel_makkah_nama : varchar(255)
+        hotel_makkah_bintang : int(11)
+        hotel_makkah_jarak : varchar(255)
+        hotel_madinah_nama : varchar(255)
+        hotel_madinah_bintang : int(11)
+        hotel_madinah_jarak : varchar(255)
+        created_at : timestamp
+        updated_at : timestamp
+    }
+}
+
+package "Entitas Transaksi & Keberangkatan" {
+    class Pemesanan {
+        + id : bigint(20) <<PK>>
+        --
+        # user_id : bigint(20) <<FK>>
+        # paket_id : bigint(20) <<FK>>
+        --
+        jumlah_peserta : int(11)
+        tipe_kamar : varchar(255)
+        total_harga : decimal(15,2)
+        nominal_dibayar : decimal(15,2)
+        status : varchar(255)
+        bukti_pembayaran : varchar(255)
+        snap_token : varchar(255)
+        midtrans_transaction_id : varchar(255)
+        catatan : text
+        tanggal_pemesanan : timestamp
+        nama_ayah : varchar(255)
+        nama_ibu : varchar(255)
+        tempat_lahir : varchar(255)
+        tanggal_lahir : date
+        jenis_kelamin : varchar(255)
+        pekerjaan : varchar(255)
+        status_nikah : varchar(255)
+        status_jamaah : varchar(255)
+        file_foto : varchar(255)
+        file_ktp : varchar(255)
+        file_kk : varchar(255)
+        file_paspor : varchar(255)
+        file_surat_nikah : varchar(255)
+        data_completed_at : timestamp
+        created_at : timestamp
+        updated_at : timestamp
+    }
+
+    class DepartureInfo {
+        + id : bigint(20) <<PK>>
+        --
+        # pemesanan_id : bigint(20) <<FK>>
+        --
+        tanggal_berkumpul : date
+        waktu_berkumpul : time
+        lokasi_berkumpul : varchar(255)
+        alamat_lengkap : text
+        contact_person : varchar(255)
+        no_hp_contact : varchar(255)
+        instruksi_persiapan : text
+        catatan_khusus : text
+        created_at : timestamp
+        updated_at : timestamp
+    }
+}
+
+User "1" -right- "0..*" Pemesanan
+Paket "1" -down- "0..*" Pemesanan
+Pemesanan "1" -right- "0..1" DepartureInfo
+@enduml

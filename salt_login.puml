@@ -1,0 +1,14 @@
+@startsalt
+{+
+  <color:gray><b>[ GAMBAR LOGO ]</b></color>
+  == HALO, SELAMAT DATANG!
+  --
+  <b>Email:</b>
+  "                                    "
+  <b>Password:</b>
+  "                                    "
+  [ ] Ingat Saya | ^Lupa Password?^
+  --
+  [       <b>MASUK SEKARANG</b>       ]
+}
+@endsalt

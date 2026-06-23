@@ -1,0 +1,18 @@
+@startsalt
+{+
+  {* <b>DASHBOARD ADMIN</b> | User | Paket Umroh | Transaksi | Logout }
+  == Ringkasan Sistem
+  {
+    <b>Total Jamaah</b> | <b>Pemesanan Aktif</b> | <b>Menunggu Verifikasi</b>
+    [    150     ] | [      45       ] | [         12          ]
+  }
+  --
+  == Data Pemesanan Terbaru
+  {#
+    <b>ID</b> | <b>Nama Jamaah</b> | <b>Paket</b> | <b>Status</b> | <b>Aksi</b>
+    TRX-001 | Amalia Fitri | Reguler 9 Hari | [Pending] | [Detail]
+    TRX-002 | Budi Santoso | Plus Turki | [Lunas] | [Detail]
+    TRX-003 | Siti Aminah | Reguler 9 Hari | [DP] | [Detail]
+  }
+}
+@endsalt
