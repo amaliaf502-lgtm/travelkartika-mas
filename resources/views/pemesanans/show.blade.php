@@ -52,10 +52,8 @@
                     <div class="card mb-4 shadow-sm border-0 rounded-4">
                         <div class="card-header py-3 border-0 d-flex justify-content-between align-items-center" style="background: #8B2D2D; color: white; border-radius: 15px 15px 0 0;">
                             <h5 class="mb-0 fw-bold"><i class="fas fa-id-card me-2"></i> Biodata & Dokumen Jamaah</h5>
-                            @if($pemesanan->data_completed_at)
-                                <span class="badge bg-success py-2 px-3" style="font-size: 0.9rem;">Sudah Dilengkapi</span>
-                            @else
-                                <a href="{{ route("pemesanans.complete-data", $pemesanan) }}" class="btn btn-sm btn-warning text-dark fw-bold">
+                            @if(!in_array($pemesanan->status, ['completed', 'dibatalkan']))
+                                <a href="{{ route("pemesanans.complete-data", $pemesanan) }}" class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2">
                                     <i class="fas fa-edit"></i> Edit Data
                                 </a>
                             @endif
