@@ -402,6 +402,30 @@ class PemesananController extends Controller implements HasMiddleware
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
+        if ($pemesanan->status === 'pending' && $pemesanan->midtrans_transaction_id) {
+            try {
+                \Midtrans\Config::$serverKey = config('midtrans.server_key');
+                \Midtrans\Config::$isProduction = config('midtrans.is_production');
+                \Midtrans\Config::$curlOptions = [
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_HTTPHEADER => []
+                ];
+                
+                $statusResponse = \Midtrans\Transaction::status($pemesanan->midtrans_transaction_id);
+                
+                if ($statusResponse->transaction_status == 'capture' || $statusResponse->transaction_status == 'settlement') {
+                    $pemesanan->update([
+                        'status' => 'confirmed',
+                        'nominal_dibayar' => $statusResponse->gross_amount,
+                        'midtrans_payment_type' => $statusResponse->payment_type,
+                        'midtrans_transaction_time' => $statusResponse->transaction_time,
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // Abaikan jika error (misal transaksi belum ada)
+            }
+        }
+
         return response()->json(['status' => $pemesanan->status]);
     }
 }

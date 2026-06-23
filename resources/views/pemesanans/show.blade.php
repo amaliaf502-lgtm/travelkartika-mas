@@ -299,7 +299,7 @@
 
                     <!-- Ringkasan Tagihan -->
                     <div class="card shadow-sm border-0 rounded-4">
-                        <div class="card-body p-4 bg-white rounded-4">
+                        <div class="card-body p-4 bg-white rounded-4" id="tagihan-card-container">
                             <h6 class="fw-bold text-secondary text-uppercase mb-4"><i class="fas fa-receipt me-2"></i> Ringkasan Tagihan</h6>
                             <div class="d-flex justify-content-between mb-3">
                                 <span class="text-muted">Subtotal</span>
@@ -338,71 +338,84 @@
 <script>
     let pollingInterval;
 
+    function ubahTampilanSukses() {
+        document.getElementById('status-card-container').innerHTML = `
+            <div class="mb-4 mt-2">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #198754;">
+                    <i class="fas fa-check" style="color: white; font-size: 3rem;"></i>
+                </div>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Pemesanan Dikonfirmasi</h4>
+            <p class="text-muted small mb-4">Pembayaran telah diterima dan pemesanan dikonfirmasi.</p>
+            <div class="d-grid gap-2 mt-2">
+                <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
+                    <i class="fas fa-plane-departure me-2"></i> Lihat Info Keberangkatan
+                </a>
+                <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
+                    <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
+                </a>
+            </div>
+        `;
+        
+        let tagihanContainer = document.getElementById('tagihan-card-container');
+        if (tagihanContainer) {
+            tagihanContainer.innerHTML = `
+                <h6 class="fw-bold text-secondary text-uppercase mb-4"><i class="fas fa-receipt me-2"></i> Ringkasan Tagihan</h6>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-muted">Subtotal</span>
+                    <strong class="text-dark">Rp {{ number_format($pemesanan->total_harga, 0, ",", ".") }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-4 pb-3 border-bottom">
+                    <span class="text-muted">Biaya Admin</span>
+                    <strong class="text-success">FREE</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <strong class="text-dark" style="font-size: 0.9rem;">TOTAL BAYAR</strong>
+                    <h5 class="text-danger fw-bold mb-0">Rp 0</h5>
+                </div>
+                <button class="btn btn-success w-100 fw-bold py-2 rounded-pill" disabled style="background-color: #5cb85c; border-color: #4cae4c; opacity: 1;">
+                    <i class="fas fa-check-circle me-1"></i> LUNAS
+                </button>
+            `;
+        }
+    }
+
     function startPolling() {
+        if (pollingInterval) clearInterval(pollingInterval);
         pollingInterval = setInterval(() => {
             fetch("{{ route('pemesanans.status-json', $pemesanan) }}")
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'paid' || data.status === 'confirmed' || data.status === 'settlement' || data.status === 'success') {
                         clearInterval(pollingInterval);
-                        document.getElementById('status-card-container').innerHTML = `
-                            <div class="mb-4 mt-2">
-                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #198754;">
-                                    <i class="fas fa-check" style="color: white; font-size: 3rem;"></i>
-                                </div>
-                            </div>
-                            <h4 class="fw-bold text-dark mb-2">Pemesanan Dikonfirmasi</h4>
-                            <p class="text-muted small mb-4">Pembayaran telah diterima dan pemesanan dikonfirmasi.</p>
-                            <div class="d-grid gap-2 mt-2">
-                                <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
-                                    <i class="fas fa-plane-departure me-2"></i> Lihat Info Keberangkatan
-                                </a>
-                                <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
-                                    <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
-                                </a>
-                            </div>
-                        `;
+                        ubahTampilanSukses();
                     }
                 })
                 .catch(err => console.error("Polling error:", err));
         }, 3000);
     }
+    
+    // Auto-start polling on load just in case they paid on a different tab
+    startPolling();
 
     document.getElementById("pay-button").onclick = function () {
         snap.pay("{{ $pemesanan->midtrans_snap_token }}", {
             onSuccess: function(result) {
-                // Jika webhook gagal di localhost, fallback langsung ganti UI di sini:
                 clearInterval(pollingInterval);
-                document.getElementById('status-card-container').innerHTML = `
-                    <div class="mb-4 mt-2">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #198754;">
-                            <i class="fas fa-check" style="color: white; font-size: 3rem;"></i>
-                        </div>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-2">Pemesanan Dikonfirmasi</h4>
-                    <p class="text-muted small mb-4">Pembayaran telah diterima dan pemesanan dikonfirmasi.</p>
-                    <div class="d-grid gap-2 mt-2">
-                        <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
-                            <i class="fas fa-plane-departure me-2"></i> Lihat Info Keberangkatan
-                        </a>
-                        <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
-                            <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
-                        </a>
-                    </div>
-                `;
+                ubahTampilanSukses();
             },
             onPending: function(result) {
-                alert("Menunggu pembayaran!");
+                // Polling akan terus jalan
+                console.log("Menunggu pembayaran VA/Transfer", result);
             },
             onError: function(result) {
                 alert("Pembayaran gagal!");
             },
             onClose: function () {
-                clearInterval(pollingInterval);
+                // Biarkan polling tetap jalan
             }
         });
         
-        // Mulai polling saat popup dibuka
         startPolling();
     };
 </script>
