@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 
-                                <h5 class="fw-bold text-dark mt-4 mb-3">Dokumen Digital</h5>
+                                <h5 class="fw-bold text-dark mb-3">Dokumen Digital</h5>
                                 <hr class="mb-4">
                                 <div class="row g-3">
                                     @php
@@ -98,8 +98,8 @@
                                     @endphp
                                     @foreach($docs as $label => $file)
                                         <div class="col">
-                                            <div class="border rounded-3 text-center p-3 h-100 d-flex flex-column justify-content-start bg-white shadow-sm">
-                                                <div class="fw-bold text-dark mb-3" style="font-size: 1rem;">{{ $label }}</div>
+                                            <div class="border rounded-3 text-center p-2 h-100 d-flex flex-column justify-content-start bg-white" style="border-color: #e9ecef !important;">
+                                                <div class="fw-bold text-dark mb-2" style="font-size: 0.95rem;">{{ $label }}</div>
                                                 @if($file)
                                                     <a href="{{ asset($file) }}" target="_blank" class="d-block rounded p-2" style="background-color: #f8f9fa; flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none;">
                                                         <img src="{{ asset($file) }}" class="img-fluid rounded" style="max-height: 120px; width: auto; object-fit: contain;">
