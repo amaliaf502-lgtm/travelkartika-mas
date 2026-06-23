@@ -371,8 +371,25 @@
     document.getElementById("pay-button").onclick = function () {
         snap.pay("{{ $pemesanan->midtrans_snap_token }}", {
             onSuccess: function(result) {
-                // Biarkan polling yang menangani perubahan DOM, atau jika mau redirect:
-                // window.location.href = "{{ route("pemesanans.show", $pemesanan) }}";
+                // Jika webhook gagal di localhost, fallback langsung ganti UI di sini:
+                clearInterval(pollingInterval);
+                document.getElementById('status-card-container').innerHTML = `
+                    <div class="mb-4 mt-2">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 90px; height: 90px; background-color: #198754;">
+                            <i class="fas fa-check" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-2">Pemesanan Dikonfirmasi</h4>
+                    <p class="text-muted small mb-4">Pembayaran telah diterima dan pemesanan dikonfirmasi.</p>
+                    <div class="d-grid gap-2 mt-2">
+                        <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
+                            <i class="fas fa-plane-departure me-2"></i> Lihat Info Keberangkatan
+                        </a>
+                        <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
+                            <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
+                        </a>
+                    </div>
+                `;
             },
             onPending: function(result) {
                 alert("Menunggu pembayaran!");
