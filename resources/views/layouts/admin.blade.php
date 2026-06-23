@@ -46,15 +46,25 @@
         }
 
         .sidebar-header {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: inline-block;
+            width: 90%;
         }
 
         .sidebar-header img {
-            height: 50px;
+            max-width: 100%;
+            height: auto;
+            max-height: 65px;
             object-fit: contain;
-            margin-bottom: 10px;
         }
 
         .sidebar-header h4 {
@@ -78,14 +88,17 @@
             align-items: center;
             color: #ecf0f1;
             text-decoration: none;
-            padding: 12px 20px;
+            padding: 14px 20px;
             transition: all 0.3s;
             border-left: 3px solid transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
-            background: var(--sidebar-hover);
+            background: #5a1f1f;
             border-left-color: var(--secondary);
             color: var(--secondary);
         }
@@ -119,6 +132,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
 
         .admin-topbar h5 {
@@ -404,11 +420,13 @@
         <!-- Sidebar -->
         <aside class="admin-sidebar">
             <div class="sidebar-header">
-                @if(file_exists(public_path('images/kartikamas.png')))
-                    <img src="{{ asset('images/kartikamas.png') }}" alt="Travelkartika Mas">
-                @else
-                    <i class="fas fa-plane" style="font-size: 2rem; color: var(--secondary);"></i>
-                @endif
+                <div class="logo-container">
+                    @if(file_exists(public_path('images/kartikamas.png')))
+                        <img src="{{ asset('images/kartikamas.png') }}" alt="Travelkartika Mas">
+                    @else
+                        <i class="fas fa-plane" style="font-size: 2rem; color: var(--secondary);"></i>
+                    @endif
+                </div>
                 <h4>Admin Panel</h4>
             </div>
 
@@ -423,21 +441,27 @@
                 <li>
                     <a href="{{ route('admin.jamaah.index') }}" class="@if(request()->routeIs('admin.jamaah.*')) active @endif">
                         <i class="fas fa-users"></i>
-                        <span>Data Jamaah</span>
+                        <span>Kelola Data Jamaah</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.pakets.index') }}" class="@if(request()->routeIs('admin.pakets.*')) active @endif">
                         <i class="fas fa-plane"></i>
-                        <span>Paket Umroh</span>
+                        <span>Kelola Paket Umroh</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.pemesanans.index') }}" class="@if(request()->routeIs('admin.pemesanans.*')) active @endif">
+                    <a href="{{ route('admin.pemesanans.index') }}" class="@if(request()->routeIs('admin.pemesanans.*')) active @endif d-flex align-items-center">
                         <i class="fas fa-shopping-cart"></i>
-                        <span>Pemesanan</span>
+                        <span class="me-2">Kelola Pemesanan</span>
+                        @php
+                            $pendingNavCount = \App\Models\Pemesanan::where('status', 'pending')->count();
+                        @endphp
+                        @if($pendingNavCount > 0)
+                            <span class="badge d-flex align-items-center justify-content-center" style="background-color: var(--secondary); color: white; font-size: 0.75rem; width: 22px; height: 22px; border-radius: 50%; padding: 0;">{{ $pendingNavCount }}</span>
+                        @endif
                     </a>
                 </li>
 
@@ -458,21 +482,20 @@
                 <li>
                     <a href="{{ route('admin.departure-info.index') }}" class="@if(request()->routeIs('admin.departure-info.*')) active @endif">
                         <i class="fas fa-info-circle"></i>
-                        <span>Informasi Keberangkatan</span>
+                        <span>Kelola Informasi Keberangkatan</span>
                     </a>
                 </li>
 
                 <div class="sidebar-divider"></div>
 
                 <li>
-                    <form method="POST" action="{{ route('logout') }}" style="display: flex; width: 100%;">
-                        @csrf
-                        <button type="submit" style="background: none; border: none; color: #ecf0f1; text-decoration: none; padding: 12px 20px; transition: all 0.3s; border-left: 3px solid transparent; width: 100%; text-align: left; display: flex; align-items: center; cursor: pointer;">
-                            <i class="fas fa-sign-out-alt" style="margin-right: 12px; width: 20px; text-align: center;"></i>
-                            <span>Logout</span>
-                        </button>
-                    </form>
+                    <a href="{{ route('home') }}" style="color: #ecf0f1;">
+                        <i class="fas fa-home"></i>
+                        <span>Kembali ke Website</span>
+                    </a>
                 </li>
+
+
             </ul>
         </aside>
 
@@ -480,19 +503,18 @@
         <div class="admin-main">
             <!-- Top Bar -->
             <header class="admin-topbar">
-                <h5>
-                    <i class="fas fa-bars" style="cursor: pointer; display: none;"></i>
-                    Travelkartika Mas Admin
+                <h5 class="mb-0 fw-bold" style="color: #8B2D2D;">
+                    Kartika Mas Admin
                 </h5>
-                <div class="admin-user">
-                    <span>{{ Auth::user()->name }}</span>
-                    <div class="admin-user-avatar">
+                <div class="admin-user d-flex align-items-center gap-3">
+                    <span class="text-secondary" style="font-size: 0.9rem;">Administrator</span>
+                    <div class="admin-user-avatar d-flex align-items-center justify-content-center fw-bold" style="width: 35px; height: 35px; border-radius: 50%; background-color: #8B2D2D; color: white; font-size: 1rem;">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
-                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    <form method="POST" action="{{ route('logout') }}" class="m-0">
                         @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                        <button type="submit" class="logout-btn btn btn-sm px-3" style="background-color: #e74c3c; color: white; border-radius: 6px; font-weight: 500;">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
                         </button>
                     </form>
                 </div>
