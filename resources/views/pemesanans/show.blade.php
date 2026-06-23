@@ -91,11 +91,11 @@
                                 <div class="row g-3">
                                     @php
                                         $docs = [
-                                            "Pas Foto" => $pemesanan->pas_foto,
-                                            "KTP" => $pemesanan->ktp,
-                                            "KK" => $pemesanan->kk,
-                                            "Paspor" => $pemesanan->paspor,
-                                            "Surat Nikah" => $pemesanan->surat_nikah,
+                                            "Pas Foto" => $pemesanan->file_foto,
+                                            "KTP" => $pemesanan->file_ktp,
+                                            "KK" => $pemesanan->file_kk,
+                                            "Paspor" => $pemesanan->file_paspor,
+                                            "Surat Nikah" => $pemesanan->file_surat_nikah,
                                         ];
                                     @endphp
                                     @foreach($docs as $label => $file)
