@@ -86,8 +86,8 @@
                                     </div>
                                 </div>
                                 
-                                <h6 class="fw-bold mb-3">Dokumen Digital</h6>
-                                <hr>
+                                <h5 class="fw-bold text-dark mt-4 mb-3">Dokumen Digital</h5>
+                                <hr class="mb-4">
                                 <div class="row g-3">
                                     @php
                                         $docs = [
@@ -99,16 +99,18 @@
                                         ];
                                     @endphp
                                     @foreach($docs as $label => $file)
-                                        <div class="col-md-2 col-6">
-                                            <div class="border rounded text-center p-2 h-100 d-flex flex-column justify-content-between bg-white shadow-sm">
-                                                <div class="fw-bold mb-2" style="font-size: 0.85rem;">{{ $label }}</div>
+                                        <div class="col">
+                                            <div class="border rounded-3 text-center p-3 h-100 d-flex flex-column justify-content-start bg-white shadow-sm">
+                                                <div class="fw-bold text-dark mb-3" style="font-size: 1rem;">{{ $label }}</div>
                                                 @if($file)
-                                                    <a href="{{ asset($file) }}" target="_blank" class="d-block mb-2">
-                                                        <img src="{{ asset($file) }}" class="img-fluid rounded" style="height: 90px; width: 100%; object-fit: contain;">
+                                                    <a href="{{ asset($file) }}" target="_blank" class="d-block rounded p-2" style="background-color: #f8f9fa; flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                                                        <img src="{{ asset($file) }}" class="img-fluid rounded" style="max-height: 120px; width: auto; object-fit: contain;">
                                                     </a>
-                                                    <span class="badge bg-success rounded-pill px-3">Terunggah</span>
                                                 @else
-                                                    <div class="py-3 text-muted small"><i class="fas fa-times-circle text-danger mb-1"></i><br>Tidak Ada</div>
+                                                    <div class="rounded p-2" style="background-color: #f8f9fa; flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                                        <i class="fas fa-times-circle text-danger mb-2" style="font-size: 1.5rem;"></i>
+                                                        <span class="text-muted small">Tidak Ada</span>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
