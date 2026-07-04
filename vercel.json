@@ -3,7 +3,10 @@
     "builds": [
         {
             "src": "api/index.php",
-            "use": "vercel-php@0.7.2"
+            "use": "vercel-php@0.7.2",
+            "config": {
+                "maxDuration": 30
+            }
         },
         {
             "src": "public/**",
@@ -28,11 +31,24 @@
             "dest": "/public/images/$1"
         },
         {
+            "src": "/fonts/(.*)",
+            "dest": "/public/fonts/$1"
+        },
+        {
+            "src": "/favicon.ico",
+            "dest": "/public/favicon.ico"
+        },
+        {
+            "src": "/robots.txt",
+            "dest": "/public/robots.txt"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
     ],
     "env": {
+        "APP_NAME": "Travelkartika Mas",
         "APP_ENV": "production",
         "APP_DEBUG": "false",
         "APP_URL": "https://travelkartika-mas.vercel.app",
@@ -45,6 +61,8 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
-        "SESSION_SECURE_COOKIE": "true"
+        "SESSION_SECURE_COOKIE": "true",
+        "APP_LOCALE": "id",
+        "APP_FALLBACK_LOCALE": "id"
     }
 }
