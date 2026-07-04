@@ -54,7 +54,7 @@
         .logo-container {
             background: white;
             border-radius: 8px;
-            padding: 10px;
+            padding: 5px 10px;
             margin-bottom: 15px;
             display: inline-block;
             width: 90%;
@@ -91,16 +91,20 @@
             padding: 14px 20px;
             transition: all 0.3s;
             border-left: 3px solid transparent;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.95rem;
             font-weight: 500;
         }
 
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
-            background: #5a1f1f;
+            background: #6a2121; /* Slightly lighter maroon than #5a1f1f for a modern feel */
             border-left-color: var(--secondary);
             color: var(--secondary);
+        }
+
+        .sidebar-menu a span {
+            line-height: 1.5;
+            display: block;
         }
 
         .sidebar-menu i {
@@ -187,19 +191,23 @@
         /* Cards */
         .card {
             border: none;
+            border-top: 3px solid var(--primary) !important;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .card-header {
-            background: var(--primary);
-            color: white;
+            background: white;
+            color: #333;
+            border-bottom: 1px solid #eee;
             border-radius: 8px 8px 0 0 !important;
+            padding: 15px 20px;
         }
 
         .card-header h5 {
             margin: 0;
-            font-weight: 600;
+            font-weight: bold;
+            color: #333;
         }
 
         /* Stats Card */
@@ -263,8 +271,8 @@
         }
 
         .table thead th {
-            background: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
+            background: white;
+            border-bottom: 2px solid #eee;
             color: var(--primary);
             font-weight: 600;
         }
@@ -297,22 +305,23 @@
         /* Badge */
         .badge {
             padding: 6px 12px;
-            font-weight: 600;
+            font-weight: 500;
+            border-radius: 50rem; /* Membuat bentuk oval (pill) */
         }
 
         .badge-pending {
-            background: #f39c12;
-            color: white;
+            background-color: #e6f2ff; 
+            color: #0066cc;
         }
 
-        .badge-confirmed {
-            background: #27ae60;
-            color: white;
+        .badge-confirmed, .badge-completed {
+            background-color: #e6f4ea; 
+            color: #1e8e3e;
         }
 
         .badge-dibatalkan {
-            background: #e74c3c;
-            color: white;
+            background-color: #fdecec; 
+            color: #c5221f;
         }
 
         /* Responsive */
@@ -430,6 +439,11 @@
                 <h4>Admin Panel</h4>
             </div>
 
+            @php
+                $isPemesananActive = request()->routeIs('admin.pemesanans.*') && request('from') !== 'departure';
+                $isDepartureActive = request()->routeIs('admin.departure-info.*') || (request()->routeIs('admin.pemesanans.confirm') && request('from') === 'departure');
+            @endphp
+
             <ul class="sidebar-menu">
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="@if(request()->routeIs('admin.dashboard')) active @endif">
@@ -453,7 +467,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.pemesanans.index') }}" class="@if(request()->routeIs('admin.pemesanans.*')) active @endif d-flex align-items-center">
+                    <a href="{{ route('admin.pemesanans.index') }}" class="@if($isPemesananActive) active @endif d-flex align-items-center">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="me-2">Kelola Pemesanan</span>
                         @php
@@ -472,17 +486,19 @@
                     </a>
                 </li>
 
+
+
                 <li>
-                    <a href="{{ route('admin.kelola-kuota') }}" class="@if(request()->routeIs('admin.kelola-kuota')) active @endif">
-                        <i class="fas fa-users-cog"></i>
-                        <span>Kelola Kuota</span>
+                    <a href="{{ route('admin.departure-info.index') }}" class="@if($isDepartureActive) active @endif">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Info Keberangkatan</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.departure-info.index') }}" class="@if(request()->routeIs('admin.departure-info.*')) active @endif">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Kelola Informasi Keberangkatan</span>
+                    <a href="{{ route('admin.laporan.total') }}" class="@if(request()->routeIs('admin.laporan.total')) active @endif">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Laporan Total Jamaah</span>
                     </a>
                 </li>
 

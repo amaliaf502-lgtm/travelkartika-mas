@@ -113,7 +113,10 @@ class AdminController extends Controller
 
     public function verifikasi_pembayaran_index(Request $request): View
     {
-        $query = Pemesanan::with('user', 'paket')->latest();
+        // Hanya mengambil data dengan status pending untuk diverifikasi
+        $query = Pemesanan::with('user', 'paket')
+            ->where('status', 'pending')
+            ->latest();
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -144,7 +147,7 @@ class AdminController extends Controller
         return view('admin.pemesanans.show', compact('pemesanan'));
     }
 
-    public function cetakKuitansi(Pemesanan $pemesanan): View
+    public function cetakKuitansi(Pemesanan $pemesanan)
     {
         // Pastikan hanya pemesanan yang tidak dibatalkan / pending yang bisa dicetak kuitansinya
         if (!in_array($pemesanan->status, ['confirmed', 'completed'])) {
@@ -152,7 +155,9 @@ class AdminController extends Controller
         }
 
         $pemesanan->load('user', 'paket');
-        return view('admin.pemesanans.cetak_kuitansi', compact('pemesanan'));
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.pemesanans.cetak_kuitansi', compact('pemesanan'));
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download('Kuitansi_Pemesanan_' . $pemesanan->id . '.pdf');
     }
 
     public function pemesanans_confirm(Pemesanan $pemesanan): View
@@ -198,6 +203,11 @@ class AdminController extends Controller
             );
         });
 
+        if ($request->query('from') === 'departure') {
+            return redirect()->route('admin.departure-info.index')
+                ->with('success', 'Info keberangkatan berhasil disimpan!');
+        }
+
         return redirect()->route('admin.pemesanans.show', $pemesanan)
             ->with('success', 'Pemesanan berhasil dikonfirmasi!');
     }
@@ -235,7 +245,7 @@ class AdminController extends Controller
         $jamaah = User::where('is_admin', false)
             ->withCount('pemesanans')
             ->latest()
-            ->paginate(15);
+            ->get();
         
         return view('admin.jamaah.index', compact('jamaah'));
     }

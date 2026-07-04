@@ -1,0 +1,75 @@
+@startuml pembayaran
+title Activity Diagram - Melakukan Pembayaran
+|Aktor|
+start
+:Buka Halaman "Pesanan Saya";
+:Pilih Pesanan (Status: Pending);
+:Klik "Bayar Sekarang";
+|Sistem|
+:Generate Midtrans Snap Token;
+:Tampilkan Halaman Pembayaran (Midtrans);
+|Aktor|
+:Pilih Metode Pembayaran;
+:Lakukan Pembayaran;
+|Sistem|
+if (Apakah Pembayaran\nBerhasil?) then (Ya)
+  :Proses & Catat Transaksi Berhasil;
+  :Update Status Pesanan -> Confirmed;
+else (Tidak)
+  :Catat Transaksi Gagal;
+  :Status Tetap Pending / Menunggu;
+endif
+stop
+@enduml
+
+@startuml verifikasi
+title Activity Diagram - Verifikasi Pembayaran
+|Midtrans|
+start
+:Pembayaran Selesai/Diproses;
+:Kirim Notifikasi Webhook;
+|Sistem|
+:Terima Data Webhook;
+:Validasi Signature;
+if (Valid?) then (Ya)
+  if (Status == Settlement/Capture?) then (Ya)
+    :Update Status Pemesanan -> "Confirmed";
+    :Simpan Nominal Dibayar;
+  else (Tidak)
+    :Update Status -> "Pending / Failed";
+  endif
+else (Tidak)
+  :Abaikan Data;
+endif
+|Admin|
+:Buka Menu Verifikasi Pembayaran;
+:Melihat Daftar Pembayaran;
+if (Cek Manual Midtrans / Konfirmasi Manual?) then (Ya)
+  :Klik "Konfirmasi Manual" / "Cek Status";
+  |Sistem|
+  :Update Status -> "Confirmed";
+else (Tidak)
+endif
+stop
+@enduml
+
+@startuml laporan
+title Activity Diagram - Laporan Data Jamaah
+|Admin|
+start
+:Buka Dashboard Admin;
+:Pilih Menu "Laporan Total";
+|Sistem|
+:Ambil Data Pemesanan 
+(Status: Confirmed/Paid/Completed);
+:Tampilkan Data;
+|Admin|
+:Lihat Laporan Jamaah;
+:Klik "Cetak PDF" atau "Download Laporan";
+|Sistem|
+:Generate PDF menggunakan DOMPDF;
+:Kirim File ke Browser;
+|Admin|
+:Menerima & Menyimpan File PDF;
+stop
+@enduml

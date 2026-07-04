@@ -1,0 +1,217 @@
+@startuml sequence_registrasi
+title Sequence Diagram Registrasi
+actor Pengunjung
+boundary "Form Registrasi" as Form
+control Sistem
+database Database
+
+Pengunjung -> Form : Membuka halaman website
+Form --> Pengunjung : Menampilkan Form Registrasi
+Pengunjung -> Form : Mengisi data (Nama, Email, No. HP) & Klik Daftar
+Form -> Sistem : Meneruskan data registrasi
+Sistem -> Sistem : Melakukan validasi data
+Sistem -> Database : Menyimpan data akun baru
+Database --> Sistem : Data sukses tersimpan
+Sistem --> Form : Mengembalikan status konfirmasi berhasil
+Form --> Pengunjung : Menampilkan pesan registrasi berhasil
+@enduml
+
+@startuml sequence_login
+title Sequence Diagram Login
+actor Pengguna
+boundary "Halaman Login" as Halaman
+control Sistem
+database Database
+
+Pengguna -> Halaman : Memasukkan Email & Password
+Halaman -> Sistem : Mengirim data login
+Sistem -> Sistem : Memvalidasi data login
+Sistem -> Database : Memeriksa data pengguna
+Database --> Sistem : Hasil pengecekan
+alt Data Sesuai
+    Sistem -> Sistem : Membuat sesi login (autentikasi)
+    Sistem --> Halaman : Login berhasil
+    Halaman --> Pengguna : Menampilkan dashboard (Sesuai hak akses)
+else Data Tidak Sesuai
+    Sistem --> Halaman : Login gagal
+    Halaman --> Pengguna : Menampilkan pesan gagal login
+end
+@enduml
+
+@startuml sequence_pemesanan
+title Sequence Diagram Pemesanan Paket
+actor Jamaah
+boundary "Sistem (Antarmuka)" as Antarmuka
+control Sistem
+database Database
+
+Jamaah -> Antarmuka : Memilih paket umroh yang tersedia
+Antarmuka --> Jamaah : Menampilkan detail paket
+Jamaah -> Antarmuka : Mengisi data pemesanan & Mengirim
+Antarmuka -> Sistem : Meneruskan data pemesanan
+Sistem -> Database : Menyimpan data pemesanan
+Database --> Sistem : Sukses menyimpan
+Sistem --> Antarmuka : Konfirmasi berhasil
+Antarmuka --> Jamaah : Menampilkan informasi pemesanan berhasil
+@enduml
+
+@startuml sequence_upload_dokumen
+title Sequence Diagram Upload Dokumen
+actor Jamaah
+boundary "Menu Upload Dokumen" as Menu
+control Sistem
+database "Database/Storage" as DB
+
+Jamaah -> Menu : Membuka menu upload dokumen
+Menu --> Jamaah : Menampilkan form unggah dokumen
+Jamaah -> Menu : Memilih file & Mengirimkan
+Menu -> Sistem : Meneruskan file dokumen
+Sistem -> Sistem : Melakukan validasi file
+Sistem -> DB : Menyimpan dokumen
+DB --> Sistem : Proses simpan berhasil
+Sistem --> Menu : Status unggah berhasil
+Menu --> Jamaah : Menampilkan status dokumen berhasil diunggah
+@enduml
+
+@startuml sequence_pembayaran
+title Sequence Diagram Pembayaran
+actor Jamaah
+boundary "Detail Pemesanan" as Detail
+boundary "Midtrans" as Midtrans
+control Sistem
+database Database
+
+Jamaah -> Detail : Membuka detail pemesanan & memilih menu pembayaran
+Detail --> Jamaah : Menampilkan rincian pembayaran
+Jamaah -> Detail : Memilih metode pembayaran
+Detail -> Midtrans : Meneruskan permintaan pembayaran
+Midtrans --> Jamaah : Menampilkan halaman pembayaran Midtrans
+Jamaah -> Midtrans : Melakukan transaksi pembayaran
+Midtrans -> Sistem : Mengirimkan notifikasi status pembayaran
+Sistem -> Database : Memperbarui status pembayaran
+Database --> Sistem : Berhasil diperbarui
+Sistem --> Detail : Info status pembayaran terkini
+Detail --> Jamaah : Menampilkan informasi pembayaran di riwayat
+@enduml
+
+@startuml sequence_kelola_paket
+title Sequence Diagram Kelola Paket Umroh
+actor Admin
+boundary "Menu Kelola Paket" as Menu
+control Sistem
+database Database
+
+Admin -> Menu : Membuka menu kelola paket umroh
+Menu -> Sistem : Meminta daftar paket
+Sistem -> Database : Mengambil data paket
+Database --> Sistem : Mengembalikan data paket
+Sistem --> Menu : Menyiapkan data untuk ditampilkan
+Menu --> Admin : Menampilkan daftar paket yang tersedia
+
+Admin -> Menu : Menambah, Mengubah, atau Menghapus data paket
+Menu -> Sistem : Mengirim perubahan data
+Sistem -> Database : Menyimpan perubahan ke database
+Database --> Sistem : Perubahan berhasil disimpan
+Sistem --> Menu : Mengirim konfirmasi pembaruan
+Menu --> Admin : Menampilkan info data paket berhasil diperbarui
+@enduml
+
+@startuml sequence_verifikasi_pembayaran
+title Sequence Diagram Verifikasi Pembayaran
+actor Admin
+boundary "Menu Verifikasi" as Menu
+control Sistem
+database Database
+
+Admin -> Menu : Membuka menu verifikasi pembayaran
+Menu -> Sistem : Meminta daftar transaksi & status
+Sistem -> Database : Mengambil data transaksi
+Database --> Sistem : Mengembalikan data transaksi
+Sistem --> Menu : Menyiapkan daftar transaksi
+Menu --> Admin : Menampilkan daftar transaksi dari Midtrans
+
+Admin -> Menu : Memeriksa & melakukan verifikasi
+Menu -> Sistem : Meneruskan verifikasi
+Sistem -> Database : Memperbarui status pembayaran
+Database --> Sistem : Status berhasil diperbarui
+Sistem --> Menu : Mengembalikan hasil verifikasi
+Menu --> Admin : Menampilkan hasil verifikasi pembayaran
+@enduml
+
+@startuml sequence_kelola_jamaah
+title Sequence Diagram Kelola Data Jamaah
+actor Admin
+boundary "Menu Data Jamaah" as Menu
+control Sistem
+database Database
+
+Admin -> Menu : Membuka menu data jamaah
+Menu -> Sistem : Meminta data jamaah
+Sistem -> Database : Mengambil data jamaah
+Database --> Sistem : Mengembalikan data jamaah
+Sistem --> Menu : Menyiapkan daftar jamaah
+Menu --> Admin : Menampilkan daftar jamaah
+
+Admin -> Menu : Memeriksa/memperbarui biodata, dokumen, status
+Menu -> Sistem : Mengirim perubahan data
+Sistem -> Database : Memperbarui data pada database
+Database --> Sistem : Data berhasil diperbarui
+Sistem --> Menu : Mengirim konfirmasi sukses
+Menu --> Admin : Menampilkan info perubahan berhasil
+@enduml
+
+@startuml sequence_laporan_jamaah
+title Sequence Diagram Laporan Data Jamaah
+actor Admin
+boundary "Menu Laporan" as Menu
+control Sistem
+database Database
+
+Admin -> Menu : Membuka menu laporan data jamaah
+Menu -> Sistem : Meminta ringkasan & daftar jamaah
+Sistem -> Database : Mengambil data dari database
+Database --> Sistem : Mengembalikan data statistik & jamaah
+Sistem --> Menu : Menyiapkan tampilan laporan
+Menu --> Admin : Menampilkan ringkasan statistik & daftar jamaah
+
+Admin -> Menu : Memilih menu "Export PDF"
+Menu -> Sistem : Permintaan cetak laporan PDF
+Sistem -> Sistem : Menghasilkan dokumen format PDF
+Sistem --> Menu : Dokumen PDF siap
+Menu --> Admin : Menampilkan/Mengunduh dokumen PDF
+@enduml
+
+@startuml sequence_informasi_keberangkatan
+title Sequence Diagram Kelola Informasi Keberangkatan
+actor Admin
+boundary "Menu Info Keberangkatan" as Menu
+control Sistem
+database Database
+
+Admin -> Menu : Membuka menu informasi keberangkatan
+Menu -> Sistem : Meminta data keberangkatan
+Sistem -> Database : Mengambil data tersimpan
+Database --> Sistem : Mengembalikan data
+Sistem --> Menu : Menyiapkan data
+Menu --> Admin : Menampilkan data keberangkatan
+
+Admin -> Menu : Menambah/memperbarui informasi (lokasi, waktu, dll)
+Menu -> Sistem : Mengirim pembaruan informasi
+Sistem -> Database : Memperbarui informasi di database
+Database --> Sistem : Data berhasil diperbarui
+Sistem --> Menu : Konfirmasi pembaruan
+Menu --> Admin : Menampilkan info berhasil diperbarui
+@enduml
+
+@startuml sequence_logout
+title Sequence Diagram Logout
+actor Pengguna
+boundary "Menu Sistem" as Menu
+control Sistem
+
+Pengguna -> Menu : Memilih menu Logout
+Menu -> Sistem : Mengirim permintaan pengakhiran sesi
+Sistem -> Sistem : Mengakhiri sesi pengguna yang aktif
+Sistem --> Menu : Sesi telah berakhir
+Menu --> Pengguna : Mengarahkan pengguna kembali ke halaman Login
+@enduml

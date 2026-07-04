@@ -25,7 +25,7 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
         }
         .paket-img-wrapper {
-            height: 160px;
+            height: 240px;
             overflow: hidden;
             position: relative;
             background-color: #fcfcfc;
@@ -154,8 +154,8 @@
             }
 
             .gambar-paket {
-                height: 145px;
-                max-height: 145px;
+                height: 200px;
+                max-height: 200px;
             }
 
             .brochure-header h2 {
@@ -192,9 +192,9 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <p class="hero-subtitle">Paket Terkini</p>
-            <h1>Paket Umroh Hemat</h1>
-            <p>Pilih paket yang sesuai dengan kebutuhan dan budget Anda</p>
+            <p class="hero-subtitle">Katalog Perjalanan</p>
+            <h1>Pilihan Paket Umroh & Haji</h1>
+            <p>Temukan berbagai paket ibadah yang sesuai dengan kebutuhan Anda</p>
         </div>
     </section>
 
@@ -219,12 +219,12 @@
                             @endif
 
                             <div class="card-body p-3 d-flex flex-column flex-grow-1">
-                                <h5 class="card-title fw-bold mb-2">{{ $paket->nama_paket }}</h5>
+                                <h5 class="card-title fw-bold mb-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 48px;">{{ $paket->nama_paket }}</h5>
                                 
                                 <div class="mb-2 text-muted" style="font-size: 0.9rem;">
-                                    <div class="mb-1"><i class="fas fa-calendar-alt me-2 text-primary"></i> Berangkat: <strong>{{ $paket->tanggal_berangkat->format('d M Y') }}</strong></div>
-                                    <div class="mb-1"><i class="fas fa-plane-departure me-2 text-primary"></i> Maskapai: <strong>{{ $paket->maskapai ?? 'Saudi Airlines' }}</strong></div>
-                                    <div><i class="fas fa-users me-2 text-primary"></i> Sisa Kuota: <strong>{{ $paket->tersedia }}/{{ $paket->kuota }}</strong></div>
+                                    <div class="mb-1">Berangkat: <strong>{{ $paket->tanggal_berangkat->format('d M Y') }}</strong></div>
+                                    <div class="mb-1">Maskapai: <strong>{{ $paket->maskapai ?? 'Saudi Airlines' }}</strong></div>
+                                    <div>Sisa Kuota: <strong>{{ $paket->tersedia }}/{{ $paket->kuota }}</strong></div>
                                 </div>
                                 
                                 <div class="mt-auto pt-2 border-top">
@@ -232,7 +232,7 @@
                                     <div class="paket-price mb-2" style="font-size: 1.2rem;">Rp {{ number_format($paket->harga, 0, ',', '.') }}</div>
                                     
                                     <a href="{{ route('pakets.show', $paket) }}" class="btn btn-pesan w-100 text-center text-decoration-none py-2">
-                                        Lihat Detail <i class="fas fa-arrow-right ms-2"></i>
+                                        Lihat Detail
                                     </a>
                                 </div>
                             </div>

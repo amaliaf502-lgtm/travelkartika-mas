@@ -308,7 +308,7 @@
                 box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
             }
             .paket-img-wrapper {
-                height: 220px;
+                height: 240px;
                 overflow: hidden;
                 position: relative;
                 background-color: #fcfcfc;
@@ -450,10 +450,9 @@
     <section class="paket-section py-4">
         <div class="container">
             <div class="paket-section-header text-center">
-                <span class="paket-section-kicker"><i class="fas fa-kaaba"></i> Paket Umroh Unggulan</span>
-                <h2 class="paket-title">Paket Kartika Mas Tour & Travel</h2>
+                <h2 class="paket-title">Pilihan Paket Perjalanan Ibadah</h2>
                 <p class="paket-subtitle">
-                    Pilihan paket yang disajikan dengan tampilan jelas, harga menonjol, dan detail singkat agar jamaah mudah membandingkan setiap opsi.
+                    Temukan berbagai pilihan paket umroh dan haji yang dirancang khusus untuk kenyamanan, keamanan, dan kekhusyukan ibadah Anda di Tanah Suci.
                 </p>
             </div>
             <div class="row justify-content-center gx-3">
@@ -475,12 +474,12 @@
                             @endif
 
                             <div class="card-body p-4 d-flex flex-column">
-                                <h4 class="card-title fw-bold mb-3">{{ $paket->nama_paket }}</h4>
+                                <h5 class="card-title fw-bold mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 52px;">{{ $paket->nama_paket }}</h5>
                                 
                                 <div class="mb-3 text-muted">
-                                    <div class="mb-2"><i class="fas fa-calendar-alt me-2 text-primary"></i> Berangkat: <strong>{{ $paket->tanggal_berangkat->format('d M Y') }}</strong></div>
-                                    <div class="mb-2"><i class="fas fa-plane-departure me-2 text-primary"></i> Maskapai: <strong>{{ $paket->maskapai ?? 'Saudi Airlines' }}</strong></div>
-                                    <div><i class="fas fa-users me-2 text-primary"></i> Sisa Kuota: <strong>{{ $paket->tersedia }}/{{ $paket->kuota }}</strong></div>
+                                    <div class="mb-2">Berangkat: <strong>{{ $paket->tanggal_berangkat->format('d M Y') }}</strong></div>
+                                    <div class="mb-2">Maskapai: <strong>{{ $paket->maskapai ?? 'Saudi Airlines' }}</strong></div>
+                                    <div>Sisa Kuota: <strong>{{ $paket->tersedia }}/{{ $paket->kuota }}</strong></div>
                                 </div>
                                 
                                 <div class="mt-auto pt-3 border-top">
@@ -488,7 +487,7 @@
                                     <div class="paket-price mb-3">Rp {{ number_format($paket->harga, 0, ',', '.') }}</div>
                                     
                                     <a href="{{ route('pakets.show', $paket) }}" class="btn btn-pesan w-100 text-center">
-                                        Lihat Detail <i class="fas fa-arrow-right ms-2"></i>
+                                        Lihat Detail
                                     </a>
                                 </div>
                             </div>
@@ -504,7 +503,7 @@
             </div>
             <div class="text-center mt-5">
                 <a href="{{ route('pakets.index') }}" class="btn btn-primary">
-                    Lihat Semua Paket <i class="fas fa-arrow-right ms-2"></i>
+                    Lihat Semua Paket
                 </a>
             </div>
         </div>
@@ -606,7 +605,7 @@
     <section id="cara-daftar" class="py-4" style="background: linear-gradient(135deg, rgba(139,45,45,0.08) 0%, rgba(218,165,32,0.06) 100%);">
         <div class="container">
             <h2 class="text-center mb-5" style="color: var(--primary); font-weight: bold;">
-                <i class="fas fa-laptop-code" style="margin-right:8px"></i> Cara Pendaftaran Otomatis
+                Alur Pendaftaran
             </h2>
             <div class="row justify-content-center">
                 <div class="col-lg-2 col-md-4 mb-4 text-center">

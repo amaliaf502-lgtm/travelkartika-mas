@@ -5,19 +5,19 @@
 @section('content')
     <section class="py-5" style="background-color: #f8f9fa; min-height: 80vh;">
         <div class="container">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
-                <h2 style="color: var(--primary); font-weight: 800; margin: 0;">
-                    <i class="fas fa-clipboard-list me-2"></i> Riwayat Pemesanan
-                </h2>
+            <div class="d-flex flex-column flex-md-row justify-content-end align-items-center mb-3 gap-3">
                 <a href="{{ route('pakets.index') }}" class="btn btn-outline-primary fw-bold rounded-pill">
                     <i class="fas fa-plus me-1"></i> Pesan Paket Lain
                 </a>
             </div>
 
             @if($pemesanans->count() > 0)
-                <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card mb-4" style="border: none; border-top: 3px solid var(--primary); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <div class="card-header" style="background: white; color: #333; border-bottom: 1px solid #eee; padding: 15px 20px; border-radius: 8px 8px 0 0;">
+                        <h5 class="mb-0" style="font-weight: bold; color: #333;">Riwayat Pemesanan</h5>
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0 align-middle">
+                        <table class="table table-hover mb-0 align-middle" style="background: white;">
                             <thead>
                                 <tr style="color: var(--primary);">
                                     <th class="text-center py-3" style="color: var(--primary) !important;">ID Pesanan</th>
@@ -31,7 +31,7 @@
                             <tbody>
                                 @foreach($pemesanans as $pemesanan)
                                     <tr>
-                                        <td class="text-center fw-bold">#{{ str_pad($pemesanan->id, 5, '0', STR_PAD_LEFT) }}</td>
+                                        <td class="text-center fw-bold">{{ str_pad($pemesanan->id, 5, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $pemesanan->created_at->format('d M Y') }}<br><small class="text-muted">{{ $pemesanan->created_at->format('H:i') }} WIB</small></td>
                                         <td>
                                             <span class="fw-bold" style="color: var(--primary);">{{ $pemesanan->paket->nama_paket }}</span><br>
@@ -52,7 +52,10 @@
                                             @endif
                                             
                                             <div class="mt-1">
-                                                @if($pemesanan->data_completed_at)
+                                                @php
+                                                    $isLengkap = $pemesanan->data_completed_at && $pemesanan->file_foto && $pemesanan->file_ktp && $pemesanan->file_kk && $pemesanan->file_paspor;
+                                                @endphp
+                                                @if($isLengkap)
                                                     <span class="badge bg-success bg-opacity-10 text-success border border-success" style="font-size: 0.65rem;">Biodata Lengkap</span>
                                                 @else
                                                     <span class="badge bg-warning bg-opacity-10 text-warning border border-warning" style="font-size: 0.65rem;">Biodata Belum Lengkap</span>
@@ -61,17 +64,17 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-1">
-                                                <a href="{{ route('pemesanans.show', $pemesanan) }}" class="btn btn-primary py-1 px-2" style="font-size: 0.75rem;" title="Lihat Detail">
-                                                    <i class="fas fa-eye me-1"></i> Detail
+                                                <a href="{{ route('pemesanans.show', $pemesanan) }}" class="btn btn-sm text-white" style="background-color: var(--primary);" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
                                                 @if(in_array($pemesanan->status, ['confirmed', 'completed']))
-                                                    <a href="{{ route('pemesanans.cetak', $pemesanan) }}" target="_blank" class="btn btn-success py-1 px-2" style="font-size: 0.75rem;" title="Cetak Invoice">
-                                                        <i class="fas fa-print me-1"></i> Cetak
+                                                    <a href="{{ route('pemesanans.cetak', $pemesanan) }}" class="btn btn-sm text-white bg-success" title="Cetak Invoice">
+                                                        <i class="fas fa-print"></i>
                                                     </a>
                                                 @endif
                                                 @if($pemesanan->status !== 'dibatalkan')
-                                                    <a href="{{ route('pemesanans.complete-data', $pemesanan) }}" class="btn btn-outline-secondary py-1 px-2" style="font-size: 0.75rem;" title="Edit Data">
-                                                        <i class="fas fa-edit me-1"></i> Edit
+                                                    <a href="{{ route('pemesanans.complete-data', $pemesanan) }}" class="btn btn-sm text-white" style="background-color: #DAA520;" title="Edit Data">
+                                                        <i class="fas fa-edit"></i>
                                                     </a>
                                                 @endif
                                             </div>

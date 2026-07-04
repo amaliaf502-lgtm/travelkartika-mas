@@ -14,8 +14,8 @@
         @endif
     </div>
 
-    <div class="card mb-4 border-0 shadow-sm rounded-3">
-        <div class="card-body p-3">
+    <div class="card mb-4 border-0 shadow-sm rounded-3" style="border-top: 3px solid #8B2D2D !important;">
+        <div class="card-body p-3 bg-white">
             <form method="GET" action="{{ route("admin.pemesanans.index") }}" class="row g-3 align-items-end">
                 <div class="col-md-4">
                     <label class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Cari Jamaah / Paket</label>
@@ -53,9 +53,9 @@
         <span class="text-muted" style="font-size: 0.9rem;">Total: {{ $pemesanans->total() }} pemesanan</span>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-        <div class="card-header border-0 py-3" style="background-color: #8B2D2D; color: white;">
-            <h5 class="mb-0 fs-6 fw-normal">Daftar Pemesanan</h5>
+    <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border-top: 3px solid #8B2D2D !important;">
+        <div class="card-header bg-white border-bottom py-3">
+            <h5 class="mb-0 fs-6 fw-bold text-dark">Daftar Pemesanan</h5>
         </div>
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -79,9 +79,12 @@
                             <td>
                                 <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $pemesanan->user->name }}</div>
                                 <div class="text-muted" style="font-size: 0.8rem;">{{ $pemesanan->user->email }}</div>
-                                <div class="text-muted" style="font-size: 0.8rem;"><i class="fas fa-phone-alt" style="font-size: 0.7rem;"></i> {{ $pemesanan->user->no_hp ?? "-" }}</div>
-                                @if(!$pemesanan->data_completed_at)
-                                    <div class="mt-1"><span class="badge rounded-pill" style="background-color: #fdecec; color: #c5221f; font-weight: 500; font-size: 0.75rem;">Biodata Kosong</span></div>
+                                <div class="text-muted" style="font-size: 0.8rem;">{{ $pemesanan->user->no_hp ?? "-" }}</div>
+                                @php
+                                    $isLengkap = $pemesanan->data_completed_at && $pemesanan->file_foto && $pemesanan->file_ktp && $pemesanan->file_kk && $pemesanan->file_paspor;
+                                @endphp
+                                @if(!$isLengkap)
+                                    <div class="mt-1"><span class="badge rounded-pill" style="background-color: #fdecec; color: #c5221f; font-weight: 500; font-size: 0.75rem;">Biodata Belum Lengkap</span></div>
                                 @else
                                     <div class="mt-1"><span class="badge rounded-pill" style="background-color: #e6f4ea; color: #1e8e3e; font-weight: 500; font-size: 0.75rem;">Biodata Lengkap</span></div>
                                 @endif

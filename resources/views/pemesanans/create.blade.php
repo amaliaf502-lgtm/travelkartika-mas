@@ -16,56 +16,53 @@
                 <i class="fas fa-credit-card"></i> Form Pemesanan
             </h2>
 
-            <div class="row g-4">
-                <!-- Kolom Kiri: Detail Paket -->
-                <div class="col-lg-4">
+            <!-- Form Pemesanan Membungkus Seluruh Layout -->
+            <form action="{{ route('pemesanans.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="paket_id" value="{{ $paket->id }}">
 
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <h6>Terjadi Kesalahan:</h6>
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                <div class="row g-4">
+                    
+                    <!-- Kolom Kiri: Detail Paket -->
+                    <div class="col-lg-4">
+                        @if($errors->any())
+                            <div class="alert alert-danger mb-4">
+                                <h6>Terjadi Kesalahan:</h6>
+                                <ul class="mb-0 ps-3">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-                    <div class="card mb-4 shadow-sm border-0">
-                        <div class="card-header" style="background: var(--primary); color: white; border-bottom: 3px solid #d4af37;">
-                            <h5 class="mb-0">Detail Paket</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <h4 style="color: var(--primary); font-weight: bold; text-align: center; margin-bottom: 20px;">{{ $paket->nama_paket }}</h4>
-                            <div class="text-center">
+                        <!-- Detail Paket Mini -->
+                        <div class="card mb-4" style="border: none; border-top: 3px solid var(--maroon) !important; border-radius: 8px; overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                            <div class="card-header bg-white" style="border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+                                <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Detail Paket</h5>
+                            </div>
+                            <div class="card-body p-3 text-center">
                                 @if($paket->gambar)
                                     @php
                                         $imgUrl = Str::startsWith($paket->gambar, 'images/') ? asset($paket->gambar) : Storage::url($paket->gambar);
                                     @endphp
-                                    <img src="{{ $imgUrl }}" class="img-fluid rounded shadow-sm" alt="{{ $paket->nama_paket }}" style="width:100%; object-fit:cover; border-radius: 12px;">
+                                    <img src="{{ $imgUrl }}" class="img-fluid rounded" alt="{{ $paket->nama_paket }}" style="width:100%; object-fit:cover; border-radius: 8px;">
                                 @else
-                                    <div style="height: 150px; background: linear-gradient(135deg, #8B0000 0%, #b23a3a 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; border-radius: 10px;">
+                                    <div style="height: 150px; background: linear-gradient(135deg, #8B0000 0%, #b23a3a 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; border-radius: 8px;">
                                         <i class="fas fa-kaaba"></i>
                                     </div>
                                 @endif
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Kolom Kanan: Form Pemesanan -->
-                <div class="col-lg-8">
-
-                    <!-- Form Pemesanan -->
-                    <form action="{{ route('pemesanans.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="paket_id" value="{{ $paket->id }}">
-
-                        <div class="card mb-4 shadow-sm border-0">
-                            <div class="card-header" style="background: var(--primary); color: white; border-bottom: 3px solid #d4af37;">
-                                <h5 class="mb-0">Data Pemesanan</h5>
+                    <!-- Kolom Kanan: Form Data Pemesanan & Ringkasan -->
+                    <div class="col-lg-8">
+                        <div class="card mb-4 shadow-sm" style="border: 1px solid #e2e8f0; border-top: 3px solid var(--maroon) !important; border-radius: 8px; overflow: hidden; background: white;">
+                            <div class="card-header bg-white" style="border-bottom: 1px solid #e2e8f0; padding: 16px 20px;">
+                                <h5 class="mb-0" style="font-weight: 700; font-size: 1.15rem; color: #1e293b;">Data Pemesanan</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body p-4">
                                 <!-- Tipe Kamar -->
                                 <div class="mb-4">
                                     <label class="form-label"><strong>Tipe Kamar <span class="text-danger">*</span></strong></label>
@@ -78,13 +75,11 @@
                                         <div class="col-md-4">
                                             <label class="kamar-option w-100" style="cursor:pointer;">
                                                 <input type="radio" name="tipe_kamar" value="quad" class="d-none tipe-kamar-radio" {{ old('tipe_kamar','quad') === 'quad' ? 'checked' : '' }}>
-                                                <div class="kamar-card text-center rounded border" style="transition:all 0.2s; overflow:hidden;">
-                                                    <div style="background: var(--primary); color: white; border-bottom: 3px solid #d4af37; padding: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">
-                                                        QUAD
-                                                    </div>
+                                                <div class="kamar-card text-center border" style="border-top: 3px solid var(--maroon) !important; border-radius: 12px; transition:all 0.2s; background: white;">
                                                     <div class="p-3">
-                                                        <div style="font-size:0.85rem;color:#64748b;font-weight:600;">4 orang / kamar</div>
-                                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: #1e293b;">Rp {{ number_format($hargaQuad, 0, ',', '.') }}</div>
+                                                        <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">QUAD</div>
+                                                        <div style="font-size:0.75rem;color:#64748b;font-weight:600; margin-bottom: 12px;">4 orang / kamar</div>
+                                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: var(--maroon);">Rp {{ number_format($hargaQuad, 0, ',', '.') }}</div>
                                                         <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;">/pax</div>
                                                     </div>
                                                 </div>
@@ -93,13 +88,11 @@
                                         <div class="col-md-4">
                                             <label class="kamar-option w-100" style="cursor:pointer;">
                                                 <input type="radio" name="tipe_kamar" value="triple" class="d-none tipe-kamar-radio" {{ old('tipe_kamar') === 'triple' ? 'checked' : '' }}>
-                                                <div class="kamar-card text-center rounded border" style="transition:all 0.2s; overflow:hidden;">
-                                                    <div style="background: var(--primary); color: white; border-bottom: 3px solid #d4af37; padding: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">
-                                                        TRIPLE
-                                                    </div>
+                                                <div class="kamar-card text-center border" style="border-top: 3px solid var(--maroon) !important; border-radius: 12px; transition:all 0.2s; background: white;">
                                                     <div class="p-3">
-                                                        <div style="font-size:0.85rem;color:#64748b;font-weight:600;">3 orang / kamar</div>
-                                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: #1e293b;">Rp {{ number_format($hargaTriple, 0, ',', '.') }}</div>
+                                                        <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">TRIPLE</div>
+                                                        <div style="font-size:0.75rem;color:#64748b;font-weight:600; margin-bottom: 12px;">3 orang / kamar</div>
+                                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: var(--maroon);">Rp {{ number_format($hargaTriple, 0, ',', '.') }}</div>
                                                         <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;">/pax</div>
                                                     </div>
                                                 </div>
@@ -108,13 +101,11 @@
                                         <div class="col-md-4">
                                             <label class="kamar-option w-100" style="cursor:pointer;">
                                                 <input type="radio" name="tipe_kamar" value="double" class="d-none tipe-kamar-radio" {{ old('tipe_kamar') === 'double' ? 'checked' : '' }}>
-                                                <div class="kamar-card text-center rounded border" style="transition:all 0.2s; overflow:hidden;">
-                                                    <div style="background: var(--primary); color: white; border-bottom: 3px solid #d4af37; padding: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">
-                                                        DOUBLE
-                                                    </div>
+                                                <div class="kamar-card text-center border" style="border-top: 3px solid var(--maroon) !important; border-radius: 12px; transition:all 0.2s; background: white;">
                                                     <div class="p-3">
-                                                        <div style="font-size:0.85rem;color:#64748b;font-weight:600;">2 orang / kamar</div>
-                                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: #1e293b;">Rp {{ number_format($hargaDouble, 0, ',', '.') }}</div>
+                                                        <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">DOUBLE</div>
+                                                        <div style="font-size:0.75rem;color:#64748b;font-weight:600; margin-bottom: 12px;">2 orang / kamar</div>
+                                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: var(--maroon);">Rp {{ number_format($hargaDouble, 0, ',', '.') }}</div>
                                                         <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;">/pax</div>
                                                     </div>
                                                 </div>
@@ -145,14 +136,12 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Ringkasan Pembayaran -->
-                        <div class="card mb-4 shadow-sm border-0">
-                            <div class="card-header" style="background: var(--primary); color: white; border-bottom: 3px solid #d4af37;">
-                                <h5 class="mb-0">Ringkasan Total</h5>
+                            <!-- Ringkasan Pembayaran -->
+                            <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+                                <h5 class="mb-0 fw-bold text-dark" style="font-size: 1.05rem;">Ringkasan Total</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body p-4">
                                 <div class="row mb-2">
                                     <div class="col-6">Tipe Kamar</div>
                                     <div class="col-6 text-end fw-bold" id="display-tipe-kamar" style="text-transform:uppercase; color:#8B0000;">QUAD</div>
@@ -166,29 +155,32 @@
                                     <div class="col-6 text-end"><span id="jumlah-peserta">0</span> orang</div>
                                 </div>
                                 <hr>
-                                <div class="row align-items-center">
+                                <div class="row align-items-center mb-4">
                                     <div class="col-6"><div style="font-size: 0.9rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Total Harga</div></div>
                                     <div class="col-6 text-end"><div class="harga-display m-0" id="total-harga" style="font-size: 1.8rem; font-weight: 900; color: var(--maroon); line-height: 1.1;">Rp 0</div></div>
                                 </div>
+
+                                <div class="d-flex justify-content-end gap-3">
+                                    <a href="{{ route('pakets.show', $paket) }}" class="btn" style="border: 1px solid #cbd5e1; color: #475569; font-weight: 600; padding: 10px 24px; border-radius: 8px; transition: all 0.2s;">
+                                        Kembali
+                                    </a>
+                                    <button type="submit" class="btn" style="background: var(--maroon); color: white; font-weight: 600; padding: 10px 24px; border-radius: 8px; border: none; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(139, 45, 45, 0.2);">
+                                        Lanjutkan Pemesanan
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="d-flex justify-content-end gap-2 mt-4">
-                            <a href="{{ route('pakets.show', $paket) }}" class="btn btn-outline-primary">
-                                <i class="fas fa-arrow-left"></i> Kembali
-                            </a>
-                            <button type="submit" class="btn btn-primary" style="font-weight: bold; padding: 10px 24px;">
-                                Lanjutkan Pemesanan
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 
     @section('js')
         <style>
+            :root {
+                --maroon: #8B2D2D;
+            }
             .kamar-card {
                 border-color: #dee2e6 !important;
                 background: #fff;

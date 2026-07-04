@@ -12,21 +12,21 @@
         <span class="text-muted" style="font-size: 0.9rem;">Total: {{ $departure_infos->total() }} data</span>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-        <div class="card-header border-0 py-3" style="background-color: #8B2D2D; color: white;">
-            <h5 class="mb-0 fs-6 fw-normal">Daftar Informasi Keberangkatan</h5>
+    <div class="card overflow-hidden">
+        <div class="card-header py-3">
+            <h5 class="mb-0 fs-6">Daftar Informasi Keberangkatan</h5>
         </div>
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead style="border-bottom: 2px solid #eee;">
+                <thead>
                     <tr>
-                        <th class="py-3 px-3 border-0" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">Jamaah</th>
-                        <th class="py-3 border-0" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">Paket</th>
-                        <th class="py-3 border-0" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">Tanggal Berkumpul</th>
-                        <th class="py-3 border-0" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">Lokasi</th>
-                        <th class="py-3 border-0" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">Contact Person</th>
-                        <th class="py-3 border-0" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">No. HP</th>
-                        <th class="py-3 px-3 border-0 text-center" style="color: #8B2D2D; font-weight: 600; font-size: 0.9rem;">Aksi</th>
+                        <th class="py-3 px-3">Jamaah</th>
+                        <th class="py-3">Paket</th>
+                        <th class="py-3">Tanggal Berkumpul</th>
+                        <th class="py-3">Lokasi</th>
+                        <th class="py-3">Contact Person</th>
+                        <th class="py-3">No. HP</th>
+                        <th class="py-3 px-3 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody style="border-top: none;">
@@ -36,7 +36,7 @@
                         @endphp
                         <tr>
                             <td class="px-3">
-                                <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $pemesanan->user->name ?? "User Dihapus" }}</div>
+                                <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ ucwords($pemesanan->user->name ?? "User Dihapus") }}</div>
                             </td>
                             <td>
                                 <div class="text-dark" style="font-size: 0.9rem;">{{ $pemesanan->paket->nama_paket ?? "Paket Dihapus" }}</div>
@@ -50,17 +50,17 @@
                                 @endif
                             </td>
                             <td>
-                                <div class="text-dark" style="font-size: 0.9rem;">{{ $di->lokasi_berkumpul ?? '-' }}</div>
+                                <div class="text-dark" style="font-size: 0.9rem;">{{ ucwords($di->lokasi_berkumpul ?? '-') }}</div>
                             </td>
                             <td>
-                                <div class="text-dark" style="font-size: 0.9rem;">{{ $di->contact_person ?? '-' }}</div>
+                                <div class="text-dark" style="font-size: 0.9rem;">{{ ucwords($di->contact_person ?? '-') }}</div>
                             </td>
                             <td>
                                 <div class="text-dark" style="font-size: 0.9rem;">{{ $di->no_hp_contact ?? '-' }}</div>
                             </td>
                             <td class="px-3 text-center">
-                                <a href="{{ route('admin.pemesanans.show', $pemesanan) }}" class="btn btn-sm" style="background-color: #8B2D2D; color: white;">
-                                    <i class="fas fa-eye"></i>
+                                <a href="{{ route('admin.pemesanans.confirm', ['pemesanan' => $pemesanan->id, 'from' => 'departure']) }}" class="btn btn-sm" style="background-color: #8B2D2D; color: white;" title="Kelola Info Keberangkatan">
+                                    <i class="fas fa-edit"></i>
                                 </a>
                             </td>
                         </tr>

@@ -12,14 +12,7 @@
         position: relative;
         overflow: hidden;
     }
-    .page-header-timeline::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 40px;
-        background: #f8f9fa;
-        clip-path: polygon(0 100%, 100% 0%, 100% 100%, 0 100%);
-    }
+
     .timeline-container {
         max-width: 800px;
         margin: 0 auto;
@@ -120,7 +113,6 @@
 
 <div class="page-header-timeline">
     <div class="container">
-        <i class="fas fa-clipboard-list fa-3x mb-3" style="color:var(--gold); opacity:0.9;"></i>
         <h1 class="display-5 fw-bold">Cara Pendaftaran</h1>
         <p class="lead mb-0" style="color:rgba(255,255,255,0.85);">Langkah mudah mendaftar Umroh bersama Kartika Mas Tour & Travel</p>
     </div>

@@ -84,7 +84,7 @@
                 <div class="icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <a href="{{ route('admin.jamaah.index') }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.jamaah.index') }}" class="small-box-footer">Selengkapnya</a>
             </div>
         </div>
         <div class="col-md-3 mb-3">
@@ -96,7 +96,7 @@
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="{{ route('admin.pemesanans.index') }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.pemesanans.index') }}" class="small-box-footer">Selengkapnya</a>
             </div>
         </div>
         <div class="col-md-3 mb-3">
@@ -108,7 +108,7 @@
                 <div class="icon">
                     <i class="fas fa-clock"></i>
                 </div>
-                <a href="{{ route('admin.pemesanans.index', ['status' => 'pending']) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.pemesanans.index', ['status' => 'pending']) }}" class="small-box-footer">Selengkapnya</a>
             </div>
         </div>
         <div class="col-md-3 mb-3">
@@ -120,7 +120,7 @@
                 <div class="icon">
                     <i class="fas fa-money-bill-wave"></i>
                 </div>
-                <a href="{{ route('admin.pemesanans.index') }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.pemesanans.index') }}" class="small-box-footer">Selengkapnya</a>
             </div>
         </div>
     </div>
@@ -130,7 +130,7 @@
         <!-- Grafik Pendaftaran -->
         <div class="col-md-8 mb-3">
             <div class="card h-100">
-                <div class="card-header" style="background: #8B2D2D; color: white;">
+                <div class="card-header">
                     <h5 class="mb-0">Pendaftaran Jamaah (7 Bulan Terakhir)</h5>
                 </div>
                 <div class="card-body">
@@ -141,9 +141,9 @@
 
         <!-- Keberangkatan Terdekat -->
         <div class="col-md-4 mb-3">
-            <div class="card h-100" style="border-top: 4px solid #17a2b8;">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0 text-dark">Keberangkatan Terdekat</h5>
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">Keberangkatan Terdekat</h5>
                 </div>
                 <div class="card-body p-0">
                     <ul class="list-group list-group-flush">
@@ -155,11 +155,11 @@
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <a href="{{ route('admin.pakets.show', $paket) }}" class="text-decoration-none text-dark fw-bold">{{ Str::limit($paket->nama_paket, 20) }}</a>
                                     @if($hari_lagi == 0)
-                                        <span class="badge bg-danger">Hari Ini!</span>
+                                        <span class="badge rounded-pill" style="background-color: #fdecec; color: #c5221f; font-weight: 500; padding: 4px 10px;">Hari Ini!</span>
                                     @elseif($hari_lagi < 0)
-                                        <span class="badge bg-secondary">Selesai</span>
+                                        <span class="badge rounded-pill" style="background-color: #f8f9fa; color: #475569; font-weight: 500; padding: 4px 10px;">Selesai</span>
                                     @else
-                                        <span class="badge bg-info text-dark">{{ $hari_lagi }} Hari</span>
+                                        <span class="badge rounded-pill" style="background-color: #e6f2ff; color: #0066cc; font-weight: 500; padding: 4px 10px;">{{ $hari_lagi }} Hari</span>
                                     @endif
                                 </div>
                                 <div class="text-muted small">
@@ -183,7 +183,7 @@
             <div class="card">
                 <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <h5 class="mb-0">Pemesanan Terbaru</h5>
-                    <a href="{{ route('admin.pemesanans.index') }}" class="btn btn-sm" style="background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.3); font-size:0.8rem;">Lihat Semua</a>
+                    <a href="{{ route('admin.pemesanans.index') }}" class="btn btn-sm" style="background:#8B2D2D; color:white; font-size:0.8rem;">Lihat Semua</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -207,30 +207,30 @@
                                     <td>Rp {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
                                     <td>
                                         @if($pemesanan->status === 'pending')
-                                            <span class="badge badge-pending">Menunggu</span>
+                                            <span class="badge rounded-pill" style="background-color: #e6f2ff; color: #0066cc; font-weight: 500; padding: 6px 12px;">Menunggu</span>
                                         @elseif($pemesanan->status === 'confirmed')
-                                            <span class="badge badge-confirmed">Dikonfirmasi</span>
+                                            <span class="badge rounded-pill" style="background-color: #e6f4ea; color: #1e8e3e; font-weight: 500; padding: 6px 12px;">Dikonfirmasi</span>
                                         @elseif($pemesanan->status === 'dibatalkan')
-                                            <span class="badge badge-dibatalkan">Dibatalkan</span>
+                                            <span class="badge rounded-pill" style="background-color: #fdecec; color: #c5221f; font-weight: 500; padding: 6px 12px;">Dibatalkan</span>
                                         @elseif($pemesanan->status === 'completed')
-                                            <span class="badge badge-completed">Selesai</span>
+                                            <span class="badge rounded-pill" style="background-color: #e6f4ea; color: #1e8e3e; font-weight: 500; padding: 6px 12px;">Selesai</span>
                                         @endif
                                     </td>
                                     <td>{{ $pemesanan->created_at->format('d M Y') }}</td>
                                     <td>
-                                        <div class="btn-group">
+                                        <div class="d-flex gap-1">
                                             <a href="{{ route('admin.pemesanans.show', $pemesanan) }}" class="btn btn-sm btn-primary" title="Detail">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             @if($pemesanan->status === 'pending')
                                                 <a href="{{ route('admin.pemesanans.confirm', $pemesanan) }}" class="btn btn-sm btn-success" title="Konfirmasi">
-                                                    <i class="fas fa-check"></i>
+                                                    <i class="fas fa-clipboard-check"></i>
                                                 </a>
                                                 <form action="{{ route('admin.pemesanans.cancel', $pemesanan) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pemesanan ini?');">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="btn btn-sm btn-danger" title="Batalkan">
-                                                        <i class="fas fa-times"></i>
+                                                        <i class="fas fa-ban"></i>
                                                     </button>
                                                 </form>
                                             @endif

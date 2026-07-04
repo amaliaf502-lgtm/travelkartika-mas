@@ -89,6 +89,10 @@ Route::middleware('auth', 'isAdmin')->prefix('admin')->name('admin.')->group(fun
     
     // Informasi Keberangkatan
     Route::get('/informasi-keberangkatan', [AdminController::class, 'departure_info_index'])->name('departure-info.index');
+    
+    // Laporan Total
+    Route::get('/laporan-total', [PemesananController::class, 'laporanTotal'])->name('laporan.total');
+    Route::get('/laporan-total/download', [PemesananController::class, 'laporanTotalDownload'])->name('laporan.total.download');
 });
 
 // Endpoint untuk Webhook / Notifikasi Otomatis dari Midtrans

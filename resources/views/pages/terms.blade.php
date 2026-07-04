@@ -12,14 +12,6 @@
         position: relative;
         overflow: hidden;
     }
-    .page-header-terms::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 40px;
-        background: #f8f9fa;
-        clip-path: polygon(0 100%, 100% 0%, 100% 100%, 0 100%);
-    }
     .terms-section-card {
         background: #fff;
         border-radius: 18px;

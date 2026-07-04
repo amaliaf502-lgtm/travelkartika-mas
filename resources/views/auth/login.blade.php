@@ -137,18 +137,9 @@
         letter-spacing: 0.5px;
         margin-bottom: 4px;
     }
-    .auth-input-group .input-icon {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #bbb;
-        font-size: 0.82rem;
-        transition: color 0.2s;
-    }
     .auth-input-group input {
         width: 100%;
-        padding: 9px 12px 9px 36px;
+        padding: 9px 12px;
         border: 2px solid #e8d5b0;
         border-radius: 10px;
         font-size: 0.88rem;
@@ -160,10 +151,6 @@
         border-color: var(--gold);
         box-shadow: 0 0 0 3px rgba(218,165,32,0.15);
         background: #fff;
-    }
-    .auth-input-group input:focus + .input-icon,
-    .auth-input-group input:focus ~ .input-icon {
-        color: var(--gold);
     }
     .auth-input-group input.is-invalid { border-color: #e74c3c; }
     .invalid-feedback { font-size: 0.78rem; color: #e74c3c; margin-top: 4px; }
@@ -280,9 +267,9 @@
                 <div class="gold-divider"></div>
                 <p>Perjalanan suci menuju Baitullah bersama kami. Aman, nyaman, dan terpercaya sejak lama.</p>
                 <div class="trust-badges">
-                    <div class="trust-badge"><i class="fas fa-shield-alt"></i> Terdaftar & Berizin Resmi</div>
-                    <div class="trust-badge"><i class="fas fa-star"></i> Layanan Umroh Terpercaya</div>
-                    <div class="trust-badge"><i class="fas fa-headset"></i> Support 24/7</div>
+                    <div class="trust-badge">Terdaftar & Berizin Resmi</div>
+                    <div class="trust-badge">Layanan Umroh Terpercaya</div>
+                    <div class="trust-badge">Support 24/7</div>
                 </div>
             </div>
 
@@ -312,7 +299,6 @@
                                    class="@error('email') is-invalid @enderror"
                                    placeholder="nama@email.com"
                                    value="{{ old('email') }}" required autocomplete="email">
-                            <i class="fas fa-envelope input-icon"></i>
                         </div>
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -325,7 +311,6 @@
                             <input type="password" id="password" name="password"
                                    class="@error('password') is-invalid @enderror"
                                    placeholder="Masukkan password" required autocomplete="current-password">
-                            <i class="fas fa-lock input-icon"></i>
                         </div>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -339,7 +324,7 @@
                     </div>
 
                     <button type="submit" class="btn-auth">
-                        <i class="fas fa-sign-in-alt" style="margin-right:6px;"></i> Masuk
+                        Masuk
                     </button>
                 </form>
 

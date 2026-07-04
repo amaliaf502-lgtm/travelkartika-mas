@@ -59,7 +59,7 @@
     <!-- Pemesanan Jamaah -->
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0"><i class="fas fa-history"></i> Riwayat Pemesanan</h5>
+            <h5 class="mb-0">Riwayat Pemesanan</h5>
         </div>
         <div class="table-responsive">
             <table class="table table-hover mb-0">
@@ -84,9 +84,9 @@
                             <td>Rp {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
                             <td class="text-center">
                                 @if($pemesanan->bukti_pembayaran)
-                                    <span class="badge" style="background:#27ae60; font-size:0.75rem;"><i class="fas fa-check"></i> Ada</span>
+                                    <span class="badge" style="background-color:#e6f4ea; color:#1e8e3e; font-size:0.75rem;">Ada</span>
                                 @else
-                                    <span class="badge" style="background:#e74c3c; font-size:0.75rem;"><i class="fas fa-times"></i> Belum</span>
+                                    <span class="badge" style="background-color:#fdecec; color:#c5221f; font-size:0.75rem;">Belum</span>
                                 @endif
                             </td>
                             <td>
@@ -101,15 +101,13 @@
                             <td>{{ $pemesanan->created_at->format('d M Y') }}</td>
                             <td>
                                 <a href="{{ route('admin.pemesanans.show', $pemesanan) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-eye"></i>
+                                    Detail
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center text-muted py-4">
-                                <i class="fas fa-inbox"></i> Belum ada pemesanan
-                            </td>
+                            <td colspan="7" class="text-center text-muted py-4">Belum ada pemesanan</td>
                         </tr>
                     @endforelse
                 </tbody>

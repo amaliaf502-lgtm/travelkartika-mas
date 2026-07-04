@@ -5,25 +5,25 @@
 @section('content')
     <div class="mb-4">
         <a href="{{ route('admin.pemesanans.index') }}" class="btn btn-outline-primary">
-            <i class="fas fa-arrow-left"></i> Kembali
+            Kembali
         </a>
     </div>
 
     <!-- Nomor Pemesanan -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">Pemesanan #{{ str_pad($pemesanan->id, 5, '0', STR_PAD_LEFT) }}</h5>
+    <div class="card mb-4" style="border: none; box-shadow: none; border-top: 3px solid #8B2D2D !important; border-radius: 8px; overflow: hidden; background: white;">
+        <div class="card-header bg-white" style="border-bottom: 1px solid #e2e8f0; padding: 16px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.15rem; color: #1e293b;">Pemesanan #{{ str_pad($pemesanan->id, 5, '0', STR_PAD_LEFT) }}</h5>
         </div>
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <strong>Status:</strong><br>
                     @if($pemesanan->status === 'pending')
-                        <span class="badge badge-pending" style="font-size: 1rem;">Menunggu Konfirmasi</span>
+                        <span class="badge rounded-pill" style="background-color: #e6f2ff; color: #0066cc; font-size: 0.95rem; padding: 6px 14px; font-weight: 500;">Menunggu Konfirmasi</span>
                     @elseif($pemesanan->status === 'confirmed')
-                        <span class="badge badge-confirmed" style="font-size: 1rem;">Dikonfirmasi</span>
+                        <span class="badge rounded-pill" style="background-color: #e6f4ea; color: #1e8e3e; font-size: 0.95rem; padding: 6px 14px; font-weight: 500;">Dikonfirmasi</span>
                     @elseif($pemesanan->status === 'dibatalkan')
-                        <span class="badge" style="background-color: #8B2D2D; color: white; font-size: 1rem;">Dibatalkan</span>
+                        <span class="badge rounded-pill" style="background-color: #fdecec; color: #c5221f; font-size: 0.95rem; padding: 6px 14px; font-weight: 500;">Dibatalkan</span>
                     @endif
                 </div>
                 <div class="col-6">
@@ -32,12 +32,10 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Data Akun Pemesan -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">Data Akun Pemesan</h5>
+        <!-- Data Akun Pemesan -->
+        <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Data Akun Pemesan</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -47,16 +45,14 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Manifest Biodata & Dokumen -->
-    <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center" style="background: #8B2D2D; color: white;">
-            <h5 class="mb-0">Biodata & Dokumen Jamaah</h5>
+        <!-- Manifest Biodata & Dokumen -->
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Biodata & Dokumen Jamaah</h5>
             @if($pemesanan->data_completed_at)
-                <span class="badge bg-success">Sudah Dilengkapi</span>
+                <span class="badge rounded-pill" style="background-color: #e6f4ea; color: #1e8e3e; padding: 6px 12px; font-weight: 500;">Sudah Dilengkapi</span>
             @else
-                <span class="badge bg-warning text-dark">Belum Lengkap</span>
+                <span class="badge rounded-pill" style="background-color: #fdecec; color: #c5221f; padding: 6px 12px; font-weight: 500;">Belum Lengkap</span>
             @endif
         </div>
         <div class="card-body">
@@ -96,7 +92,7 @@
                                         <img src="{{ asset($pemesanan->$field) }}" class="img-fluid rounded" style="height: 110px; width: 100%; object-fit: contain;">
                                     </a>
                                 @else
-                                    <div class="py-4 text-muted small bg-light rounded border"><i class="fas fa-times-circle text-danger mb-1"></i><br>Tidak Ada</div>
+                                    <div class="py-4 text-muted small bg-light rounded border">Belum Diunggah</div>
                                 @endif
                             </div>
                         </div>
@@ -104,17 +100,14 @@
                 </div>
             @else
                 <div class="text-center py-4">
-                    <i class="fas fa-user-clock fa-3x text-muted mb-3"></i>
-                    <p class="mb-0">Jamaah belum melengkapi data manifest dan dokumen.</p>
+                    <p class="mb-0 text-muted">Jamaah belum melengkapi data manifest dan dokumen.</p>
                 </div>
             @endif
         </div>
-    </div>
 
-    <!-- Detail Paket -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">Detail Paket</h5>
+        <!-- Detail Paket -->
+        <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Detail Paket</h5>
         </div>
         <div class="card-body">
             <h6 style="color: var(--primary); font-weight: bold;">{{ $pemesanan->paket->nama_paket }}</h6>
@@ -136,12 +129,10 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Detail Pemesanan -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">Detail Pemesanan</h5>
+        <!-- Detail Pemesanan -->
+        <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Detail Pemesanan</h5>
         </div>
         <div class="card-body">
             <div class="row mb-3">
@@ -170,17 +161,15 @@
                 </div>
             @endif
         </div>
-    </div>
 
-    <!-- Bukti Pembayaran -->
-    <div class="card mb-4">
-        <div class="card-header" style="background: #8B2D2D; color: white;">
-            <h5 class="mb-0">Bukti Pembayaran</h5>
+        <!-- Bukti Pembayaran -->
+        <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Bukti Pembayaran</h5>
         </div>
         <div class="card-body">
             @if($pemesanan->bukti_pembayaran)
                 <div class="text-center">
-                    <p class="text-success"><i class="fas fa-check-circle"></i> Jamaah telah mengunggah bukti pembayaran.</p>
+                    <p class="text-success">Jamaah telah mengunggah bukti pembayaran.</p>
                     <a href="{{ asset($pemesanan->bukti_pembayaran) }}" target="_blank">
                         <img src="{{ asset($pemesanan->bukti_pembayaran) }}" class="img-thumbnail" style="max-height: 400px;" alt="Bukti Pembayaran">
                     </a>
@@ -198,12 +187,10 @@
                 </div>
             @endif
         </div>
-    </div>
 
-    <!-- Departure Info -->
-    <div class="card mb-4">
-        <div class="card-header" style="background: #8B2D2D; color: white;">
-            <h5 class="mb-0">Informasi Keberangkatan</h5>
+        <!-- Departure Info -->
+        <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+            <h5 class="mb-0" style="font-weight: 700; font-size: 1.05rem; color: #1e293b;">Informasi Keberangkatan</h5>
         </div>
         <div class="card-body">
             @if($pemesanan->departureInfo)
@@ -219,15 +206,14 @@
                 </div>
                 <div class="text-end">
                     <a href="{{ route('admin.pemesanans.confirm', $pemesanan) }}" class="btn btn-sm btn-outline-secondary">
-                        <i class="fas fa-edit me-1"></i> Atur Ulang Info Keberangkatan
+                        Atur Ulang Info Keberangkatan
                     </a>
                 </div>
             @else
                 <div class="text-center py-4">
-                    <i class="fas fa-plane-slash fa-3x text-muted mb-3"></i>
                     <p class="mb-2">Informasi keberangkatan untuk pemesanan ini belum diatur.</p>
                     <a href="{{ route('admin.pemesanans.confirm', $pemesanan) }}" class="btn btn-sm btn-outline-primary mt-2">
-                        <i class="fas fa-cog me-1"></i> Atur Informasi Keberangkatan
+                        Atur Informasi Keberangkatan
                     </a>
                 </div>
             @endif
@@ -238,13 +224,13 @@
     <div class="d-flex justify-content-end align-items-stretch gap-2 mt-4">
         @if($pemesanan->status === 'pending')
             <a href="{{ route('admin.pemesanans.confirm', $pemesanan) }}" class="btn btn-success d-flex align-items-center">
-                <i class="fas fa-check-circle me-1"></i> Konfirmasi & Masukkan Info
+                Konfirmasi & Masukkan Info
             </a>
         @endif
 
         @if(in_array($pemesanan->status, ['confirmed', 'completed']))
-            <a href="{{ route('admin.pemesanans.cetak', $pemesanan) }}" target="_blank" class="btn btn-primary d-flex align-items-center">
-                <i class="fas fa-print me-1"></i> Cetak Kuitansi
+            <a href="{{ route('admin.pemesanans.cetak', $pemesanan) }}" class="btn btn-primary d-flex align-items-center">
+                Cetak Kuitansi
             </a>
         @endif
 
@@ -253,7 +239,7 @@
                 @csrf
                 @method('PATCH')
                 <button type="submit" class="btn btn-outline-danger d-flex align-items-center h-100" style="border-color: #8B2D2D; color: #8B2D2D;" onclick="return confirm('Batalkan pemesanan ini?')">
-                    <i class="fas fa-times me-1"></i> Batalkan
+                    Batalkan
                 </button>
             </form>
         @endif

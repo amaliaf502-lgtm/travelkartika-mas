@@ -12,14 +12,7 @@
         position: relative;
         overflow: hidden;
     }
-    .page-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 50px;
-        background: white;
-        clip-path: polygon(0 100%, 100% 0%, 100% 100%, 0 100%);
-    }
+
     .about-img-wrapper {
         position: relative;
         border-radius: 30px;
@@ -94,33 +87,7 @@
         </div>
     </div>
 
-    <div class="row g-4 mb-5">
-        <div class="col-md-6">
-            <div class="vision-mision h-100">
-                <h3 class="section-title">Visi Kami</h3>
-                <p>Menjadi travel umroh terkemuka yang dipercaya oleh jamaah karena komitmen pada nilai-nilai amanah, profesionalisme, dan kemudahan akses informasi berbasis digital.</p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="vision-mision h-100">
-                <h3 class="section-title">Misi Kami</h3>
-                <ul class="list-unstyled">
-                    <li class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-heart"></i></div>
-                        <div>Memberikan bimbingan ibadah yang sesuai sunnah dan kenyamanan maksimal bagi jamaah.</div>
-                    </li>
-                    <li class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-laptop"></i></div>
-                        <div>Mengembangkan sistem pendaftaran dan pemesanan yang mudah diakses dari mana saja secara otomatis.</div>
-                    </li>
-                    <li class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-handshake"></i></div>
-                        <div>Membangun kemitraan yang solid dengan penyedia akomodasi dan transportasi terbaik di Arab Saudi.</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
 
     <div class="text-center py-4">
         <h3 class="mb-4" style="color: var(--primary); font-weight: 800;">Legalitas & Kepercayaan</h3>

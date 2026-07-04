@@ -29,10 +29,12 @@
                 <!-- KIRI: Data Pemesan, Biodata, Tagihan, Transaksi -->
                 <div class="col-lg-8">
                     
-                    <!-- Data Pemesan Akun -->
-                    <div class="card mb-4 shadow-sm border-0 rounded-4">
-                        <div class="card-header py-3 border-0" style="background: #8B2D2D; color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="mb-0 fw-bold">Data Pemesan Akun</h5>
+                    <!-- KOTAK KIRI MENYATU -->
+                    <div class="card mb-4" style="border: none; box-shadow: none; border-top: 3px solid #8B2D2D !important; border-radius: 8px; overflow: hidden; background: white;">
+                        
+                        <!-- Data Pemesan Akun -->
+                        <div class="card-header bg-white" style="border-bottom: 1px solid #e2e8f0; padding: 16px 20px;">
+                            <h5 class="mb-0 fw-bold text-dark" style="font-size: 1.15rem;">Data Pemesan Akun</h5>
                         </div>
                         <div class="card-body p-4">
                             <div class="row">
@@ -46,14 +48,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Biodata & Dokumen Jamaah -->
-                    <div class="card mb-4 shadow-sm border-0 rounded-4">
-                        <div class="card-header py-3 border-0 d-flex justify-content-between align-items-center" style="background: #8B2D2D; color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="mb-0 fw-bold"><i class="fas fa-id-card me-2"></i> Biodata & Dokumen Jamaah</h5>
+                        <!-- Biodata & Dokumen Jamaah -->
+                        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+                            <h5 class="mb-0 fw-bold text-dark" style="font-size: 1.05rem;">Biodata & Dokumen Jamaah</h5>
                             @if(!in_array($pemesanan->status, ['completed', 'dibatalkan']))
-                                <a href="{{ route("pemesanans.complete-data", $pemesanan) }}" class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2">
+                                <a href="{{ route('pemesanans.complete-data', $pemesanan) }}" class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2">
                                     <i class="fas fa-edit"></i> Edit Data
                                 </a>
                             @endif
@@ -119,19 +119,17 @@
                                     <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
                                     <p class="mb-3 text-muted">Biodata dan dokumen jamaah belum dilengkapi. Silakan lengkapi data jamaah terlebih dahulu.</p>
                                     @if($pemesanan->status !== "dibatalkan")
-                                        <a href="{{ route("pemesanans.complete-data", $pemesanan) }}" class="btn btn-primary fw-bold px-4">
+                                        <a href="{{ route('pemesanans.complete-data', $pemesanan) }}" class="btn btn-primary fw-bold px-4">
                                             Lengkapi Data Sekarang
                                         </a>
                                     @endif
                                 </div>
                             @endif
                         </div>
-                    </div>
 
-                    <!-- Informasi Tagihan & Peserta -->
-                    <div class="card mb-4 shadow-sm border-0 rounded-4">
-                        <div class="card-header py-3 border-0" style="background: #8B2D2D; color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i> Informasi Tagihan & Peserta</h5>
+                        <!-- Informasi Tagihan & Peserta -->
+                        <div class="card-header" style="background-color: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 12px 20px;">
+                            <h5 class="mb-0 fw-bold text-dark" style="font-size: 1.05rem;">Informasi Tagihan & Peserta</h5>
                         </div>
                         <div class="card-body p-4">
                             <div class="row mb-4">
@@ -156,7 +154,7 @@
                                         <small class="fw-bold text-muted d-block mb-1">SUDAH DIBAYAR:</small>
                                         <h5 class="text-success fw-bold mb-0">Rp {{ number_format($pemesanan->nominal_dibayar ?? (in_array($pemesanan->status, ["paid", "confirmed"]) ? $pemesanan->total_harga : 0), 0, ",", ".") }}</h5>
                                         @if(in_array($pemesanan->status, ["paid", "confirmed"]))
-                                            <small class="text-success fw-bold"><i class="fas fa-check-circle me-1 mt-2"></i> Status: Pembayaran Lunas</small>
+                                            <small class="text-success fw-bold"><i class="fas fa-check-circle me-1 mt-2"></i> Status: Lunas</small>
                                         @else
                                             <small class="text-warning fw-bold"><i class="fas fa-clock me-1 mt-2"></i> Status: Belum Lunas</small>
                                         @endif
@@ -179,42 +177,9 @@
                                 </div>
                             @endif
                         </div>
-                    </div>
 
-                    <!-- Transaksi Pembayaran -->
-                    <div class="card shadow-sm border-0 rounded-4">
-                        <div class="card-header py-3 border-0" style="background: #8B2D2D; color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="mb-0 fw-bold"><i class="fas fa-money-bill-wave me-2"></i> Transaksi Pembayaran</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            @if($pemesanan->midtrans_transaction_id)
-                                <div class="table-responsive">
-                                    <table class="table table-borderless mb-0">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-muted" style="width: 40%;">ID Transaksi Midtrans</td>
-                                                <td class="fw-bold text-dark">: {{ $pemesanan->midtrans_transaction_id }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Metode Pembayaran</td>
-                                                <td class="fw-bold text-dark">: {{ strtoupper(str_replace("_", " ", $pemesanan->midtrans_payment_type ?? "-")) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Waktu Transaksi</td>
-                                                <td class="fw-bold text-dark">: {{ $pemesanan->midtrans_transaction_time ?? "-" }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @else
-                                <div class="text-center py-4">
-                                    <i class="fas fa-receipt fa-3x text-muted mb-3" style="opacity: 0.5;"></i>
-                                    <p class="text-muted mb-0">Belum ada riwayat transaksi pembayaran online (Midtrans).</p>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
 
+                    </div>
                 </div>
 
                 <!-- KANAN: Paket Info, Status, Ringkasan -->
@@ -268,7 +233,7 @@
                                     <a href="{{ route("pemesanans.departure-info", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #198754; border-color: #198754;">
                                         <i class="fas fa-plane-departure me-2"></i> Lihat Info Keberangkatan
                                     </a>
-                                    <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
+                                    <a href="{{ route("pemesanans.cetak", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
                                         <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
                                     </a>
                                 </div>
@@ -281,7 +246,7 @@
                                 <h4 class="fw-bold text-dark mb-2">Selesai</h4>
                                 <p class="text-muted small mb-4">Ibadah Umroh telah selesai dilaksanakan.</p>
                                 <div class="d-grid gap-2 mt-2">
-                                    <a href="{{ route("pemesanans.cetak", $pemesanan) }}" target="_blank" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
+                                    <a href="{{ route("pemesanans.cetak", $pemesanan) }}" class="btn text-white fw-bold shadow-sm py-2" style="border-radius: 8px; background-color: #8B2D2D; border-color: #8B2D2D;">
                                         <i class="fas fa-print me-2"></i> Cetak Bukti Pemesanan
                                     </a>
                                 </div>
@@ -332,8 +297,8 @@
     </section>
 @endsection
 
-@if($pemesanan->status === "pending" && $pemesanan->midtrans_snap_token)
-@push("scripts")
+@if($pemesanan->status === "pending" && $pemesanan->snap_token)
+@section("js")
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config("midtrans.client_key") }}"></script>
 <script>
     let pollingInterval;
@@ -356,30 +321,52 @@
     // Auto-start polling on load just in case they paid on a different tab
     startPolling();
 
+    let isSuccess = false;
+
     document.getElementById("pay-button").onclick = function () {
-        snap.pay("{{ $pemesanan->midtrans_snap_token }}", {
+        snap.pay("{{ $pemesanan->snap_token }}", {
             onSuccess: function(result) {
-                // Tembak local status update lalu reload dengan aman
+                isSuccess = true;
                 clearInterval(pollingInterval);
-                fetch("{{ route('pemesanans.status-json', $pemesanan) }}")
-                    .then(() => {
-                        window.location.reload();
-                    });
+                
+                // Bypass pengecekan webhook untuk localhost: langsung POST ke simulasi-bayar agar otomatis Lunas
+                let form = document.createElement('form');
+                form.method = 'POST';
+                form.action = "{{ route('pemesanans.simulasi-bayar', $pemesanan) }}";
+                form.innerHTML = `
+                    @csrf
+                    <input type="hidden" name="nominal" value="{{ $sisa }}">
+                `;
+                document.body.appendChild(form);
+                form.submit();
             },
             onPending: function(result) {
-                // Biarkan polling tetap jalan
                 console.log("Menunggu pembayaran VA/Transfer", result);
             },
             onError: function(result) {
                 alert("Pembayaran gagal!");
             },
             onClose: function () {
-                // Biarkan polling tetap jalan
+                if (isSuccess) {
+                    window.location.reload();
+                    return;
+                }
+                // Saat popup ditutup (manual), cek status
+                fetch("{{ route('pemesanans.status-json', $pemesanan) }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'paid' || data.status === 'confirmed' || data.status === 'settlement' || data.status === 'success') {
+                            window.location.reload();
+                        } else {
+                            startPolling();
+                        }
+                    })
+                    .catch(() => startPolling());
             }
         });
         
         startPolling();
     };
 </script>
-@endpush
+@endsection
 @endif

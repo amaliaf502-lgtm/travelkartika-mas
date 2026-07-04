@@ -7,7 +7,7 @@
         <h2>Kelola Jamaah</h2>
     </div>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <p class="text-muted mb-0">Total: {{ $jamaah->total() }} jamaah terdaftar</p>
+        <p class="text-muted mb-0">Total: {{ $jamaah->count() }} jamaah terdaftar</p>
         <a href="{{ route('admin.jamaah.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Jamaah
         </a>
@@ -32,12 +32,12 @@
                 <tbody>
                     @forelse($jamaah as $index => $user)
                         <tr>
-                            <td>{{ ($jamaah->currentPage() - 1) * $jamaah->perPage() + $index + 1 }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td><strong>{{ $user->name }}</strong></td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 @if($user->no_hp)
-                                    <a href="tel:{{ $user->no_hp }}"><i class="fas fa-phone"></i> {{ $user->no_hp }}</a>
+                                    {{ $user->no_hp }}
                                 @else
                                     <span class="text-muted">-</span>
                                 @endif
@@ -78,8 +78,4 @@
         </div>
     </div>
 
-    <!-- Pagination -->
-    <div class="d-flex justify-content-center mt-4">
-        {{ $jamaah->links() }}
-    </div>
 @endsection

@@ -58,56 +58,98 @@
     .brochure-card-header i { color: var(--gold); font-size: 1rem; }
     .brochure-card-body { padding: 20px; }
 
+    /* ── Tabs Modern ── */
+    .custom-tabs-container {
+        background: white;
+        padding: 12px 16px 0 16px;
+        border-radius: 8px 8px 0 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .custom-tabs {
+        border-bottom: none;
+        gap: 8px;
+    }
+    .custom-tabs .nav-link {
+        color: #64748b;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none !important;
+        border-radius: 12px 12px 0 0 !important;
+        padding: 12px 24px;
+        transition: all 0.3s ease;
+        background: transparent;
+    }
+    .custom-tabs .nav-link:hover {
+        color: var(--maroon);
+        background: #f1f5f9;
+    }
+    .custom-tabs .nav-link.active {
+        color: var(--maroon) !important;
+        background: white !important;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
+        position: relative;
+    }
+    .custom-tabs .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 3px 3px 0 0;
+    }
+
     /* ── Harga Grid Modern ── */
     .harga-grid-3 {
         display: grid;
         grid-template-columns: 1.2fr 1fr 1fr;
-        gap: 12px;
+        gap: 16px;
         margin-bottom: 20px;
     }
     .harga-box {
-        background: #fffcf8;
-        border-radius: 14px;
-        padding: 0;
+        background: white;
+        border-radius: 12px;
+        padding: 20px 12px;
         text-align: center;
-        border: 1px solid #f0e6c8;
+        border: 1px solid #e2e8f0;
+        border-top: 3px solid var(--maroon);
         transition: all 0.3s;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        overflow: hidden;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }
     .harga-box:hover {
         border-color: var(--gold);
-        background: white;
-        box-shadow: 0 4px 15px rgba(218,165,32,0.15);
-        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(218,165,32,0.15);
+        transform: translateY(-4px);
     }
-    .harga-box-header {
-        background: var(--maroon);
-        color: white;
+    .harga-badge {
+        background: rgba(139, 45, 45, 0.08);
+        color: var(--maroon);
         font-weight: 800;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 1px;
-        padding: 8px;
-        border-bottom: 2px solid var(--gold);
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+        display: inline-block;
     }
     .harga-box-body {
         display: flex;
         align-items: baseline;
         justify-content: center;
-        color: var(--maroon);
-        gap: 2px;
-        padding: 16px 10px;
+        color: #1e293b;
+        gap: 4px;
     }
-    .val-currency { font-size: 0.85rem; font-weight: bold; position: relative; top: -10px; }
-    .val-amount   { font-size: 2.2rem; font-weight: 900; line-height: 0.9; letter-spacing: -1px; }
+    .val-currency { font-size: 0.95rem; font-weight: 700; position: relative; top: -8px; color: #64748b; }
+    .val-amount   { font-size: 1.9rem; font-weight: 900; line-height: 1; letter-spacing: -0.5px; color: var(--maroon); }
     .val-dec      { font-size: 1rem; font-weight: bold; position: relative; top: -10px; }
     .val-unit     { font-size: 0.7rem; line-height: 1.2; margin-left: 4px; font-weight: 600; text-align: left; color: #64748b; }
-    
-    .harga-box:first-child .val-amount { font-size: 1.5rem; }
-    .harga-box:first-child .val-currency { top: 0px; font-size: 1rem; }
+
 
     /* ── Hotel Grid Modern ── */
     .hotel-grid-2 {
@@ -117,10 +159,11 @@
     }
     .hotel-box {
         background: white;
-        border-radius: 14px;
+        border-radius: 12px;
         padding: 16px;
         text-align: left;
         border: 1px solid #e2e8f0;
+        border-top: 3px solid var(--maroon);
         display: flex;
         flex-direction: column;
         transition: box-shadow 0.3s;
@@ -449,109 +492,46 @@
 
         <div class="row g-4">
             
-            {{-- Kolom Kiri: Gambar Brosur --}}
-            <div class="col-lg-4">
+            {{-- Kolom Kiri: Brosur & Detail --}}
+            <div class="col-lg-8">
+                
+                {{-- Gambar Brosur (Premium View) --}}
                 @if($paket->gambar)
                 @php
                     $imgUrl = Str::startsWith($paket->gambar, 'images/') ? asset($paket->gambar) : Storage::url($paket->gambar);
                 @endphp
-                <div class="brochure-card border-0 mb-4" style="box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-                    <div class="brochure-card-header" style="background: linear-gradient(135deg, var(--maroon), #6b1d1d); border-bottom: 3px solid var(--gold); padding: 18px 24px; border-radius: 16px 16px 0 0;">
-                        <i class="fas fa-image" style="color: var(--gold-light); margin-right: 8px;"></i>
-                        <h5 style="color: white; font-weight: 800; display: inline;">Brosur Paket</h5>
-                    </div>
-                    <div class="brochure-card-body p-0 position-relative" style="cursor: zoom-in; overflow: hidden; border-radius: 0 0 16px 16px;" onclick="openLightbox('{{ $imgUrl }}')" data-bs-toggle="modal" data-bs-target="#imageLightboxModal">
-                        <img src="{{ $imgUrl }}" alt="Brosur {{ $paket->nama_paket }}" class="detail-brochure-img" style="width: 100%; height: auto; display: block;">
-                        <div class="glass-zoom-btn">
+                <div class="brochure-card border-0 mb-4" style="background: transparent; box-shadow: none;">
+                    <div class="brochure-card-body p-0 position-relative text-center" style="cursor: zoom-in;" onclick="openLightbox('{{ $imgUrl }}')" data-bs-toggle="modal" data-bs-target="#imageLightboxModal">
+                        <!-- Actual Image -->
+                        <img src="{{ $imgUrl }}" alt="Brosur {{ $paket->nama_paket }}" class="detail-brochure-img" style="position: relative; max-height: 400px; max-width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 2;">
+                        <div class="glass-zoom-btn" style="z-index: 3;">
                             <i class="fas fa-search-plus"></i> Perbesar
                         </div>
                     </div>
                 </div>
                 @else
-                <div class="brochure-card p-0" style="border: none; background: linear-gradient(135deg, #fdf6ec, #f8f9fa); box-shadow: 0 15px 35px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; height: 400px; border-radius: 20px;">
+                <div class="brochure-card p-0 mb-4" style="border: none; background: linear-gradient(135deg, #fdf6ec, #f8f9fa); box-shadow: 0 15px 35px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; height: 350px; border-radius: 20px;">
                     <i class="fas fa-image fa-4x text-muted" style="opacity: 0.3;"></i>
                 </div>
                 @endif
 
-                {{-- Ringkasan Pesanan (Dikembalikan ke bawah poster agar tidak memanjang) --}}
-                <div class="sidebar-card mb-4 mt-4" style="border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-radius: 12px; overflow: hidden; background: white;">
-                    <div class="sidebar-header" style="background: var(--maroon); color: white; padding: 15px 20px; font-weight: bold; border-bottom: 3px solid var(--gold); font-size: 1rem;">
-                        <i class="fas fa-shopping-cart" style="color: var(--gold); margin-right: 8px;"></i> Ringkasan & Pemesanan
-                    </div>
-                    <div class="sidebar-body" style="padding: 24px;">
-                        {{-- Harga --}}
-                        <div style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Mulai Dari (Quad)</div>
-                        <div style="font-size: 2.2rem; font-weight: 900; color: var(--maroon); line-height: 1.2; margin-top: 4px;">Rp {{ number_format($paket->harga, 0, ',', '.') }}</div>
-                        <div style="font-size: 0.85rem; color: #64748b; margin-top: 4px;">/pax &bull; 4 dalam 1 kamar</div>
-                        
-                        <hr style="border-top: 2px dashed #cbd5e1; margin: 20px 0;">
-
-                        {{-- Durasi & Tanggal --}}
-                        <div class="mb-3">
-                            <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Durasi</div>
-                            <div style="font-size: 0.95rem; font-weight: 700; color: #1e293b;">{{ $paket->durasi_hari }} Hari</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Tanggal</div>
-                            <div style="font-size: 0.95rem; font-weight: 700; color: #1e293b;">{{ $paket->tanggal_berangkat->format('d M Y') }} &ndash; {{ $paket->tanggal_kembali->format('d M Y') }}</div>
-                        </div>
-
-                        {{-- Ketersediaan Kursi --}}
-                        <div class="mb-4">
-                            <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Ketersediaan Kursi</div>
-                            @php
-                                $terisi = $paket->kuota - $paket->tersedia;
-                                $persentase = ($paket->kuota > 0) ? ($terisi / $paket->kuota) * 100 : 0;
-                            @endphp
-                            <div class="progress" style="height: 8px; border-radius: 4px; background-color: #e2e8f0; margin-bottom: 8px;">
-                                <div class="progress-bar" role="progressbar" style="width: {{ $persentase }}%; background-color: var(--maroon);" aria-valuenow="{{ $persentase }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">{{ $paket->tersedia }} / {{ $paket->kuota }} kursi tersedia</div>
-                        </div>
-
-                        <hr style="border-top: 2px dashed #cbd5e1; margin: 20px 0;">
-
-                        {{-- Tombol Aksi --}}
-                        <div class="d-flex gap-3 mt-2">
-                            <a href="{{ route('home') }}" class="btn btn-light" style="flex: 1; border: 1px solid #cbd5e1; font-weight: 700; color: #475569; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">&larr; Kembali</a>
-                            
-                            @auth
-                                @if($paket->tersedia > 0)
-                                    <a href="{{ route('pemesanans.create', $paket) }}" class="btn" style="flex: 1; background: var(--maroon); color: white; font-weight: 700; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Pesan</a>
-                                @else
-                                    <span class="btn btn-secondary disabled" style="flex: 1; font-weight: 700; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Penuh</span>
-                                @endif
-                            @else
-                                <a href="{{ route('login') }}?redirect={{ urlencode(route('pemesanans.create', $paket)) }}" class="btn" style="flex: 1; background: var(--maroon); color: white; font-weight: 700; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Login Pesan</a>
-                            @endauth
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Kolom Kanan: Detail & Pemesanan --}}
-            <div class="col-lg-8">
-
-                {{-- Ringkasan Pesanan dipindah ke bawah Tab --}}
-
                 {{-- Tabs Container --}}
-                <div class="brochure-card border-0 mb-4" style="box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-                    <div class="brochure-card-header" style="background: linear-gradient(135deg, var(--maroon), #6b1d1d); padding: 0; border-radius: 16px 16px 0 0; border-bottom: 3px solid var(--gold);">
-                        <ul class="nav nav-tabs custom-tabs" id="paketTabs" role="tablist" style="border-bottom: none; padding: 12px 12px 0 12px; gap: 4px;">
+                <div class="brochure-card border-0 mb-4" style="border: none; border-top: 3px solid var(--maroon) !important; border-radius: 8px !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important; background: white;">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs custom-tabs" id="paketTabs" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="harga-tab" data-bs-toggle="tab" data-bs-target="#harga-tab-pane" type="button" role="tab" aria-controls="harga-tab-pane" aria-selected="true">
-                                    <i class="fas fa-tags"></i> Harga & Hotel
+                                    Harga & Hotel
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="fasilitas-tab" data-bs-toggle="tab" data-bs-target="#fasilitas-tab-pane" type="button" role="tab" aria-controls="fasilitas-tab-pane" aria-selected="false">
-                                    <i class="fas fa-gift"></i> Fasilitas
+                                    Fasilitas
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="deskripsi-tab" data-bs-toggle="tab" data-bs-target="#deskripsi-tab-pane" type="button" role="tab" aria-controls="deskripsi-tab-pane" aria-selected="false">
-                                    <i class="fas fa-file-alt"></i> Deskripsi
+                                    Deskripsi
                                 </button>
                             </li>
                         </ul>
@@ -564,25 +544,22 @@
                                 {{-- Harga Grid --}}
                                 <div class="harga-grid-3">
                                     <div class="harga-box">
-                                        <div class="harga-box-header">Quad</div>
-                                        <div class="harga-box-body" style="padding: 16px 5px;">
-                                            <span class="val-currency" style="top: 0;">Rp</span>
-                                            <span class="val-amount" style="font-size: 1.3rem; letter-spacing: 0;">{{ number_format($paket->harga, 0, ',', '.') }}</span>
-                                        </div>
+                                        <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">QUAD</div>
+                                        <div style="font-size:0.75rem;color:#64748b;font-weight:600; margin-bottom: 12px;">4 orang / kamar</div>
+                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: var(--maroon);">Rp {{ number_format($paket->harga, 0, ',', '.') }}</div>
+                                        <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;">/pax</div>
                                     </div>
                                     <div class="harga-box">
-                                        <div class="harga-box-header">Triple</div>
-                                        <div class="harga-box-body" style="padding: 16px 5px;">
-                                            <span class="val-currency" style="top: 0;">Rp</span>
-                                            <span class="val-amount" style="font-size: 1.3rem; letter-spacing: 0;">{{ number_format($paket->harga_triple, 0, ',', '.') }}</span>
-                                        </div>
+                                        <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">TRIPLE</div>
+                                        <div style="font-size:0.75rem;color:#64748b;font-weight:600; margin-bottom: 12px;">3 orang / kamar</div>
+                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: var(--maroon);">Rp {{ number_format($paket->harga_triple, 0, ',', '.') }}</div>
+                                        <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;">/pax</div>
                                     </div>
                                     <div class="harga-box">
-                                        <div class="harga-box-header">Double</div>
-                                        <div class="harga-box-body" style="padding: 16px 5px;">
-                                            <span class="val-currency" style="top: 0;">Rp</span>
-                                            <span class="val-amount" style="font-size: 1.3rem; letter-spacing: 0;">{{ number_format($paket->harga_double, 0, ',', '.') }}</span>
-                                        </div>
+                                        <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">DOUBLE</div>
+                                        <div style="font-size:0.75rem;color:#64748b;font-weight:600; margin-bottom: 12px;">2 orang / kamar</div>
+                                        <div class="fw-bold mt-2" style="font-size: 1.3rem; color: var(--maroon);">Rp {{ number_format($paket->harga_double, 0, ',', '.') }}</div>
+                                        <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;">/pax</div>
                                     </div>
                                 </div>
                                 
@@ -663,10 +640,68 @@
 
                         </div>
                     </div>
+                </div>
+
+            </div>
+
+            {{-- Kolom Kanan: Pemesanan --}}
+            <div class="col-lg-4">
+                <div class="sticky-col">
+                    <div class="sidebar-card mb-4" style="border: none; border-top: 3px solid var(--maroon); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-radius: 8px; overflow: hidden; background: white;">
+                        <div class="sidebar-header" style="background: white; color: #333; padding: 15px 20px; font-weight: bold; border-bottom: 1px solid #eee; font-size: 1.1rem;">
+                            Ringkasan & Pemesanan
+                        </div>
+                        <div class="sidebar-body" style="padding: 24px;">
+                            {{-- Harga --}}
+                            <div style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Mulai Dari (Quad)</div>
+                            <div style="font-size: 2.2rem; font-weight: 900; color: var(--maroon); line-height: 1.2; margin-top: 4px;">Rp {{ number_format($paket->harga, 0, ',', '.') }}</div>
+                            <div style="font-size: 0.85rem; color: #64748b; margin-top: 4px;">/pax &bull; 4 dalam 1 kamar</div>
+                            
+                            <hr style="border-top: 2px dashed #cbd5e1; margin: 20px 0;">
+
+                            {{-- Durasi & Tanggal --}}
+                            <div class="mb-3">
+                                <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Durasi</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: #1e293b;">{{ $paket->durasi_hari }} Hari</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Tanggal</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: #1e293b;">{{ $paket->tanggal_berangkat->format('d M Y') }} &ndash; {{ $paket->tanggal_kembali->format('d M Y') }}</div>
+                            </div>
+
+                            {{-- Ketersediaan Kursi --}}
+                            <div class="mb-4">
+                                <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Ketersediaan Kursi</div>
+                                @php
+                                    $terisi = $paket->kuota - $paket->tersedia;
+                                    $persentase = ($paket->kuota > 0) ? ($terisi / $paket->kuota) * 100 : 0;
+                                @endphp
+                                <div class="progress" style="height: 8px; border-radius: 4px; background-color: #e2e8f0; margin-bottom: 8px;">
+                                    <div class="progress-bar" role="progressbar" style="width: {{ $persentase }}%; background-color: var(--maroon);" aria-valuenow="{{ $persentase }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">{{ $paket->tersedia }} / {{ $paket->kuota }} kursi tersedia</div>
+                            </div>
+
+                            <hr style="border-top: 2px dashed #cbd5e1; margin: 20px 0;">
+
+                            {{-- Tombol Aksi --}}
+                            <div class="d-flex gap-3 mt-2">
+                                <a href="{{ route('home') }}" class="btn btn-light" style="flex: 1; border: 1px solid #cbd5e1; font-weight: 700; color: #475569; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Kembali</a>
+                                
+                                @auth
+                                    @if($paket->tersedia > 0)
+                                        <a href="{{ route('pemesanans.create', $paket) }}" class="btn btn-pesan-main" style="flex: 1; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Pesan</a>
+                                    @else
+                                        <span class="btn btn-secondary disabled" style="flex: 1; font-weight: 700; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Penuh</span>
+                                    @endif
+                                @else
+                                    <a href="{{ route('login') }}?redirect={{ urlencode(route('pemesanans.create', $paket)) }}" class="btn btn-pesan-main" style="flex: 1; border-radius: 8px; padding: 10px 0; font-size: 0.95rem;">Login Pesan</a>
+                                @endauth
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </div>

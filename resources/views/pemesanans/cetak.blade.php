@@ -11,9 +11,8 @@
             color: #333;
         }
         .page {
-            width: 210mm;
-            padding: 20mm;
-            margin: 0 auto;
+            width: 100%;
+            margin: 0;
         }
         h1.title {
             font-size: 24px;
@@ -150,40 +149,52 @@
         }
     </style>
 </head>
-<body onload="window.print()">
+<body>
     <div class="page">
-        <div class="header">
-            <div class="company-info">
-                <img src="{{ asset('images/kartikamas.png') }}" alt="Logo">
-                <div class="company-text">
-                    <h2>KARTIKA MAS Tour & Travel</h2>
-                    <p>Biro Perjalanan Umroh & Haji Khusus<br>Melayani Ibadah dengan Sepenuh Hati</p>
-                </div>
-            </div>
-            <div class="invoice-details">
-                <h1 class="title">TRANSAKSI {{ in_array($pemesanan->status, ['confirmed', 'completed']) ? 'SELESAI' : 'PENDING' }}</h1>
-                <div class="invoice-no">
-                    INVOICE NO. TRV-{{ $pemesanan->created_at->format('dmy') }}-{{ str_pad($pemesanan->id, 4, '0', STR_PAD_LEFT) }}<br>
-                    (<span class="status-badge">{{ in_array($pemesanan->status, ['confirmed', 'completed']) ? 'LUNAS' : 'BELUM LUNAS' }}</span>)
-                </div>
-            </div>
-        </div>
+        <table style="width: 100%; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px;">
+            <tr>
+                <td style="width: 50%; vertical-align: middle;">
+                    <table style="margin: 0; padding: 0; border: none; width: auto;">
+                        <tr>
+                            <td style="padding: 0 12px 0 0; border: none;">
+                                @if(file_exists(public_path('images/kartikamas.png')))
+                                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/kartikamas.png'))) }}" alt="Logo" style="height: 55px;">
+                                @endif
+                            </td>
+                            <td style="padding: 0; border: none;">
+                                <h2 style="margin: 0; color: #8B2D2D; font-size: 18px; text-transform: uppercase;">KARTIKA MAS Tour & Travel</h2>
+                                <p style="margin: 3px 0 0 0; font-size: 11px; color: #777;">Biro Perjalanan Umroh & Haji Khusus<br>Melayani Ibadah dengan Sepenuh Hati</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="width: 50%; text-align: right; vertical-align: middle;">
+                    <h1 class="title" style="font-size: 20px; margin: 0 0 5px 0; color: #333; text-transform: uppercase; font-weight: bold;">TRANSAKSI {{ in_array($pemesanan->status, ['confirmed', 'completed']) ? 'SELESAI' : 'PENDING' }}</h1>
+                    <div class="invoice-no" style="font-size: 14px; font-weight: bold; color: #555; text-transform: uppercase;">
+                        INVOICE NO. TRV-{{ $pemesanan->created_at->format('dmy') }}-{{ str_pad($pemesanan->id, 4, '0', STR_PAD_LEFT) }}<br>
+                        (<span class="status-badge">{{ in_array($pemesanan->status, ['confirmed', 'completed']) ? 'LUNAS' : 'BELUM LUNAS' }}</span>)
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-        <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-            <div>
-                <div class="section-title" style="margin-top: 0;">DITAGIHKAN KEPADA:</div>
-                <div style="font-size: 14px;">
-                    <strong>{{ $pemesanan->user->name }}</strong><br>
-                    {{ $pemesanan->user->email }}
-                </div>
-            </div>
-            <div style="text-align: right;">
-                <div class="section-title" style="margin-top: 0;">STATUS PEMBAYARAN:</div>
-                <div style="font-size: 14px; font-weight: bold;" class="status-badge">
-                    {{ in_array($pemesanan->status, ['confirmed', 'completed']) ? 'TELAH DITERIMA (LUNAS)' : 'MENUNGGU PEMBAYARAN' }}
-                </div>
-            </div>
-        </div>
+        <table style="width: 100%; margin-bottom: 30px; border: none;">
+            <tr>
+                <td style="width: 50%; vertical-align: top; text-align: left; padding: 0; border: none;">
+                    <div class="section-title" style="margin-top: 0;">DITAGIHKAN KEPADA:</div>
+                    <div style="font-size: 14px;">
+                        <strong>{{ $pemesanan->user->name }}</strong><br>
+                        {{ $pemesanan->user->email }}
+                    </div>
+                </td>
+                <td style="width: 50%; vertical-align: top; text-align: right; padding: 0; border: none;">
+                    <div class="section-title" style="margin-top: 0;">STATUS PEMBAYARAN:</div>
+                    <div style="font-size: 14px; font-weight: bold;" class="status-badge">
+                        {{ in_array($pemesanan->status, ['confirmed', 'completed']) ? 'TELAH DITERIMA (LUNAS)' : 'MENUNGGU PEMBAYARAN' }}
+                    </div>
+                </td>
+            </tr>
+        </table>
 
         <table>
             <thead>

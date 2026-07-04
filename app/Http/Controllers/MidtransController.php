@@ -50,6 +50,11 @@ class MidtransController extends Controller
                 'email' => $pemesanan->user->email ?? 'jamaah@mail.com',
                 'phone' => $pemesanan->user->no_hp ?? '08123456789',
             ],
+            'callbacks' => [
+                'finish' => route('pemesanans.show', $pemesanan->id),
+                'error' => route('pemesanans.show', $pemesanan->id),
+                'pending' => route('pemesanans.show', $pemesanan->id),
+            ]
         ];
 
         try {

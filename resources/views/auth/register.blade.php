@@ -108,18 +108,9 @@
         letter-spacing: 0.5px;
         margin-bottom: 5px;
     }
-    .auth-input-group .input-icon {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #bbb;
-        font-size: 0.82rem;
-        transition: color 0.2s;
-    }
     .auth-input-group input {
         width: 100%;
-        padding: 9px 12px 9px 36px;
+        padding: 9px 12px;
         border: 2px solid #e8d5b0;
         border-radius: 10px;
         font-size: 0.88rem;
@@ -131,10 +122,6 @@
         border-color: var(--gold);
         box-shadow: 0 0 0 3px rgba(218,165,32,0.15);
         background: #fff;
-    }
-    .auth-input-group input:focus + .input-icon,
-    .auth-input-group input:focus ~ .input-icon {
-        color: var(--gold);
     }
     .auth-input-group input.is-invalid { border-color: #e74c3c; }
     .invalid-feedback { font-size: 0.78rem; color: #e74c3c; margin-top: 4px; }
@@ -217,7 +204,6 @@
 
                 @if($errors->any())
                     <div class="auth-alert">
-                        <i class="fas fa-exclamation-circle" style="margin-top:2px;"></i>
                         <div>
                             @foreach($errors->all() as $error)
                                 <div>{{ $error }}</div>
@@ -236,7 +222,6 @@
                                    class="@error('name') is-invalid @enderror"
                                    placeholder=""
                                    value="{{ old('name') }}" required autocomplete="name" autofocus>
-                            <i class="fas fa-user input-icon"></i>
                         </div>
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -252,7 +237,6 @@
                                            class="@error('email') is-invalid @enderror"
                                            placeholder="nama@email.com"
                                            value="{{ old('email') }}" required autocomplete="email">
-                                    <i class="fas fa-envelope input-icon"></i>
                                 </div>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -267,7 +251,6 @@
                                            class="@error('no_hp') is-invalid @enderror"
                                            placeholder=""
                                            value="{{ old('no_hp') }}" required>
-                                    <i class="fas fa-phone-alt input-icon"></i>
                                 </div>
                                 @error('no_hp')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -284,7 +267,6 @@
                                     <input type="password" id="password" name="password"
                                            class="@error('password') is-invalid @enderror"
                                            placeholder="Minimal 8 karakter" required autocomplete="new-password">
-                                    <i class="fas fa-lock input-icon"></i>
                                 </div>
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -297,7 +279,6 @@
                                 <div class="input-wrapper">
                                     <input type="password" id="password_confirmation" name="password_confirmation"
                                            placeholder="Ketik ulang sandi" required autocomplete="new-password">
-                                    <i class="fas fa-lock input-icon"></i>
                                 </div>
                             </div>
                         </div>

@@ -129,7 +129,7 @@ class PemesananController extends Controller implements HasMiddleware
         return view('pemesanans.show', compact('pemesanan'));
     }
 
-    public function cetakBukti(Pemesanan $pemesanan): View
+    public function cetakBukti(Pemesanan $pemesanan)
     {
         $this->authorize('view', $pemesanan);
 
@@ -138,7 +138,9 @@ class PemesananController extends Controller implements HasMiddleware
         }
 
         $pemesanan->load('paket', 'departureInfo', 'user');
-        return view('pemesanans.cetak', compact('pemesanan'));
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pemesanans.cetak', compact('pemesanan'));
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download('Bukti_Pemesanan_' . $pemesanan->id . '.pdf');
     }
 
     public function cancel(Pemesanan $pemesanan): RedirectResponse
@@ -427,5 +429,21 @@ class PemesananController extends Controller implements HasMiddleware
         }
 
         return response()->json(['status' => $pemesanan->status]);
+    }
+
+    public function laporanTotal(): View
+    {
+        // Hanya ambil data jamaah dengan status 'paid', 'confirmed', atau 'completed' (berhasil diverifikasi)
+        $pemesanans = Pemesanan::with(['user', 'paket'])->whereIn('status', ['paid', 'confirmed', 'completed'])->get();
+        
+        return view('admin.laporan-total', compact('pemesanans'));
+    }
+
+    public function laporanTotalDownload()
+    {
+        $pemesanans = Pemesanan::with(['user', 'paket'])->whereIn('status', ['paid', 'confirmed', 'completed'])->get();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.laporan-total-pdf', compact('pemesanans'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download('Laporan_Total_Jamaah_KartikaMas.pdf');
     }
 }

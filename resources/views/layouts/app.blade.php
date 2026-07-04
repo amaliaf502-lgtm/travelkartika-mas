@@ -579,10 +579,11 @@
             <div class="row g-4 mb-4">
                 {{-- Kolom 1: Logo & Sosial Media --}}
                 <div class="col-lg-3 col-md-6 text-center text-md-start">
-                    <img src="{{ asset('images/kartikamas.png') }}" alt="Kartika Mas Tour & Travel" style="height: 120px; object-fit: contain; margin-bottom: 20px;">
+                    <img src="{{ asset('images/kartikamas.png') }}" alt="Kartika Mas Tour & Travel" style="height: 120px; object-fit: contain; margin-bottom: 20px; filter: brightness(0) invert(1);">
                     <div class="d-flex justify-content-center justify-content-md-start gap-4 mt-3">
                         <a href="{{ config('services.social.instagram') }}" class="text-white text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram fa-lg"></i></a>
                         <a href="{{ config('services.social.tiktok') }}" class="text-white text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok fa-lg"></i></a>
+                        <a href="{{ config('services.social.youtube') }}" class="text-white text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
                     </div>
                 </div>
 
@@ -618,22 +619,22 @@
 
                 {{-- Kolom 4: Tautan Cepat --}}
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold mb-4" style="border-left: 3px solid rgba(255,255,255,0.5); padding-left: 10px; text-transform: uppercase; font-size: 1rem;">Menu Aplikasi</h5>
+                    <h5 class="fw-bold mb-4" style="border-left: 3px solid rgba(255,255,255,0.5); padding-left: 10px; text-transform: uppercase; font-size: 1rem;">Menu</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2 pb-2" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <li class="mb-2 pb-1">
                             <a href="{{ route('home') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Beranda</a>
                         </li>
-                        <li class="mb-2 pb-2" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <li class="mb-2 pb-1">
                             <a href="{{ route('pakets.index') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Paket Umroh</a>
                         </li>
-                        <li class="mb-2 pb-2" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <li class="mb-2 pb-1">
                             <a href="{{ route('pages.cara-daftar') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Cara Pendaftaran</a>
                         </li>
-                        <li class="mb-2 pb-2" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <a href="{{ route('register') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Pendaftaran Jamaah (Registrasi)</a>
+                        <li class="mb-2 pb-1">
+                            <a href="{{ route('pages.about') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Tentang Kami</a>
                         </li>
-                        <li class="mb-2 pb-2" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <a href="{{ route('pages.contact') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Kontak / Tentang Kami</a>
+                        <li class="mb-2 pb-1">
+                            <a href="{{ route('pages.contact') }}" class="text-white text-decoration-none" style="font-size: 0.95rem;">Kontak</a>
                         </li>
                     </ul>
                 </div>
